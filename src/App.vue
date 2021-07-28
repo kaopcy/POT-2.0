@@ -1,32 +1,57 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+  <div class="app">
+    <Navbar/>
+    <router-view class="router"></router-view>
   </div>
 </template>
 
+<script>
+import Navbar from './components/Navbar.vue'
+export default {
+  name: 'app' ,
+
+  components:{
+    Navbar,
+  },
+  created() {
+    if(!this.$store.state.login && this.$route.name !== 'Login'){
+      this.$router.replace({ name: 'Login'})
+    }
+  },
+
+}
+</script>
+
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+@font-face {
+    font-family: 'Poppin';
+    src: url('./assets/font/Poppins-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.app{
+  font-family: 'Poppin';
+  background-color: rgb(20, 20, 20);
+  width: 100vw;
+  height: 100vh;
+}
+.router{    
+  animation: fadein 1s;
+}
+@keyframes fadein {
+  0%{
+    opacity: 0;
+    
+  }
+  100%{
+    opacity: 100%;
+    
   }
 }
 </style>
