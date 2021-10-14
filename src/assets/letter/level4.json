@@ -112,7 +112,13 @@
                 "swap":"0"
             },
             {
-                "char": "ำ",
+                "char": "ํ",
+                "color": "green",
+                "src":"",
+                "swap":"0"
+            },
+            {
+                "char": "า",
                 "color": "green",
                 "src":"vowel/อำ.mp3",
                 "swap":"0"
@@ -132,7 +138,13 @@
                 "swap":"0"
             },
             {
-                "char": "ำ",
+                "char": "ํ",
+                "color": "green",
+                "src":"",
+                "swap":"0"
+            },
+            {
+                "char": "า",
                 "color": "green",
                 "src":"vowel/อำ.mp3",
                 "swap":"0"
@@ -570,7 +582,13 @@
                 "swap":"0"
             },
             {
-                "char": "ำ",
+                "char": "ํ",
+                "color": "green",
+                "src":"",
+                "swap":"0"
+            },
+            {
+                "char": "า",
                 "color": "green",
                 "src":"vowel/อำ.mp3",
                 "swap":"0"
@@ -852,11 +870,17 @@
               "swap":"0"
           },
           {
-              "char": "ำ",
-              "color": "green",
-              "src":"vowel/อำ.mp3",
-              "swap":"0"
-          },
+            "char": "ํ",
+            "color": "green",
+            "src":"",
+            "swap":"0"
+        },
+        {
+            "char": "า",
+            "color": "green",
+            "src":"vowel/อำ.mp3",
+            "swap":"0"
+        },
           {
               "char": "",
               "color": "",
@@ -1658,7 +1682,13 @@
                 "swap":"0"
             },
             {
-                "char": "ำ",
+                "char": "ํ",
+                "color": "green",
+                "src":"",
+                "swap":"0"
+            },
+            {
+                "char": "า",
                 "color": "green",
                 "src":"vowel/อำ.mp3",
                 "swap":"0"
@@ -2292,7 +2322,13 @@
                 "swap":"0"
             },
             {
-                "char": "ำ",
+                "char": "ํ",
+                "color": "green",
+                "src":"",
+                "swap":"0"
+            },
+            {
+                "char": "า",
                 "color": "green",
                 "src":"vowel/อำ.mp3",
                 "swap":"0"
@@ -2312,7 +2348,13 @@
                 "swap":"0"
             },
             {
-                "char": "ำ",
+                "char": "ํ",
+                "color": "green",
+                "src":"",
+                "swap":"0"
+            },
+            {
+                "char": "า",
                 "color": "green",
                 "src":"vowel/อำ.mp3",
                 "swap":"0"
@@ -2624,7 +2666,13 @@
                 "swap":"0"
             },
             {
-                "char": "ำ",
+                "char": "ํ",
+                "color": "green",
+                "src":"",
+                "swap":"0"
+            },
+            {
+                "char": "า",
                 "color": "green",
                 "src":"vowel/อำ.mp3",
                 "swap":"0"
@@ -3000,7 +3048,13 @@
                 "swap":"0"
             },
             {
-                "char": "ำ",
+                "char": "ํ",
+                "color": "green",
+                "src":"",
+                "swap":"0"
+            },
+            {
+                "char": "า",
                 "color": "green",
                 "src":"vowel/อำ.mp3",
                 "swap":"0"
@@ -3020,7 +3074,13 @@
                 "swap":"0"
             },
             {
-                "char": "ำ",
+                "char": "ํ",
+                "color": "green",
+                "src":"",
+                "swap":"0"
+            },
+            {
+                "char": "า",
                 "color": "green",
                 "src":"vowel/อำ.mp3",
                 "swap":"0"
@@ -3444,7 +3504,13 @@
                 "swap":"0"
             },
             {
-                "char": "ำ",
+                "char": "ํ",
+                "color": "green",
+                "src":"",
+                "swap":"0"
+            },
+            {
+                "char": "า",
                 "color": "green",
                 "src":"vowel/อำ.mp3",
                 "swap":"0"
@@ -4134,7 +4200,13 @@
                 "swap":"0"
             },
             {
-                "char": "ำ",
+                "char": "ํ",
+                "color": "green",
+                "src":"",
+                "swap":"0"
+            },
+            {
+                "char": "า",
                 "color": "green",
                 "src":"vowel/อำ.mp3",
                 "swap":"0"
@@ -4154,7 +4226,13 @@
                 "swap":"0"
             },
             {
-                "char": "ำ",
+                "char": "ํ",
+                "color": "green",
+                "src":"",
+                "swap":"0"
+            },
+            {
+                "char": "า",
                 "color": "green",
                 "src":"vowel/อำ.mp3",
                 "swap":"0"
@@ -4922,7 +5000,13 @@
                 "swap":"0"
             },
             {
-                "char": "ำ",
+                "char": "ํ",
+                "color": "green",
+                "src":"",
+                "swap":"0"
+            },
+            {
+                "char": "า",
                 "color": "green",
                 "src":"vowel/อำ.mp3",
                 "swap":"0"
@@ -6178,7 +6262,13 @@
                 "swap":"1"
             },
             {
-                "char": "ือ",
+                "char": "ื",
+                "color": "green",
+                "src":"vowel/เอือ.mp3",
+                "swap":"0"
+            },
+            {
+                "char": "อ",
                 "color": "green",
                 "src":"vowel/เอือ.mp3",
                 "swap":"0"
@@ -6536,7 +6626,13 @@
                 "swap":"0"
             },
             {
-                "char": "ำ",
+                "char": "ํ",
+                "color": "green",
+                "src":"",
+                "swap":"0"
+            },
+            {
+                "char": "า",
                 "color": "green",
                 "src":"vowel/อำ.mp3",
                 "swap":"0"
@@ -6782,7 +6878,13 @@
                 "swap":"0"
             },
             {
-                "char": "ำ",
+                "char": "ํ",
+                "color": "green",
+                "src":"",
+                "swap":"0"
+            },
+            {
+                "char": "า",
                 "color": "green",
                 "src":"vowel/อำ.mp3",
                 "swap":"0"
@@ -7036,7 +7138,13 @@
                 "swap":"1"
             },
             {
-                "char": "ือ",
+                "char": "ื",
+                "color": "green",
+                "src":"vowel/เอือ.mp3",
+                "swap":"0"
+            },
+            {
+                "char": "อ",
                 "color": "green",
                 "src":"vowel/เอือ.mp3",
                 "swap":"0"
@@ -7346,6 +7454,12 @@
                 "color": "green",
                 "src":"",
                 "swap":"1"
+            },
+            {
+                "char": "ี",
+                "color": "green",
+                "src":"vowel/เอีย.mp3",
+                "swap":"0"
             },
             {
                 "char": "ีย",
@@ -7842,7 +7956,13 @@
                 "swap":"0"
             },
             {
-                "char": "ำ",
+                "char": "ํ",
+                "color": "green",
+                "src":"",
+                "swap":"0"
+            },
+            {
+                "char": "า",
                 "color": "green",
                 "src":"vowel/อำ.mp3",
                 "swap":"0"
@@ -8258,7 +8378,13 @@
                 "swap":"0"
             },
             {
-                "char": "ำ",
+                "char": "ํ",
+                "color": "green",
+                "src":"",
+                "swap":"0"
+            },
+            {
+                "char": "า",
                 "color": "green",
                 "src":"vowel/อำ.mp3",
                 "swap":"0"
@@ -8633,7 +8759,13 @@
                 "swap":"0"
             },
             {
-                "char": "ำ",
+                "char": "ํ",
+                "color": "green",
+                "src":"",
+                "swap":"0"
+            },
+            {
+                "char": "า",
                 "color": "green",
                 "src":"vowel/อำ.mp3",
                 "swap":"0"
@@ -8653,7 +8785,13 @@
                 "swap":"0"
             },
             {
-                "char": "ำ",
+                "char": "ํ",
+                "color": "green",
+                "src":"",
+                "swap":"0"
+            },
+            {
+                "char": "า",
                 "color": "green",
                 "src":"vowel/อำ.mp3",
                 "swap":"0"
@@ -8671,7 +8809,13 @@
                 "swap":"0"
             },
             {
-                "char": "ำ",
+                "char": "ํ",
+                "color": "green",
+                "src":"",
+                "swap":"0"
+            },
+            {
+                "char": "า",
                 "color": "green",
                 "src":"vowel/อำ.mp3",
                 "swap":"0"
@@ -8691,7 +8835,13 @@
                 "swap":"0"
             },
             {
-                "char": "ำ",
+                "char": "ํ",
+                "color": "green",
+                "src":"",
+                "swap":"0"
+            },
+            {
+                "char": "า",
                 "color": "green",
                 "src":"vowel/อำ.mp3",
                 "swap":"0"
@@ -9777,7 +9927,13 @@
                 "swap":"0"
             },
             {
-                "char": "ำ",
+                "char": "ํ",
+                "color": "green",
+                "src":"",
+                "swap":"0"
+            },
+            {
+                "char": "า",
                 "color": "green",
                 "src":"vowel/อำ.mp3",
                 "swap":"0"

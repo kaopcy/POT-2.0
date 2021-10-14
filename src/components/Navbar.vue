@@ -19,9 +19,9 @@
             <ul>
                 <router-link :to="{ name: 'Home'}" class="link">Home</router-link>
                 <router-link :to="{ name: 'Learn'}" class="link">Learn</router-link>
-                <router-link :to="{ name: 'Practice'}" class="link">Practice</router-link>
+                <!-- <router-link :to="{ name: 'Practice'}" class="link">Practice</router-link> -->
                 <router-link :to="{ name: 'Test'}" class="link">Test</router-link>
-                <router-link :to="{ name: 'Edit'}" class="link">Edit</router-link>
+                    <!-- <router-link :to="{ name: 'Edit'}" class="link">Edit</router-link> -->
             </ul>
         </div>
         <footer>
@@ -78,7 +78,7 @@ export default {
 <style lang="scss" scoped>
 
 .nav-wrapper{
-    z-index: 10000;
+    z-index: 100000 !important;
     position: relative;
     width: 250px;
     height: 100%;
@@ -91,10 +91,9 @@ export default {
     position: relative;
     left: -100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.418);
+    background-color: rgb(65, 65, 65);
     display: flex;
     flex-direction: column;
-    opacity: 0;
     transition: 0.5s all;
     border-bottom-right-radius: 50px;
     border-top-right-radius: 50px;
@@ -130,8 +129,8 @@ export default {
                 &:hover{
                     background-color: #fff;
                     color: #303030;
-
                 }
+                
             }
         }
     }
@@ -224,7 +223,6 @@ export default {
     
 }
 .nav-bar.on{
-    opacity: 100% !important;
     left: 0%;
 }
 .burger-menu.on{
@@ -292,7 +290,6 @@ export default {
       background: #303030;
       transform: translateX(-100%);
       transition: 0.25s;
-      opacity: 0%;
     }
 
     @for $i from 2 through 3 {
@@ -312,7 +309,6 @@ export default {
 #burger-toggle {
   position: absolute;
   appearance: none;
-  opacity: 0;
 
   &:checked {
     & ~ .burger-menu {
@@ -321,7 +317,6 @@ export default {
         }
       .line {
         &::after {
-            opacity: 100%;
           transform: translateX(0);
         }
 

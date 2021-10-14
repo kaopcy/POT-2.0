@@ -33,11 +33,12 @@ export default {
             innerText: '',
             wordPool: [],
             plusSign: false,
-            difficult: 7,
-            upperLetter: ['่' , '้' , '๊' , "๋" , "ิ" , 'ี' , 'ึ' , 'ื' , 'ั' , 'ํ' , '็' , '์'  ],
+            difficult: 1,
+            upperLetter: ['่' , '้' , '๊' , "๋" , "ิ" , 'ี' , 'ึ' , 'ื' , 'ั' , 'ํ' , '็' , '์',],
             lowerLetter: [ 'ุ', 'ู'],
+            longLetter: ['ป','ฬ','ฝ','ฟ'],
             textProperty: {
-                letterSpacing: 30,
+                letterSpacing: 60,
                 fontSize: 250,
                 textDelay: 500,
                 wordDelay: 2000,
@@ -51,9 +52,8 @@ export default {
                 second: 0,
             },
             title: '',
-            showTime: true,
             voiceImg: false,
-            track: new Audio(),
+            voice: new Audio(),
             letterIndex: null,
         }
     },
@@ -120,11 +120,21 @@ export default {
                 }
             }
             for(let i = 0 ; i < temp.tempColor.length; i++){
-                //ถ้าตัวเองหรือตัวหลังไม่เป็น
-                if(this.upperLetter.indexOf(temp.tempText[i]) === -1 || this.upperLetter.indexOf(temp.tempText[i-1]) === -1){
-                //ถ้าตัวต่อหลังเป็น uppercase แต่ตัวเองก็ไม่ได้เป็น uppercase ให้ letter space เป็น เช่น กิน หิว หัว
-                    if(this.upperLetter.indexOf(temp.tempText[i+1]) === -1 && this.lowerLetter.indexOf(temp.tempText[i+1]) === -1)
+                if(this.longLetter.indexOf(temp.tempText[i]) !== -1 ){
                     this.innerText =  this.innerText.concat(`<span style="
+                    font-size:${this.textProperty.fontSize+(i*0.5)}px; 
+                    letter-spacing:${this.textProperty.letterSpacing * (-1)}px;
+                    opacity:2%;
+                    color:${temp.tempColor[i]};
+                    "
+                    id="text${i}";
+                    >${temp.tempText[i]}</span>`);
+                }
+                //ถ้าตัวเองหรือตัวหลังไม่เป็น Upper , Lower
+                else if(this.upperLetter.indexOf(temp.tempText[i]) === -1 || this.upperLetter.indexOf(temp.tempText[i-1]) === -1){
+                    //ถ้าตัวต่อหลังเป็น uppercase แต่ตัวเองก็ไม่ได้เป็น uppercase ให้ letter space เป็น เช่น กิน หิว หัว
+                    if(this.upperLetter.indexOf(temp.tempText[i+1]) === -1 && this.lowerLetter.indexOf(temp.tempText[i+1]) === -1)
+                        this.innerText =  this.innerText.concat(`<span style="
                         font-size:${this.textProperty.fontSize+(i*0.5)}px; 
                         letter-spacing:${this.textProperty.letterSpacing}px;
                         opacity:2%;
@@ -132,9 +142,9 @@ export default {
                         "
                         id="text${i}";
                         >${temp.tempText[i]}</span>`);
-                //ถ้าตัวต่อหลังเป็น uppercase และตัวเองก็เป็น uppercase เหมือนกัน ให้ตัวเองมี letter space เป็น 0 เช่น มั่ว จั่ว ติ๋ม
+                    //ถ้าตัวต่อหลังเป็น uppercase และตัวเองก็เป็น uppercase เหมือนกัน ให้ตัวเองมี letter space เป็น 0 เช่น มั่ว จั่ว ติ๋ม
                     else
-                    this.innerText =  this.innerText.concat(`<span style="
+                        this.innerText =  this.innerText.concat(`<span style="
                         font-size:${this.textProperty.fontSize+(i*0.5)}px; 
                         letter-spacing:${this.textProperty.letterSpacing*0}px;
                         opacity:2%;
@@ -171,8 +181,8 @@ export default {
         },
 
         playSound(src){
-            this.track.src = src;
-            this.track.play();    
+            this.voice.src = src;
+            this.voice.play();    
         },
 
         controlDom(index){
@@ -181,31 +191,34 @@ export default {
         },
 
         start(){
-            let group = this.getDataByNum(this.difficult);
-            let vocab = this.getRandomWord(0,group.length-1);
+            // let group = this.getDataByNum(this.difficult);
+            // let vocab = this.getRandomWord(0,group.length-1);
+            // let char = 0;
+            let group = this.getDataByNum(7);
+            let vocab = 0;
             let char = 0;
             let isListenKeyDown = false;
             let isListenKeyUp = false;
-            this.startTrack(group , vocab , char);
+            this.startVoice(group , vocab , char);
             this.clearInnerText();
 
-            this.track.addEventListener( 'error' , ()=>{
+            this.voice.addEventListener( 'error' , ()=>{
                 if(char >= group[vocab].length-1){
                     isListenKeyDown = true;
                 }else {
                     char++;
-                    this.startTrack(group , vocab , char);
+                    this.startVoice(group , vocab , char);
                     this.clearInnerText();
                 }
             })
 
-            this.track.addEventListener( 'ended' , ()=>{
+            this.voice.addEventListener( 'ended' , ()=>{
                 setTimeout(() => {
                     if(char >= group[vocab].length-1){
                         isListenKeyDown = true;
                     }else {
                         char++;
-                        this.startTrack(group , vocab , char);
+                        this.startVoice(group , vocab , char);
                         this.clearInnerText();
                     }
                 }, this.textProperty.textDelay);
@@ -216,6 +229,7 @@ export default {
                     if(isListenKeyDown){
                         if(!isListenKeyUp){
                             this.voiceImg = true;
+                            this.displayTitle(`difficult: ${this.difficult}`);
                             isListenKeyUp = true;
                         }
                     }
@@ -229,7 +243,6 @@ export default {
                         isListenKeyUp = false;
                         this.voiceImg = false;
                         document.getElementById('para').innerHTML = '+'
-                        this.displayTitle(`difficult: ${this.difficult}`);
                         setTimeout(() => {
                             if(this.wordPool.length >= 5){
                                 this.resetWordPool();
@@ -238,7 +251,7 @@ export default {
                             }
                             char = 0;
                             vocab = this.getRandomWord(0,group.length-1);
-                            this.startTrack(group , vocab , char);
+                            this.startVoice(group , vocab , char);
                             this.clearInnerText();
                         }, this.textProperty.wordDelay);
                     }
@@ -246,14 +259,14 @@ export default {
 
                 if( event.code === 'KeyR'){
                     char = 0;
-                    this.startTrack(group , vocab , char);
+                    this.startVoice(group , vocab , char);
                     this.clearInnerText();
                 }
             })
 
         },
 
-        startTrack(group ,vocab, char ){
+        startVoice(group ,vocab, char ){
             let src = null;
             if(group[vocab][char].src !== ''){
                 src = group[vocab][char].src
@@ -278,7 +291,6 @@ export default {
                 timeout = setTimeout(function(){ 
                     document.getElementById('time').style.opacity = '0'
                     console.log('not moving')
-                    this.showTime = false;
                 }, 1500);
             }
         },
@@ -323,7 +335,6 @@ export default {
     },
     mounted() {
         console.log('learning is start !!')
-        
     },
 
     created() {
@@ -331,7 +342,8 @@ export default {
     },
 
     beforeDestroy(){
-        this.track.pause();
+        this.voice.pause();
+        this.voice = new Audio();
         this.innerText = '';
         this.data = [];
         this.wordPool = [];
@@ -417,13 +429,14 @@ export default {
     .title{
         position: absolute;
         top: 0;
-        opacity: 0%;
         padding: 10px 20px;
-        left: 20%;
+        left: 50%;
         transform: translateX(-50%);
         border-radius: 20px;
         background-color: #303030;
         color: #fff;
+        display: flex;
+        opacity: 0;
         p{
             font-size: 40px;
             font-family: 'Poppin';
@@ -451,30 +464,18 @@ export default {
 
     @keyframes moving-text {
         0%{
-            left: 100%;
             opacity: 0;
         }
-        45%{
-            left: 50%;
-            opacity: 100%;
+        30%{
+            opacity: 100%;        
         }
-        55%{
-            left: 50%;
-            opacity: 100%;
+        70%{
+            opacity: 100%;        
         }
         100%{
-            left: 0%;
             opacity: 0;
         }
     }
 
-    @keyframes fade-in {
-        0%{
-            opacity: 0;
-        }
-        100%{
-            opacity: 100%;
-        }
-    }
 }
 </style>

@@ -20,7 +20,7 @@
             {
                 "char": "้",
                 "color": "blue",
-                "src":"sound/โท/โท.mp3",
+                "src":"tone/โท.mp3",
                 "swap":"0"
             }
         ],
@@ -32,11 +32,17 @@
               "swap":"0"
           },
           {
-              "char": "ำ",
-              "color": "green",
-              "src":"vowel/อำ.mp3",
-              "swap":"0"
-          },
+                "char": "ํ",
+                "color": "green",
+                "src":"",
+                "swap":"0"
+            },
+            {
+                "char": "า",
+                "color": "green",
+                "src":"vowel/อำ.mp3",
+                "swap":"0"
+            },
           {
               "char": "",
               "color": "",
@@ -142,7 +148,7 @@
             {
                 "char": "้",
                 "color": "blue",
-                "src":"sound/ดิ้น/โท.mp3",
+                "src":"tone/โท.mp3",
                 "swap":"1"
             },
             {

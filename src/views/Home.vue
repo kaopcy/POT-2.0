@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     <div class="content-wrapper">
+      <router-link :to="{ name: 'Learn'}" class="btn">Learn</router-link>
       <router-link :to="{ name: 'Test'}" class="btn">Test</router-link>
-      <router-link :to="{ name: 'Practice'}" class="btn">Practice</router-link>
     </div>
   </div>
 </template>

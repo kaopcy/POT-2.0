@@ -53,8 +53,9 @@ export default {
             align-self: flex-start;
         }
         input[type=text]{
-            font-size: 40px;
-            padding: 5px 20px;
+            min-width: 550px;
+            font-size: 20px;
+            padding: 15px 20px;
         }
         .btn{
             align-self: flex-end;
