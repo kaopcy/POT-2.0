@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 476.5 419.24">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #000;
+        stroke-linejoin: round;
+        stroke-width: 39px;
+      }
+    </style>
+  </defs>
+  <title>logout_black</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <polyline class="cls-1" points="192.99 135.72 192.99 19.5 457 19.5 457 399.74 192.99 399.74 192.99 283.51"/>
+    <line class="cls-1" x1="333.6" y1="209.62" x2="52.37" y2="209.62"/>
+    <polygon points="120.53 114.92 120.53 302.88 0 208.18 120.53 114.92"/>
+  </g>
+</svg>

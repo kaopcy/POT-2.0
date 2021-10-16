@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 325 360">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-miterlimit: 10;
+        stroke-width: 5px;
+      }
+    </style>
+  </defs>
+  <title>learn_black</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <path d="M152,70H385a41.34,41.34,0,0,1,27,12,40.73,40.73,0,0,1,11,22V359H147a19.13,19.13,0,0,0-12,15c-1.07,8.2,3.79,16.5,12,20H423v36H147a48.46,48.46,0,0,1-48-42V116a56.19,56.19,0,0,1,53-46Zm36,109H353V141H188Z" transform="translate(-99 -70)"/>
+    <path class="cls-1" d="M147,368l274.5.5" transform="translate(-99 -70)"/>
+    <line class="cls-1" x1="72.5" y1="312.5" x2="322.5" y2="312.5"/>
+  </g>
+</svg>

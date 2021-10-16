@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 486 438.24">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+        stroke: #fff;
+        stroke-linejoin: round;
+      }
+
+      .cls-1 {
+        stroke-width: 58px;
+      }
+
+      .cls-2 {
+        stroke-width: 57px;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <title>test_white</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <polyline class="cls-1" points="192.99 145.22 192.99 29 457 29 457 409.24 192.99 409.24 192.99 293.01"/>
+    <line class="cls-2" x1="333.6" y1="219.12" x2="52.37" y2="219.12"/>
+    <polygon class="cls-3" points="120.53 124.42 120.53 312.38 0 217.68 120.53 124.42"/>
+  </g>
+</svg>

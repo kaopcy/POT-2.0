@@ -1,6 +1,7 @@
 <template>
   <div class="app" id="app">
-    <Navbar id="nav-bar"/>
+    <NavSideBar id="nav-side-bar" />
+    <Navbar v-show="false" id="nav-bar"/>
     <div id="warn">please login first</div>
     <router-view class="router"></router-view>
   </div>
@@ -8,10 +9,12 @@
 
 <script>
 import Navbar from './components/Navbar.vue'
+import NavSideBar from './components/NavSideBar.vue'
 export default {
   name: 'app' ,
   components:{
     Navbar,
+    NavSideBar,
   },
   mounted() {
     var timeout;
@@ -63,7 +66,7 @@ export default {
 }
 .app{
   font-family: 'Poppin';
-  background-color: rgb(20, 20, 20);
+  background-color: #12122a;
   width: 100vw;
   height: 100vh;
   cursor: unset;

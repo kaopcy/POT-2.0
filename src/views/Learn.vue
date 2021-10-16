@@ -191,12 +191,12 @@ export default {
         },
 
         start(){
-            // let group = this.getDataByNum(this.difficult);
-            // let vocab = this.getRandomWord(0,group.length-1);
-            // let char = 0;
-            let group = this.getDataByNum(7);
-            let vocab = 0;
+            let group = this.getDataByNum(this.difficult);
+            let vocab = this.getRandomWord(0,group.length-1);
             let char = 0;
+            // let group = this.getDataByNum(7);
+            // let vocab = 0;
+            // let char = 0;
             let isListenKeyDown = false;
             let isListenKeyUp = false;
             this.startVoice(group , vocab , char);
@@ -342,6 +342,7 @@ export default {
     },
 
     beforeDestroy(){
+        document.onmousemove = null
         this.voice.pause();
         this.voice = new Audio();
         this.innerText = '';

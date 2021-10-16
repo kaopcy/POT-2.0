@@ -9,8 +9,6 @@
         </label>
     </div>
 
-    
-
     <div class="nav-bar">
         <header>
             POT
@@ -67,7 +65,6 @@ export default {
             this.$store.commit('updateUsername' , '')
             this.$store.state.login = ('updateLogin' , false);
             this.$router.push({ name: 'Login'});
-            
         }
 
     },
@@ -78,7 +75,7 @@ export default {
 <style lang="scss" scoped>
 
 .nav-wrapper{
-    z-index: 100000 !important;
+    z-index: 10000 !important;
     position: relative;
     width: 250px;
     height: 100%;
