@@ -1,15 +1,21 @@
 <template>
     <div class="learn" id="learn">
+        <div id="time">
+            <Timer :time="timer.maxTime - timer.time" class="timer"/>
+            <div class="difficult-wrapper">
+                <div class="difficult">Difficult: {{difficult}}</div>
+                <div class="plus-difficult" @click="difficult > 1 ? levelUp(): null" disabled>+</div>
+            </div>
+        </div>
         <div class="btn-wrapper" v-if="!timer.isStart" @click="clickToStart">
             <div class="bg" id="bg-fade"></div>
-            <div class="btn">start</div>
+            <div class="btn" style="color:#fff;">start</div>
         </div>
         <div class="wrapper" v-show="timer.isStart">
             <div id="para" v-if="!plusSign"></div>
             <img src="../assets/voice.png" class="voice-img" v-if="voiceImg">
         </div>
         <div class="title" v-if="title !== ''"><p>{{title}}</p></div>
-        <div class="time" id="time"><p>time: {{timer.minute}}:{{timer.second}}</p></div>
     </div>
 </template>
 
@@ -25,8 +31,13 @@ import json8 from   "../assets/letter/level8.json";
 import json9 from   "../assets/letter/level9.json";
 import json10 from  "../assets/letter/level10.json";
 
+import Timer from '../components/Timer.vue'
+
 export default {
     name: 'Learn',
+    components:{
+        Timer,
+    },
     data() {
         return {
             data: [],
@@ -44,12 +55,11 @@ export default {
                 wordDelay: 2000,
             },
             timer: {
-                maxTimer: 1800,
+                maxTime: 1800,
+                // maxTime: 40,
                 isStart: false,
                 timerInterval: null,
                 time: 0,
-                minute: 0,
-                second: 0,
             },
             title: '',
             voiceImg: false,
@@ -120,20 +130,27 @@ export default {
                 }
             }
             for(let i = 0 ; i < temp.tempColor.length; i++){
+                // ถ้าตัวเองเป็น long letter
                 if(this.longLetter.indexOf(temp.tempText[i]) !== -1 ){
-                    this.innerText =  this.innerText.concat(`<span style="
-                    font-size:${this.textProperty.fontSize+(i*0.5)}px; 
-                    letter-spacing:${this.textProperty.letterSpacing * (-1)}px;
-                    opacity:2%;
-                    color:${temp.tempColor[i]};
-                    "
-                    id="text${i}";
-                    >${temp.tempText[i]}</span>`);
-                }
-                //ถ้าตัวเองหรือตัวหลังไม่เป็น Upper , Lower
-                else if(this.upperLetter.indexOf(temp.tempText[i]) === -1 || this.upperLetter.indexOf(temp.tempText[i-1]) === -1){
-                    //ถ้าตัวต่อหลังเป็น uppercase แต่ตัวเองก็ไม่ได้เป็น uppercase ให้ letter space เป็น เช่น กิน หิว หัว
-                    if(this.upperLetter.indexOf(temp.tempText[i+1]) === -1 && this.lowerLetter.indexOf(temp.tempText[i+1]) === -1)
+                    if (this.upperLetter.indexOf(temp.tempText[i+1]) !== -1) //ถ้าตัวหลังเป็น upper ให้ letter spacing = -60
+                        this.innerText =  this.innerText.concat(`<span style="
+                        font-size:${this.textProperty.fontSize+(i*0.5)}px; 
+                        letter-spacing:${this.textProperty.letterSpacing * (-1)}px;
+                        opacity:2%;
+                        color:${temp.tempColor[i]};
+                        "
+                        id="text${i}";
+                        >${temp.tempText[i]}</span>`);
+                    else if( this.lowerLetter.indexOf(temp.tempText[i+1]) !== -1 ) //ถ้าตัวหลังเป็น lower ให้ letter spacing = 0
+                        this.innerText =  this.innerText.concat(`<span style="
+                        font-size:${this.textProperty.fontSize+(i*0.5)}px; 
+                        letter-spacing:${this.textProperty.letterSpacing * 0}px;
+                        opacity:2%;
+                        color:${temp.tempColor[i]};
+                        "
+                        id="text${i}";
+                        >${temp.tempText[i]}</span>`);
+                    else                                                          //ถ้าตัวหลังไม่เป็น lower , upper ให้ letter spacing = 60
                         this.innerText =  this.innerText.concat(`<span style="
                         font-size:${this.textProperty.fontSize+(i*0.5)}px; 
                         letter-spacing:${this.textProperty.letterSpacing}px;
@@ -142,6 +159,29 @@ export default {
                         "
                         id="text${i}";
                         >${temp.tempText[i]}</span>`);
+                }
+                //ถ้าตัวเองหรือตัวหลังไม่เป็น Upper , Lower
+                else if(this.upperLetter.indexOf(temp.tempText[i]) === -1 || this.upperLetter.indexOf(temp.tempText[i-1]) === -1){
+                    //ถ้าตัวต่อหลังเป็น uppercase แต่ตัวเองก็ไม่ได้เป็น uppercase ให้ letter space เป็น เช่น กิน หิว หัว
+                    if(this.upperLetter.indexOf(temp.tempText[i+1]) === -1 && this.lowerLetter.indexOf(temp.tempText[i+1]) === -1)
+                        if (this.longLetter.indexOf(temp.tempText[i-1]) !== -1 )
+                            this.innerText =  this.innerText.concat(`<span style="
+                            font-size:${this.textProperty.fontSize+(i*0.5)}px; 
+                            letter-spacing:${this.textProperty.letterSpacing * 2}px;
+                            opacity:2%;
+                            color:${temp.tempColor[i]};
+                            "
+                            id="text${i}";
+                            >${temp.tempText[i]}</span>`);
+                        else 
+                            this.innerText =  this.innerText.concat(`<span style="
+                            font-size:${this.textProperty.fontSize+(i*0.5)}px; 
+                            letter-spacing:${this.textProperty.letterSpacing}px;
+                            opacity:2%;
+                            color:${temp.tempColor[i]};
+                            "
+                            id="text${i}";
+                            >${temp.tempText[i]}</span>`);
                     //ถ้าตัวต่อหลังเป็น uppercase และตัวเองก็เป็น uppercase เหมือนกัน ให้ตัวเองมี letter space เป็น 0 เช่น มั่ว จั่ว ติ๋ม
                     else
                         this.innerText =  this.innerText.concat(`<span style="
@@ -154,14 +194,24 @@ export default {
                         >${temp.tempText[i]}</span>`);
                 }
                 else {
-                    this.innerText =  this.innerText.concat(`<sup style="
-                        font-size:${this.textProperty.fontSize + 0.5}px; 
-                        letter-spacing:${this.textProperty.letterSpacing}px;
-                        opacity:2%;
-                        color:${temp.tempColor[i]}
-                        "
-                        id="text${i}";
-                        >${temp.tempText[i]}</sup>`);
+                    if(this.longLetter.indexOf(temp.tempText[i-2]) !== -1)
+                        this.innerText =  this.innerText.concat(`<sup style="
+                            font-size:${this.textProperty.fontSize + 0.5}px; 
+                            letter-spacing:${this.textProperty.letterSpacing * 2}px;
+                            opacity:2%;
+                            color:${temp.tempColor[i]}
+                            "
+                            id="text${i}";
+                            >${temp.tempText[i]}</sup>`);
+                    else
+                        this.innerText =  this.innerText.concat(`<sup style="
+                            font-size:${this.textProperty.fontSize + 0.5}px; 
+                            letter-spacing:${this.textProperty.letterSpacing}px;
+                            opacity:2%;
+                            color:${temp.tempColor[i]}
+                            "
+                            id="text${i}";
+                            >${temp.tempText[i]}</sup>`);
                 } 
             }
             para.innerHTML = this.innerText
@@ -193,9 +243,9 @@ export default {
         start(){
             let group = this.getDataByNum(this.difficult);
             let vocab = this.getRandomWord(0,group.length-1);
+            // let vocab = 0;
             let char = 0;
             // let group = this.getDataByNum(7);
-            // let vocab = 0;
             // let char = 0;
             let isListenKeyDown = false;
             let isListenKeyUp = false;
@@ -229,7 +279,6 @@ export default {
                     if(isListenKeyDown){
                         if(!isListenKeyUp){
                             this.voiceImg = true;
-                            this.displayTitle(`difficult: ${this.difficult}`);
                             isListenKeyUp = true;
                         }
                     }
@@ -243,12 +292,16 @@ export default {
                         isListenKeyUp = false;
                         this.voiceImg = false;
                         document.getElementById('para').innerHTML = '+'
+                        //Score up
+                        this.$store.commit('LearnScoreUp')
                         setTimeout(() => {
-                            if(this.wordPool.length >= 5){
-                                this.resetWordPool();
-                                this.difficult++;
-                                group = this.getDataByNum(this.difficult);
+                            if (this.difficult == 1){
+                                if( this.wordPool.length >= 3 ) {
+                                    this.levelUp()
+                                    this.setTimer()
+                                }
                             }
+                            group = this.getDataByNum(this.difficult);
                             char = 0;
                             vocab = this.getRandomWord(0,group.length-1);
                             this.startVoice(group , vocab , char);
@@ -278,21 +331,22 @@ export default {
 
         clickToStart(){
             this.timer.isStart = true;
-            if(this.timer.isStart){
-                this.setTimer();
-            }
-            this.start();
+            document.getElementById('para').innerHTML = '+'
             let bg = document.getElementById('learn')
             bg.classList.add('after-start');
-            var timeout;
-            document.onmousemove = function(){
-                document.getElementById('time').style.opacity = '1'
-                clearTimeout(timeout);
-                timeout = setTimeout(function(){ 
-                    document.getElementById('time').style.opacity = '0'
-                    console.log('not moving')
-                }, 1500);
-            }
+            setTimeout(()=>{
+                this.start();
+                var timeout;
+                document.onmousemove = function(){
+                    document.getElementById('time').style.opacity = '1'
+                    clearTimeout(timeout);
+                    timeout = setTimeout(function(){ 
+                        document.getElementById('time').style.opacity = '0'
+                        console.log('not moving')
+                    }, 1500);
+                }
+            } , 2000 )
+            
         },
 
         getRandomWord(min,max) {
@@ -311,30 +365,55 @@ export default {
             return i;
         },
 
-        resetWordPool(){
+        levelUp(){
+            console.log(`Levelup! :${this.difficult}`);
             this.wordPool = [];
-        },
-
-        displayTitle(text){
-            this.title = text;
-            setTimeout(() => {
-                this.title = ''
-            }, 2000);
+            if (this.difficult < 10) this.difficult++;
         },
 
         setTimer(){
+            let markTime = 0
             this.timer.timerInterval = setInterval(() => {
-                let thisTimer = this.timer.maxTimer - this.timer.time;
+                const timeLeft = this.timer.maxTime - this.timer.time
+                if ( this.timer.time - markTime == 120 && this.difficult == 2 )  { //level 1 => 2
+                    this.levelUp()    
+                    markTime = this.timer.time
+                }
+                if ( this.timer.time - markTime == 60 && this.difficult == 3 )  { //level 2 => 3
+                    this.levelUp()    
+                    markTime = this.timer.time
+                }
+                if ( this.timer.time - markTime == 180 && this.difficult == 4 )  { //level 3 => 4
+                    this.levelUp()    
+                    markTime = this.timer.time
+                }
+                if ( this.timer.time - markTime == 180 && this.difficult == 5 )  { //level 4 => 5
+                    this.levelUp()    
+                    markTime = this.timer.time
+                }
+                if ( this.timer.time - markTime == 180 && this.difficult == 6 )  { //level 5 => 6
+                    this.levelUp()    
+                    markTime = this.timer.time
+                }
+                if ( this.timer.time - markTime == 180 && this.difficult == 7 )  { //level 6 => 7
+                    this.levelUp()    
+                    markTime = this.timer.time
+                }
+                if ( this.timer.time - markTime == 180 && this.difficult == 8 )  { //level 7 => 8
+                    this.levelUp()    
+                    markTime = this.timer.time
+                }
+                if ( this.timer.time - markTime == 180 && this.difficult == 9 )  { //level 8 => 9
+                    this.levelUp()    
+                    markTime = this.timer.time
+                }
+                
+                // end game
+                if ( timeLeft == 0) this.$router.replace({name: 'EndScore'})
                 this.timer.time++;
-                this.timer.minute = Math.floor(thisTimer / 60);
-                this.timer.second = Math.floor(thisTimer % 60);
-
             }, 1000);
         }
 
-    },
-    mounted() {
-        console.log('learning is start !!')
     },
 
     created() {
@@ -374,13 +453,53 @@ export default {
     height: 100%;
     top: 0;
     left: 0;
-    background-color: #303030;
+    background-color: #12122a;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: row;
     transition: 0.5s all;
     overflow: hidden;
+
+    #time{
+        opacity: 0;
+        transition: 0.5s opacity;
+    }
+    .timer{
+        position: absolute;
+        right: 1rem;
+        bottom: 1rem;
+    }
+    .difficult-wrapper{
+        display: flex;
+        flex-direction: row;
+        font-family: 'Poppin' , sans-serif;
+        position: absolute;
+        font-size: 2rem;
+        right: 11rem;
+        bottom: 1rem;
+        font-weight: 500;
+        background-color: #fff;
+        color: #555d78;
+        .difficult{
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+            padding: .5rem 1rem;
+            letter-spacing: 0px;
+            border-radius: 4px;
+        }
+        .plus-difficult{
+            padding: .5rem .5rem;
+            letter-spacing: 0;
+            cursor: pointer;
+            background-color: hsl(360, 100, 70);
+            color: #fff;
+            transition: .25s background-color;
+            &:hover{
+                background-color: hsl(360, 100, 50);
+            }
+        }
+    }
+
     .btn-wrapper{
         position: relative;
         width: 100%;
@@ -402,8 +521,6 @@ export default {
     }
 
     .wrapper{
-        width: 100%;
-        height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -444,23 +561,6 @@ export default {
             letter-spacing: normal;
         }
         animation: moving-text 2s;
-    }
-
-    .time{
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        transition: 0.5s all;
-        opacity: 0;
-        p{
-            text-transform: uppercase;
-            font-size: 40px;
-            letter-spacing: normal;
-            padding: 10px 50px;
-            margin: 10px 20px;
-            background: rgb(19, 18, 18);
-            color: rgba(255, 255, 255, 0.89);
-        }
     }
 
     @keyframes moving-text {

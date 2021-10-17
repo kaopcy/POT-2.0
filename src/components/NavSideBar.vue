@@ -98,12 +98,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@font-face {
-    font-family: 'Roboto-Regular';
-    src: url('../../public/font/Roboto-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
+
 .wrapper{
     z-index: 10001 !important;
     position: relative;

@@ -34,7 +34,7 @@
             {
                 "char": "้",
                 "color": "blue",
-                "src":"sound/ก้อนเมฆ/โท.mp3",
+                "src":"tone/โท.mp3",
                 "swap":"2"
             },
             {
@@ -108,7 +108,7 @@
             {
                 "char": "้",
                 "color": "blue",
-                "src":"sound/ก้านธูป/โท.mp3",
+                "src":"tone/โท.mp3",
                 "swap":"2"
             },
             {
@@ -262,7 +262,7 @@
             {
                 "char": "้",
                 "color": "blue",
-                "src":"sound/การบ้าน/โท.mp3",
+                "src":"tone/โท.mp3",
                 "swap":"2"
             },
             {
@@ -514,7 +514,7 @@
             {
                 "char": "้",
                 "color": "blue",
-                "src":"sound/เกื้อกูล/โท.mp3",
+                "src":"tone/โท.mp3",
                 "swap":"1"
             },
             {
@@ -682,7 +682,7 @@
             {
                 "char": "่",
                 "color": "blue",
-                "src":"sound/ข่าวสาร/เอก.mp3",
+                "src":"tone/เอก.mp3",
                 "swap":"2"
             },
             {
@@ -750,7 +750,7 @@
             {
                 "char": "้",
                 "color": "blue",
-                "src":"sound/ขี้เกียจ/โท.mp3",
+                "src":"tone/โท.mp3",
                 "swap":"0"
             },
             {
@@ -998,7 +998,7 @@
             {
                 "char": "่",
                 "color": "blue",
-                "src":"sound/คุณค่า/เอก.mp3",
+                "src":"tone/เอก.mp3",
                 "swap":"1"
             },
             {
@@ -1174,7 +1174,7 @@
             {
                 "char": "ใ",
                 "color": "green",
-                "src":"vowel/ไอย.mp3",
+                "src":"vowel/ไอ.mp3",
                 "swap":"1"
             },
             {
@@ -1224,7 +1224,7 @@
             {
                 "char": "้",
                 "color": "blue",
-                "src":"sound/เจ้าภาพ/โท.mp3",
+                "src":"tone/โท.mp3",
                 "swap":"1"
             },
             {
@@ -1494,7 +1494,7 @@
             {
                 "char": "่",
                 "color": "blue",
-                "src":"sound/เชี่ยวชาญ/เอก.mp3",
+                "src":"tone/เอก.mp3",
                 "swap":"2"
             },
             {
@@ -1574,7 +1574,7 @@
             {
                 "char": "้",
                 "color": "blue",
-                "src":"sound/เชื้อโรค/โท.mp3",
+                "src":"tone/โท.mp3",
                 "swap":"2"
             },
             {
@@ -2062,7 +2062,7 @@
             {
                 "char": "้",
                 "color": "blue",
-                "src":"sound/ธารน้ำ/โท.mp3",
+                "src":"tone/โท.mp3",
                 "swap":"1"
             },
             {

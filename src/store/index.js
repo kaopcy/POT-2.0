@@ -7,6 +7,8 @@ export default new Vuex.Store({
   state: {
     username: '',
     login: false,
+    learnScore: 0,
+    testScore: 0,
   },
   mutations: {
     updateUsername( state , payload){
@@ -14,6 +16,12 @@ export default new Vuex.Store({
     },
     updateLogin(state,payload){
       state.login = payload;
+    },
+    LearnScoreUp(state){
+      state.learnScore = state.learnScore+1
+    },
+    updateTestScore(state , payload){
+      state.testScore = payload
     }
   },
   actions: {

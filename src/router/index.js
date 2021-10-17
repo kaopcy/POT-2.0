@@ -6,7 +6,7 @@ import Practice from '../views/Practice.vue'
 import Test from '../views/Test.vue'
 import Login from '../views/Login.vue'
 import Edit from '../views/Edit.vue'
-
+import EndScore from '../views/EndScore.vue'
 
 Vue.use(VueRouter)
 
@@ -40,6 +40,11 @@ const routes = [
     path: '/edit',
     name: 'Edit',
     component: Edit
+  },
+  {
+    path: '/end-score',
+    name: 'EndScore',
+    component: EndScore
   },
   
 ]

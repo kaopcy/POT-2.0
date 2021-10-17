@@ -53,6 +53,13 @@ export default {
 
 <style lang="scss">
 @font-face {
+    font-family: 'Roboto-Regular';
+    src: url('../public/font/Roboto-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'Poppin';
     src: url('./assets/font/Poppins-Regular.ttf') format('truetype');
     font-weight: normal;
