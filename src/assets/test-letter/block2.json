@@ -1,10 +1,44 @@
 {
     "block2":[
-        
-            {
-                "name": "มะฬะกอ",
-                "source":"sound/กระดาษ/กระดาษ.mp3"
-            }
-        
+        {
+            "name": "มะฬะกอ",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "เฬือ",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "โฆ",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "พูเขา",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "วาญุ",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "กะธิ",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "เกสา",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "เฎา",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "เฏะ",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "แฏะ",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        }
     ]
 }

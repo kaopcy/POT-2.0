@@ -71,6 +71,10 @@ export default {
             this.data[1] = json2.block2;
             this.data[2] = json3.block3;
             this.data[3] = json4.block4;
+            console.log(this.data[0]);
+            console.log(this.data[1]);
+            console.log(this.data[2]);
+            console.log(this.data[3]);
             var length = 0
             this.word.eachData.push(length)
             this.data.forEach(i => {
@@ -137,13 +141,13 @@ export default {
             this.showText = false;
             setTimeout(() => {
                 this.control.isShowEmoji = false;
+                setTimeout(() => {
+                    this.showText = true;
+                    this.setWord()
+                    console.log(`text test is : ${this.text.test}`);
+                    this.playSound(this.text.src);
+                }, 500);
             }, 1500);
-            setTimeout(() => {
-                this.showText = true;
-                this.setWord()
-                console.log(`text test is : ${this.text.test}`);
-                this.playSound(this.text.src);
-            }, 2000);
         },
 
         rightAns(event){

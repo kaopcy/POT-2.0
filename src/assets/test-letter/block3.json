@@ -1,10 +1,44 @@
 {
     "block3":[
-        
-            {
-                "name": "นะยะปอ",
-                "source":"sound/กระดาษ/กระดาษ.mp3"
-            }
-        
+        {
+            "name": "นะยะปอ",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "เปือ",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "โจ",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "ฟูเขา",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "มารุ",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "ปะทิ",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "เตขา",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "เจา",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "เปะ",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "แดะ",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        }
     ]
 }

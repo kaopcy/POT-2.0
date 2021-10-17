@@ -1,10 +1,44 @@
 {
     "block1":[
-            {
-                "name": "มะละกอ",
-                "source":"sound/กระดาษ/กระดาษ.mp3"
-            }
-            
-            
+        {
+            "name": "มะละกอ",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "เรือ",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "โค",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "ภูเขา",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "วายุ",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "กะทิ",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "เกศา",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "เดา",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "เตะ",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        },
+        {
+            "name": "แตะ",
+            "source":"sound/กระดาษ/กระดาษ.mp3"
+        }
     ]
 }

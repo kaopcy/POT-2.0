@@ -243,10 +243,7 @@ export default {
         start(){
             let group = this.getDataByNum(this.difficult);
             let vocab = this.getRandomWord(0,group.length-1);
-            // let vocab = 0;
             let char = 0;
-            // let group = this.getDataByNum(7);
-            // let char = 0;
             let isListenKeyDown = false;
             let isListenKeyUp = false;
             this.startVoice(group , vocab , char);
@@ -279,6 +276,9 @@ export default {
                     if(isListenKeyDown){
                         if(!isListenKeyUp){
                             this.voiceImg = true;
+                            // Start sound record here.....
+                    
+                            // =============================
                             isListenKeyUp = true;
                         }
                     }
@@ -294,9 +294,12 @@ export default {
                         document.getElementById('para').innerHTML = '+'
                         //Score up
                         this.$store.commit('LearnScoreUp')
+                        // End sound record here.....
+
+                        // =============================
                         setTimeout(() => {
                             if (this.difficult == 1){
-                                if( this.wordPool.length >= 3 ) {
+                                if( this.wordPool.length >= 10 ) {
                                     this.levelUp()
                                     this.setTimer()
                                 }
@@ -439,9 +442,11 @@ export default {
     font-weight: normal;
     font-style: normal;
 }
+
 .after-start{
     background-color: #fff !important;
 }
+
 .learn{
     padding: 0;
     margin: 0;
@@ -465,11 +470,13 @@ export default {
         opacity: 0;
         transition: 0.5s opacity;
     }
+
     .timer{
         position: absolute;
         right: 1rem;
         bottom: 1rem;
     }
+
     .difficult-wrapper{
         display: flex;
         flex-direction: row;
@@ -507,7 +514,6 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-        
         
         .btn{
             font-family: 'Poppin';
