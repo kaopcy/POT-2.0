@@ -1,49 +1,53 @@
 <template>
-  <div class="login">
-      <div class="content">
-        <h1>LOGIN</h1>
-        <input type="text" class="login-input" v-model="username">
-        <div id="validated">Please enter name.</div>
-        <div class="btn" @click="login">GO</div>
-      </div>
-  </div>
+    <div class="login">
+        <div class="content">
+            <h1>Login</h1>
+            <div id="validated">Please enter name.</div>
+            <input
+                type="text"
+                class="login-input"
+                placeholder="ชื่อ-นามสกุล"
+                v-model="username"
+            />
+            <div class="btn" @click="login">enter</div>
+        </div>
+    </div>
 </template>
 
 <script>
 export default {
-    name: 'Login',
+    name: "Login",
     data() {
         return {
-            username: '',
-        }
+            username: "",
+        };
     },
     methods: {
-        login(){
-            if (this.username == '' || this.username == null){
-                this.validated()
-                return
+        login() {
+            if (this.username == "" || this.username == null) {
+                this.validated();
+                return;
             }
-            this.$store.commit('updateUsername',this.username );
-            this.$store.commit('updateLogin',true );
-            this.$router.replace({ name: 'Home'}) 
+            this.$store.commit("updateUsername", this.username);
+            this.$store.commit("updateLogin", true);
+            this.$router.replace({ name: "Learn" });
         },
-        validated(){
-            const validatedDOM = document.getElementById('validated')
-            validatedDOM.style.opacity = '100%'
+        validated() {
+            const validatedDOM = document.getElementById("validated");
+            validatedDOM.style.opacity = "100%";
             setTimeout(() => {
-                validatedDOM.style.opacity = '0'
+                validatedDOM.style.opacity = "0";
             }, 1500);
-        }
+        },
     },
     created() {
         this.username = this.$store.state.username;
     },
-
-}
+};
 </script>
 
 <style lang="scss" scoped>
-.login{
+.login {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -52,55 +56,69 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #12122a;
-    .content{
+    background-color: rgb(247, 247, 247);
+    .content {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
         padding: 2rem 2rem;
-        background-color: #202031;
-        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-        h1{
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        background-color: #fff;
+        border-radius: 20px;
+
+        h1 {
             font-size: 60px;
-            font-weight: 900;
-            color: #fff;
-            align-self: flex-start;
+            font-weight: 700;
+            color: #303030;
         }
-        input[type=text]{
-            min-width: 550px;
+
+        input[type="text"] {
+            width: 400px;
             font-size: 20px;
             padding: 15px 20px;
-            box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+            border-radius: 10px;
+            margin: 0 3rem;
+            margin-bottom: 1rem;
+            outline: none;
+            border: 2px solid rgb(201, 201, 201);
+            &:focus {
+                border: 2px solid rgb(143, 143, 143);
+                &::placeholder {
+                    color: #cccccc;
+                }
+            }
+            &::placeholder {
+                color: #a0a4a4;
+            }
         }
-        #validated{
-            align-self: start;
-            color: hsl(0, 100, 60);
+        #validated {
+            width: 400px;
+            color: red;
             opacity: 0;
-            transition: .5s opacity;
+            transition: 0.5s opacity;
         }
-        .btn{
-            align-self: flex-end;
+        .btn {
+            width: 400px;
             color: #fff;
             font-size: 30px;
             text-align: center;
-            margin-top: 5px;
             padding: 5px 20px;
-            background-color: #f4b942;
-            border-radius: 20px;
+            background-color: rgb(51, 173, 255);
+            border-radius: 5px;
             cursor: pointer;
-            font-weight: 800;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            font-weight: 500;
             letter-spacing: 3px;
-            transition: 0.2s all ;
-            box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-            &:hover{
-                padding: 5px 50px;
+            transition: 0.2s all;
+            margin-bottom: 1rem;
+            &:hover {
+                background-color: rgb(36, 87, 255);
             }
-            &:active{
+            &:active {
                 background-color: rgb(255, 62, 62);
             }
         }
-
     }
 }
 </style>

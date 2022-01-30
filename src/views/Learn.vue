@@ -1,10 +1,17 @@
 <template>
     <div class="learn" id="learn">
         <div id="time">
-            <Timer :time="timer.maxTime - timer.time" class="timer"/>
-            <div class="difficult-wrapper">
+            <TimerComponent :time="timer.maxTime - timer.time" class="timer"/>
+            <div class="text-container difficult-wrapper">
                 <div class="difficult">Difficult: {{difficult}}</div>
-                <div class="plus-difficult" @click="difficult > 1 ? levelUp(): null" disabled>+</div>
+                <div class="plus-difficult" @click="levelUp()" disabled>+</div>
+                <!-- <div class="plus-difficult" @click="difficult > 1 ? levelUp(): null" disabled>+</div> -->
+            </div>
+            <div class="text-container username-container">
+                Name: {{ $store.state.username }}
+            </div>
+            <div class="text-container end-container" @click="$router.replace({name: 'EndScore'})">
+                end
             </div>
         </div>
         <div class="btn-wrapper" v-if="!timer.isStart" @click="clickToStart">
@@ -31,15 +38,17 @@ import json8 from   "../assets/letter/level8.json";
 import json9 from   "../assets/letter/level9.json";
 import json10 from  "../assets/letter/level10.json";
 
-import Timer from '../components/Timer.vue'
+import TimerComponent from '../components/TimerComponent.vue'
+import Timer from '../composables/Timer'
 
 export default {
     name: 'Learn',
     components:{
-        Timer,
+        TimerComponent,
     },
     data() {
         return {
+            myTimer: new Timer(1800),
             data: [],
             innerText: '',
             wordPool: [],
@@ -68,19 +77,6 @@ export default {
         }
     },
     methods: {
-        initialData(){
-            this.letterIndex = 1;
-            this.data[0] = json1.level1
-            this.data[1] = json2.level2
-            this.data[2] = json3.level3
-            this.data[3] = json4.level4
-            this.data[4] = json5.level5
-            this.data[5] = json6.level6
-            this.data[6] = json7.level7
-            this.data[7] = json8.level8
-            this.data[8] = json9.level9
-            this.data[9] = json10.level10
-        },
         
         handleInnerText(data , index , character){
             let length = data[index].length-1;
@@ -162,18 +158,10 @@ export default {
                 }
                 //ถ้าตัวเองหรือตัวหลังไม่เป็น Upper , Lower
                 else if(this.upperLetter.indexOf(temp.tempText[i]) === -1 || this.upperLetter.indexOf(temp.tempText[i-1]) === -1){
-                    //ถ้าตัวต่อหลังเป็น uppercase แต่ตัวเองก็ไม่ได้เป็น uppercase ให้ letter space เป็น เช่น กิน หิว หัว
-                    if(this.upperLetter.indexOf(temp.tempText[i+1]) === -1 && this.lowerLetter.indexOf(temp.tempText[i+1]) === -1)
-                        if (this.longLetter.indexOf(temp.tempText[i-1]) !== -1 )
-                            this.innerText =  this.innerText.concat(`<span style="
-                            font-size:${this.textProperty.fontSize+(i*0.5)}px; 
-                            letter-spacing:${this.textProperty.letterSpacing * 2}px;
-                            opacity:2%;
-                            color:${temp.tempColor[i]};
-                            "
-                            id="text${i}";
-                            >${temp.tempText[i]}</span>`);
-                        else 
+                    //ถ้าตัวต่อไปไม่เป็น upper , lower 
+                    if(this.upperLetter.indexOf(temp.tempText[i+1]) === -1 && this.lowerLetter.indexOf(temp.tempText[i+1]) === -1){
+                        
+                        if (this.longLetter.indexOf(temp.tempText[i-1]) !== -1 ){
                             this.innerText =  this.innerText.concat(`<span style="
                             font-size:${this.textProperty.fontSize+(i*0.5)}px; 
                             letter-spacing:${this.textProperty.letterSpacing}px;
@@ -182,8 +170,22 @@ export default {
                             "
                             id="text${i}";
                             >${temp.tempText[i]}</span>`);
+                        }
+                        else{
+
+                            this.innerText =  this.innerText.concat(`<span style="
+                            font-size:${this.textProperty.fontSize+(i*0.5)}px; 
+                            letter-spacing:${this.textProperty.letterSpacing}px;
+                            opacity:2%;
+                            color:${temp.tempColor[i]};
+                            "
+                            id="text${i}";
+                            >${temp.tempText[i]}</span>`);
+                        } 
+
+                    }
                     //ถ้าตัวต่อหลังเป็น uppercase และตัวเองก็เป็น uppercase เหมือนกัน ให้ตัวเองมี letter space เป็น 0 เช่น มั่ว จั่ว ติ๋ม
-                    else
+                    else 
                         this.innerText =  this.innerText.concat(`<span style="
                         font-size:${this.textProperty.fontSize+(i*0.5)}px; 
                         letter-spacing:${this.textProperty.letterSpacing*0}px;
@@ -214,10 +216,12 @@ export default {
                             >${temp.tempText[i]}</sup>`);
                 } 
             }
+            
+            // set text opacity to 1
             para.innerHTML = this.innerText
             for (let i = 0; i < character+1; i++) {
                 if(temp.tempSequence[i] != -1){
-                    this.controlDom(`${temp.tempSequence[i]}`);
+                    document.getElementById(`text${temp.tempSequence[i]}`).style.opacity = '1'
                 }
             }
         },
@@ -228,16 +232,6 @@ export default {
 
         getDataByNum(num){
             return this.data[num-1];
-        },
-
-        playSound(src){
-            this.voice.src = src;
-            this.voice.play();    
-        },
-
-        controlDom(index){
-            let text = document.getElementById(`text${index}`)
-            text.style.opacity = '1'
         },
 
         start(){
@@ -273,6 +267,7 @@ export default {
     
             window.addEventListener( 'keydown' ,(event) => {
                 if(event.code === 'Space'){
+
                     if(isListenKeyDown){
                         if(!isListenKeyUp){
                             this.voiceImg = true;
@@ -298,10 +293,11 @@ export default {
 
                         // =============================
                         setTimeout(() => {
-                            if (this.difficult == 1){
-                                if( this.wordPool.length >= 10 ) {
+
+                            if (this.difficult <= 1){
+                                if( this.wordPool.length >= 1 ) {
                                     this.levelUp()
-                                    this.setTimer()
+                                    this.startTimer()
                                 }
                             }
                             group = this.getDataByNum(this.difficult);
@@ -328,7 +324,9 @@ export default {
                 src = group[vocab][char].src
             }else src = "";
 
-            this.playSound(src)
+            this.voice.src = src;
+            this.voice.play();  
+
             this.handleInnerText(group , vocab , char);
         },
 
@@ -370,11 +368,13 @@ export default {
 
         levelUp(){
             console.log(`Levelup! :${this.difficult}`);
-            this.wordPool = [];
-            if (this.difficult < 10) this.difficult++;
+            if (this.difficult < 10) {
+                this.difficult++;
+                this.wordPool = [];
+            }
         },
 
-        setTimer(){
+        startTimer(){
             let markTime = 0
             this.timer.timerInterval = setInterval(() => {
                 const timeLeft = this.timer.maxTime - this.timer.time
@@ -420,7 +420,18 @@ export default {
     },
 
     created() {
-        this.initialData();
+        // initialize data
+        this.letterIndex = 1;
+        this.data[0] = json1.level1
+        this.data[1] = json2.level2
+        this.data[2] = json3.level3
+        this.data[3] = json4.level4
+        this.data[4] = json5.level5
+        this.data[5] = json6.level6
+        this.data[6] = json7.level7
+        this.data[7] = json8.level8
+        this.data[8] = json9.level9
+        this.data[9] = json10.level10
     },
 
     beforeDestroy(){
@@ -469,34 +480,62 @@ export default {
     #time{
         opacity: 0;
         transition: 0.5s opacity;
-    }
-
-    .timer{
         position: absolute;
         right: 1rem;
         bottom: 1rem;
+        display: flex;
+        gap: 1rem;
+    }
+
+    .timer{
+        position: relative;
+    }
+
+    .username-container{
+        position: relative;
+    }
+
+    .end-container{
+        position: relative;
+        background: rgb(255, 62, 62);
+        color: #fff;
+        cursor: pointer;
+        font-weight: 600;
+        &:hover{
+            background: rgb(255, 31, 31);
+        }
     }
 
     .difficult-wrapper{
+        position: relative;
         display: flex;
         flex-direction: row;
         font-family: 'Poppin' , sans-serif;
-        position: absolute;
+        align-items: center;
         font-size: 2rem;
-        right: 11rem;
-        bottom: 1rem;
         font-weight: 500;
         background-color: #fff;
-        color: #555d78;
+        border: 1.5px solid rgb(209, 209, 209);
+        border-radius: 8px;
+        padding: 0.3rem 1rem;
+        gap: .5rem;
         .difficult{
-            box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-            padding: .5rem 1rem;
             letter-spacing: 0px;
-            border-radius: 4px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+            font-weight: normal;
+            font-size: 1rem;
         }
         .plus-difficult{
-            padding: .5rem .5rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             letter-spacing: 0;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
             cursor: pointer;
             background-color: hsl(360, 100, 70);
             color: #fff;
