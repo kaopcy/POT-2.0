@@ -4,7 +4,7 @@
             <TimerComponent :time="timer.maxTime - timer.time" class="timer"/>
             <div class="text-container difficult-wrapper">
                 <div class="difficult">Difficult: {{difficult}}</div>
-                <div class="plus-difficult" @click="levelUp()" disabled>+</div>
+                <div class="plus-difficult" @click="difficult > 1 ? levelUp(): null" disabled>+</div>
                 <!-- <div class="plus-difficult" @click="difficult > 1 ? levelUp(): null" disabled>+</div> -->
             </div>
             <div class="text-container username-container">
@@ -14,15 +14,17 @@
                 end
             </div>
         </div>
-        <div class="btn-wrapper" v-if="!timer.isStart" @click="clickToStart">
+        <!-- Click to start -->
+        <!-- <div class="btn-wrapper" v-if="!timer.isStart" @click="clickToStart">
             <div class="bg" id="bg-fade"></div>
             <div class="btn" style="color:#fff;">start</div>
-        </div>
+        </div> -->
+
+        <!-- showing text -->
         <div class="wrapper" v-show="timer.isStart">
-            <div id="para" v-if="!plusSign"></div>
+            <div id="kumthai" v-if="!plusSign"></div>
             <img src="../assets/voice.png" class="voice-img" v-if="voiceImg">
         </div>
-        <div class="title" v-if="title !== ''"><p>{{title}}</p></div>
     </div>
 </template>
 
@@ -70,7 +72,6 @@ export default {
                 timerInterval: null,
                 time: 0,
             },
-            title: '',
             voiceImg: false,
             voice: new Audio(),
             letterIndex: null,
@@ -80,7 +81,7 @@ export default {
         
         handleInnerText(data , index , character){
             let length = data[index].length-1;
-            let para = document.getElementById("para")
+            let kumthai = document.getElementById("kumthai")
             let sequence = 0;
             let temp= {
                 tempText: [],
@@ -218,7 +219,7 @@ export default {
             }
             
             // set text opacity to 1
-            para.innerHTML = this.innerText
+            kumthai.innerHTML = this.innerText
             for (let i = 0; i < character+1; i++) {
                 if(temp.tempSequence[i] != -1){
                     document.getElementById(`text${temp.tempSequence[i]}`).style.opacity = '1'
@@ -286,7 +287,7 @@ export default {
                         isListenKeyDown = false;
                         isListenKeyUp = false;
                         this.voiceImg = false;
-                        document.getElementById('para').innerHTML = '+'
+                        document.getElementById('kumthai').innerHTML = '+'
                         //Score up
                         this.$store.commit('LearnScoreUp')
                         // End sound record here.....
@@ -332,7 +333,7 @@ export default {
 
         clickToStart(){
             this.timer.isStart = true;
-            document.getElementById('para').innerHTML = '+'
+            document.getElementById('kumthai').innerHTML = '+'
             let bg = document.getElementById('learn')
             bg.classList.add('after-start');
             setTimeout(()=>{
@@ -417,6 +418,10 @@ export default {
             }, 1000);
         }
 
+    },
+
+    mounted() {
+        this.clickToStart()
     },
 
     created() {
@@ -569,7 +574,7 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-        #para{
+        #kumthai{
         }
         #plus{
             font-size: 100px;
@@ -581,31 +586,10 @@ export default {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        width: 120px;
+        width: 80px;
         height: auto;
-        bottom: 20px;
-        background-color: rgba(94, 94, 94, 0.096);
+        bottom: 3rem;
         border-radius: 50%;
-        box-shadow: 0px 5px 7px -4px rgba(0,0,0,0.71);
-    }
-
-    .title{
-        position: absolute;
-        top: 0;
-        padding: 10px 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-radius: 20px;
-        background-color: #303030;
-        color: #fff;
-        display: flex;
-        opacity: 0;
-        p{
-            font-size: 40px;
-            font-family: 'Poppin';
-            letter-spacing: normal;
-        }
-        animation: moving-text 2s;
     }
 
     @keyframes moving-text {

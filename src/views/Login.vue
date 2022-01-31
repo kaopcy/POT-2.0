@@ -56,7 +56,6 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(247, 247, 247);
     .content {
         display: flex;
         justify-content: center;

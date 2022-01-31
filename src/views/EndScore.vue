@@ -1,14 +1,15 @@
 <template>
     <div class="wrapper">
         <div class="card-container">
-            <img src="congratulation.png" alt="" />
+            <img class="congrat-img" src="congratulation.png" alt="" />
             <div class="score-wrapper">
-                <h1>Score</h1>
                 <h3>{{ $store.state.learnScore }}</h3>
+                <h1>Score</h1>
             </div>
             <div class="name-wrapper">
                 <h3>{{ $store.state.username }}</h3>
             </div>
+            <img class="restart-img" src="restart.png" @click="reload()" alt="">
         </div>
     </div>
 </template>
@@ -38,6 +39,10 @@ export default {
                 origin: { x: 1 },
                 colors: colors,
             });
+        },
+
+        reload(){
+            window.location.reload()
         },
     },
     mounted() {
@@ -72,18 +77,19 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 700px;
+    min-height: 586px;
+    max-height: 75vh;
     width: 450px;
     border-radius: 20px;
     background-color: #fff;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    img {
+    .congrat-img {
         position: absolute;
         top: -7rem;
         height: 350px;
     }
     .score-wrapper {
-        margin-top: 17rem;
+        margin-top: 50%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -99,8 +105,27 @@ export default {
         }
     }
     .name-wrapper {
-        margin-top: 5rem;
         font-family: "Sarabun", sans-serif !important;
+        margin-bottom: 10%;
+    }
+
+    .restart-img{
+        position: relative;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        @keyframes spin {
+            0%{
+                transform: rotate(0deg);
+            }
+            100%{
+                transform: rotate(-360deg);
+            }
+
+        }
+        &:hover{
+            animation: spin 1s linear infinite;
+        }
     }
 }
 </style>

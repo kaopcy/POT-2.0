@@ -81,7 +81,7 @@ export default {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
         "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
         "Helvetica Neue", sans-serif;
-    background-color: #12122a;
+    background: rgb(244, 245, 255);
     width: 100vw;
     height: 100vh;
     cursor: unset;
