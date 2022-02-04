@@ -89,6 +89,7 @@ export default {
                 tempSwap: [],
                 tempSequence: [],
                 tempSequenceSwap: [],
+                opacity: '0',
             }
 
             for(let i = 0 ; i < length+1; i++){
@@ -133,7 +134,7 @@ export default {
                         this.innerText =  this.innerText.concat(`<span style="
                         font-size:${this.textProperty.fontSize+(i*0.5)}px; 
                         letter-spacing:${this.textProperty.letterSpacing * (-1)}px;
-                        opacity:2%;
+                        opacity:${temp.opacity}%;
                         color:${temp.tempColor[i]};
                         "
                         id="text${i}";
@@ -142,7 +143,7 @@ export default {
                         this.innerText =  this.innerText.concat(`<span style="
                         font-size:${this.textProperty.fontSize+(i*0.5)}px; 
                         letter-spacing:${this.textProperty.letterSpacing * 0}px;
-                        opacity:2%;
+                        opacity:${temp.opacity}%;
                         color:${temp.tempColor[i]};
                         "
                         id="text${i}";
@@ -151,7 +152,7 @@ export default {
                         this.innerText =  this.innerText.concat(`<span style="
                         font-size:${this.textProperty.fontSize+(i*0.5)}px; 
                         letter-spacing:${this.textProperty.letterSpacing}px;
-                        opacity:2%;
+                        opacity:${temp.opacity}%;
                         color:${temp.tempColor[i]};
                         "
                         id="text${i}";
@@ -166,7 +167,7 @@ export default {
                             this.innerText =  this.innerText.concat(`<span style="
                             font-size:${this.textProperty.fontSize+(i*0.5)}px; 
                             letter-spacing:${this.textProperty.letterSpacing}px;
-                            opacity:2%;
+                            opacity:${temp.opacity}%;
                             color:${temp.tempColor[i]};
                             "
                             id="text${i}";
@@ -177,7 +178,7 @@ export default {
                             this.innerText =  this.innerText.concat(`<span style="
                             font-size:${this.textProperty.fontSize+(i*0.5)}px; 
                             letter-spacing:${this.textProperty.letterSpacing}px;
-                            opacity:2%;
+                            opacity:${temp.opacity}%;
                             color:${temp.tempColor[i]};
                             "
                             id="text${i}";
@@ -190,7 +191,7 @@ export default {
                         this.innerText =  this.innerText.concat(`<span style="
                         font-size:${this.textProperty.fontSize+(i*0.5)}px; 
                         letter-spacing:${this.textProperty.letterSpacing*0}px;
-                        opacity:2%;
+                        opacity:${temp.opacity}%;
                         color:${temp.tempColor[i]}
                         "
                         id="text${i}";
@@ -201,7 +202,7 @@ export default {
                         this.innerText =  this.innerText.concat(`<sup style="
                             font-size:${this.textProperty.fontSize + 0.5}px; 
                             letter-spacing:${this.textProperty.letterSpacing * 2}px;
-                            opacity:2%;
+                            opacity:${temp.opacity}%;
                             color:${temp.tempColor[i]}
                             "
                             id="text${i}";
@@ -210,7 +211,7 @@ export default {
                         this.innerText =  this.innerText.concat(`<sup style="
                             font-size:${this.textProperty.fontSize + 0.5}px; 
                             letter-spacing:${this.textProperty.letterSpacing}px;
-                            opacity:2%;
+                            opacity:${temp.opacity}%;
                             color:${temp.tempColor[i]}
                             "
                             id="text${i}";
@@ -379,7 +380,7 @@ export default {
             let markTime = 0
             this.timer.timerInterval = setInterval(() => {
                 const timeLeft = this.timer.maxTime - this.timer.time
-                if ( this.timer.time - markTime == 120 && this.difficult == 2 )  { //level 1 => 2
+                if ( this.timer.time - markTime == 60 && this.difficult == 2 )  { //level 1 => 2
                     this.levelUp()    
                     markTime = this.timer.time
                 }
@@ -387,27 +388,27 @@ export default {
                     this.levelUp()    
                     markTime = this.timer.time
                 }
-                if ( this.timer.time - markTime == 180 && this.difficult == 4 )  { //level 3 => 4
+                if ( this.timer.time - markTime == 240 && this.difficult == 4 )  { //level 3 => 4
                     this.levelUp()    
                     markTime = this.timer.time
                 }
-                if ( this.timer.time - markTime == 180 && this.difficult == 5 )  { //level 4 => 5
+                if ( this.timer.time - markTime == 240 && this.difficult == 5 )  { //level 4 => 5
                     this.levelUp()    
                     markTime = this.timer.time
                 }
-                if ( this.timer.time - markTime == 180 && this.difficult == 6 )  { //level 5 => 6
+                if ( this.timer.time - markTime == 240 && this.difficult == 6 )  { //level 5 => 6
                     this.levelUp()    
                     markTime = this.timer.time
                 }
-                if ( this.timer.time - markTime == 180 && this.difficult == 7 )  { //level 6 => 7
+                if ( this.timer.time - markTime == 240 && this.difficult == 7 )  { //level 6 => 7
                     this.levelUp()    
                     markTime = this.timer.time
                 }
-                if ( this.timer.time - markTime == 180 && this.difficult == 8 )  { //level 7 => 8
+                if ( this.timer.time - markTime == 240 && this.difficult == 8 )  { //level 7 => 8
                     this.levelUp()    
                     markTime = this.timer.time
                 }
-                if ( this.timer.time - markTime == 180 && this.difficult == 9 )  { //level 8 => 9
+                if ( this.timer.time - markTime == 240 && this.difficult == 9 )  { //level 8 => 9
                     this.levelUp()    
                     markTime = this.timer.time
                 }

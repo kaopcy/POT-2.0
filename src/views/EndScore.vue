@@ -63,16 +63,7 @@ export default {
     align-items: center;
 }
 
-@keyframes fadein {
-    0% {
-        opacity: 0%;
-    }
-    100% {
-        opacity: 100%;
-    }
-}
 .card-container {
-    animation: fadein 1s ease-out;
     position: relative;
     display: flex;
     flex-direction: column;
