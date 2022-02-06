@@ -29,6 +29,7 @@ export default class Timer {
             }, 200);
         }
     };
+    
     stop = () => {
         if (this.timerInterval) {
             clearInterval(this.timerInterval);

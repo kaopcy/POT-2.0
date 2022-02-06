@@ -3,9 +3,8 @@
         <div id="time">
             <TimerComponent :time="timer.maxTime - timer.time" class="timer"/>
             <div class="text-container difficult-wrapper">
-                <div class="difficult">Difficult: {{difficult}}</div>
-                <div class="plus-difficult" @click="difficult > 1 ? levelUp(): null" disabled>+</div>
-                <!-- <div class="plus-difficult" @click="difficult > 1 ? levelUp(): null" disabled>+</div> -->
+                <div class="difficult">Difficult: {{myVocab.currentDifficult}}</div>
+                <div class="plus-difficult" @click="myVocab.currentDifficult > 1 ? myVocab.levelUp(): null" disabled>+</div>
             </div>
             <div class="text-container username-container">
                 Name: {{ $store.state.username }}
@@ -22,26 +21,15 @@
 
         <!-- showing text -->
         <div class="wrapper" v-show="timer.isStart">
-            <div id="kumthai" v-if="!plusSign"></div>
+            <div id="kumthai"></div>
             <img src="../assets/voice.png" class="voice-img" v-if="voiceImg">
         </div>
     </div>
 </template>
 
 <script>
-import json1 from   "../assets/letter/level1.json";
-import json2 from   "../assets/letter/level2.json";
-import json3 from   "../assets/letter/level3.json";
-import json4 from   "../assets/letter/level4.json";
-import json5 from   "../assets/letter/level5.json";
-import json6 from   "../assets/letter/level6.json";
-import json7 from   "../assets/letter/level7.json";
-import json8 from   "../assets/letter/level8.json";
-import json9 from   "../assets/letter/level9.json";
-import json10 from  "../assets/letter/level10.json";
-
 import TimerComponent from '../components/TimerComponent.vue'
-import Timer from '../composables/Timer'
+import Vocaburaly from '../composables/Vocabulary.js'
 
 export default {
     name: 'Learn',
@@ -50,12 +38,15 @@ export default {
     },
     data() {
         return {
-            myTimer: new Timer(1800),
-            data: [],
+            timer: {
+                maxTime: 1800,
+                // maxTime: 40,
+                isStart: false,
+                timerInterval: null,
+                time: 0,
+            },
+            myVocab: new Vocaburaly(),
             innerText: '',
-            wordPool: [],
-            plusSign: false,
-            difficult: 1,
             upperLetter: ['่' , '้' , '๊' , "๋" , "ิ" , 'ี' , 'ึ' , 'ื' , 'ั' , 'ํ' , '็' , '์',],
             lowerLetter: [ 'ุ', 'ู'],
             longLetter: ['ป','ฬ','ฝ','ฟ'],
@@ -65,23 +56,15 @@ export default {
                 textDelay: 500,
                 wordDelay: 2000,
             },
-            timer: {
-                maxTime: 1800,
-                // maxTime: 40,
-                isStart: false,
-                timerInterval: null,
-                time: 0,
-            },
+            isFreezing: false,
+            freezTime: 2000,
             voiceImg: false,
             voice: new Audio(),
-            letterIndex: null,
         }
     },
+
     methods: {
-        
-        handleInnerText(data , index , character){
-            let length = data[index].length-1;
-            let kumthai = document.getElementById("kumthai")
+        handleInnerText(character){
             let sequence = 0;
             let temp= {
                 tempText: [],
@@ -92,12 +75,12 @@ export default {
                 opacity: '0',
             }
 
-            for(let i = 0 ; i < length+1; i++){
-                if(data[index][i].char !== ''){
-                    console.log(`datachar [${i}]: ${data[index][i].char}`)
-                    temp.tempText.push(data[index][i].char);
-                    temp.tempColor.push(data[index][i].color);
-                    temp.tempSwap.push(data[index][i].swap);
+            for(let i = 0 ; i < this.myVocab.wordLength; i++){
+                if(this.myVocab.word[i].char !== ''){
+                    console.log(`datachar [${i}]: ${this.myVocab.word[i].char}`)
+                    temp.tempText.push(this.myVocab.word[i].char);
+                    temp.tempColor.push(this.myVocab.word[i].color);
+                    temp.tempSwap.push(this.myVocab.word[i].swap);
                     temp.tempSequence.push(sequence)
                     sequence++
                     temp.tempSequenceSwap.push(0)
@@ -220,7 +203,7 @@ export default {
             }
             
             // set text opacity to 1
-            kumthai.innerHTML = this.innerText
+            document.getElementById("kumthai").innerHTML = this.innerText;
             for (let i = 0; i < character+1; i++) {
                 if(temp.tempSequence[i] != -1){
                     document.getElementById(`text${temp.tempSequence[i]}`).style.opacity = '1'
@@ -232,36 +215,32 @@ export default {
             this.innerText = '';
         },
 
-        getDataByNum(num){
-            return this.data[num-1];
-        },
-
         start(){
-            let group = this.getDataByNum(this.difficult);
-            let vocab = this.getRandomWord(0,group.length-1);
+            this.myVocab.setNewRandomWord();
             let char = 0;
             let isListenKeyDown = false;
             let isListenKeyUp = false;
-            this.startVoice(group , vocab , char);
+            this.startVoice(char);
             this.clearInnerText();
 
             this.voice.addEventListener( 'error' , ()=>{
-                if(char >= group[vocab].length-1){
+                console.log(`char: ${char}`);
+                if(!this.myVocab.word[char+1]){
                     isListenKeyDown = true;
                 }else {
                     char++;
-                    this.startVoice(group , vocab , char);
+                    this.startVoice(char);
                     this.clearInnerText();
                 }
             })
 
             this.voice.addEventListener( 'ended' , ()=>{
                 setTimeout(() => {
-                    if(char >= group[vocab].length-1){
+                    if(!this.myVocab.word[char+1]){
                         isListenKeyDown = true;
                     }else {
                         char++;
-                        this.startVoice(group , vocab , char);
+                        this.startVoice(char);
                         this.clearInnerText();
                     }
                 }, this.textProperty.textDelay);
@@ -269,175 +248,112 @@ export default {
     
             window.addEventListener( 'keydown' ,(event) => {
                 if(event.code === 'Space'){
-
-                    if(isListenKeyDown){
-                        if(!isListenKeyUp){
-                            this.voiceImg = true;
-                            // Start sound record here.....
-                    
-                            // =============================
-                            isListenKeyUp = true;
-                        }
+                    if(isListenKeyDown && !isListenKeyUp){
+                        this.voiceImg = true;
+                        // Start sound record here.....
+                
+                        // =============================
+                        isListenKeyUp = true;
                     }
                 }
             })
 
             window.addEventListener('keyup' , (event) => {
-                if( event.code === 'Space'){
-                    if(isListenKeyUp){
-                        isListenKeyDown = false;
-                        isListenKeyUp = false;
-                        this.voiceImg = false;
+                if( event.code === 'Space' && isListenKeyUp ){
+                    isListenKeyDown = false;
+                    isListenKeyUp = false;
+                    this.voiceImg = false;
+                    //Score up
+                    this.$store.commit('LearnScoreUp')
+                    // End sound record here.....
+
+                    // =============================
+                    const nextWord = ()=>{
                         document.getElementById('kumthai').innerHTML = '+'
-                        //Score up
-                        this.$store.commit('LearnScoreUp')
-                        // End sound record here.....
-
-                        // =============================
+                        this.isFreezing = false
                         setTimeout(() => {
-
-                            if (this.difficult <= 1){
-                                if( this.wordPool.length >= 1 ) {
-                                    this.levelUp()
-                                    this.startTimer()
+                            // check if vocab pass practice state
+                            if (this.myVocab.currentDifficult <= 1){
+                                if( this.myVocab.wordPool.length >= 1 ) {
+                                    this.myVocab.levelUp();
+                                    this.startTimer();
                                 }
                             }
-                            group = this.getDataByNum(this.difficult);
+                            this.myVocab.setNewRandomWord();
                             char = 0;
-                            vocab = this.getRandomWord(0,group.length-1);
-                            this.startVoice(group , vocab , char);
+                            this.startVoice(char);
                             this.clearInnerText();
                         }, this.textProperty.wordDelay);
+                    }
+                    // ใช้เมื่อต้องการพักระหว่างเปลี่ยน category
+                    if (this.isFreezing){
+                        document.getElementById('kumthai').innerHTML = 'Freezing'
+                        setTimeout(() => {
+                            nextWord();
+                        }, this.freezTime);
+                    } else{
+                        nextWord();
                     }
                 }
 
                 if( event.code === 'KeyR'){
                     char = 0;
-                    this.startVoice(group , vocab , char);
+                    this.startVoice(char);
                     this.clearInnerText();
                 }
             })
 
         },
 
-        startVoice(group ,vocab, char ){
-            let src = null;
-            if(group[vocab][char].src !== ''){
-                src = group[vocab][char].src
-            }else src = "";
-
-            this.voice.src = src;
+        startVoice(char){
+            this.voice.src = this.myVocab.word[char].src ?? '';
             this.voice.play();  
-
-            this.handleInnerText(group , vocab , char);
-        },
-
-        clickToStart(){
-            this.timer.isStart = true;
-            document.getElementById('kumthai').innerHTML = '+'
-            let bg = document.getElementById('learn')
-            bg.classList.add('after-start');
-            setTimeout(()=>{
-                this.start();
-                var timeout;
-                document.onmousemove = function(){
-                    document.getElementById('time').style.opacity = '1'
-                    clearTimeout(timeout);
-                    timeout = setTimeout(function(){ 
-                        document.getElementById('time').style.opacity = '0'
-                        console.log('not moving')
-                    }, 1500);
-                }
-            } , 2000 )
-            
-        },
-
-        getRandomWord(min,max) {
-            var i = Math.floor(Math.random()*(max-min))+min;
-            for (let j = 0 ; j < this.wordPool.length ; ){
-                if(i === this.wordPool[j]){
-                    i = Math.floor(Math.random()*(max-min))+min;
-                    j = 0;
-                }
-                else{
-                    j++;
-                }
-                
-            }
-            this.wordPool.push(i);
-            return i;
-        },
-
-        levelUp(){
-            console.log(`Levelup! :${this.difficult}`);
-            if (this.difficult < 10) {
-                this.difficult++;
-                this.wordPool = [];
-            }
+            this.handleInnerText(char);
         },
 
         startTimer(){
             let markTime = 0
             this.timer.timerInterval = setInterval(() => {
                 const timeLeft = this.timer.maxTime - this.timer.time
-                if ( this.timer.time - markTime == 60 && this.difficult == 2 )  { //level 1 => 2
-                    this.levelUp()    
-                    markTime = this.timer.time
-                }
-                if ( this.timer.time - markTime == 60 && this.difficult == 3 )  { //level 2 => 3
-                    this.levelUp()    
-                    markTime = this.timer.time
-                }
-                if ( this.timer.time - markTime == 240 && this.difficult == 4 )  { //level 3 => 4
-                    this.levelUp()    
-                    markTime = this.timer.time
-                }
-                if ( this.timer.time - markTime == 240 && this.difficult == 5 )  { //level 4 => 5
-                    this.levelUp()    
-                    markTime = this.timer.time
-                }
-                if ( this.timer.time - markTime == 240 && this.difficult == 6 )  { //level 5 => 6
-                    this.levelUp()    
-                    markTime = this.timer.time
-                }
-                if ( this.timer.time - markTime == 240 && this.difficult == 7 )  { //level 6 => 7
-                    this.levelUp()    
-                    markTime = this.timer.time
-                }
-                if ( this.timer.time - markTime == 240 && this.difficult == 8 )  { //level 7 => 8
-                    this.levelUp()    
-                    markTime = this.timer.time
-                }
-                if ( this.timer.time - markTime == 240 && this.difficult == 9 )  { //level 8 => 9
-                    this.levelUp()    
-                    markTime = this.timer.time
-                }
-                
+                this.myVocab.checkToLevelup( this.timer.time - markTime , ()=>{
+                    markTime = this.timer.time;
+                    this.isFreezing = true;
+                })
+
                 // end game
                 if ( timeLeft == 0) this.$router.replace({name: 'EndScore'})
-                this.timer.time++;
+                if (!this.isFreezing) this.timer.time++;
             }, 1000);
         }
 
     },
 
-    mounted() {
-        this.clickToStart()
+    watch:{
+        isFreezing: function( newVal , oldVal ) {
+            console.log(oldVal);
+            console.log(newVal);
+        }
     },
 
-    created() {
-        // initialize data
-        this.letterIndex = 1;
-        this.data[0] = json1.level1
-        this.data[1] = json2.level2
-        this.data[2] = json3.level3
-        this.data[3] = json4.level4
-        this.data[4] = json5.level5
-        this.data[5] = json6.level6
-        this.data[6] = json7.level7
-        this.data[7] = json8.level8
-        this.data[8] = json9.level9
-        this.data[9] = json10.level10
+    mounted() {
+        const handleIdle = ()=>{
+            var timeout;
+            document.onmousemove = function(){
+                document.getElementById('time').style.opacity = '1'
+                clearTimeout(timeout);
+                timeout = setTimeout(function(){ 
+                    document.getElementById('time').style.opacity = '0'
+                    console.log('not moving')
+                }, 1500);
+            }
+        }
+
+        this.timer.isStart = true;
+        document.getElementById('kumthai').innerHTML = '+'
+        setTimeout(()=>{
+            this.start();
+            handleIdle();
+        } , 2000 )
     },
 
     beforeDestroy(){
@@ -445,8 +361,7 @@ export default {
         this.voice.pause();
         this.voice = new Audio();
         this.innerText = '';
-        this.data = [];
-        this.wordPool = [];
+        this.myVocab.clear()
     }
 }
 </script>
@@ -471,11 +386,8 @@ export default {
     font-size: 250px;
     letter-spacing: 30px;
     position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-color: #12122a;
+    inset: 0;
+    background-color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;

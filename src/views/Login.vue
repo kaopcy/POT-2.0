@@ -11,6 +11,9 @@
             />
             <div class="btn" @click="login">enter</div>
         </div>
+        <div class="edit-btn" @click="edit()">
+            Edit
+        </div>
     </div>
 </template>
 
@@ -39,6 +42,17 @@ export default {
                 validatedDOM.style.opacity = "0";
             }, 1500);
         },
+
+        edit(){
+            if (this.username == "" || this.username == null) {
+                this.validated();
+                return;
+            }
+            this.$store.commit("updateUsername", this.username);
+            this.$store.commit("updateLogin", true);
+            this.$router.replace({ name: "Edit" });
+        }
+
     },
     created() {
         this.username = this.$store.state.username;
@@ -120,4 +134,17 @@ export default {
         }
     }
 }
+.edit-btn{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 1rem 2rem;
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: #fff;
+    margin: 2rem;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
 </style>
