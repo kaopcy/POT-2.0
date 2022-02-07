@@ -44,12 +44,6 @@ export default {
         },
 
         edit(){
-            if (this.username == "" || this.username == null) {
-                this.validated();
-                return;
-            }
-            this.$store.commit("updateUsername", this.username);
-            this.$store.commit("updateLogin", true);
             this.$router.replace({ name: "Edit" });
         }
 

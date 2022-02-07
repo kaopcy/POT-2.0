@@ -13,12 +13,6 @@
                 end
             </div>
         </div>
-        <!-- Click to start -->
-        <!-- <div class="btn-wrapper" v-if="!timer.isStart" @click="clickToStart">
-            <div class="bg" id="bg-fade"></div>
-            <div class="btn" style="color:#fff;">start</div>
-        </div> -->
-
         <!-- showing text -->
         <div class="wrapper" v-show="timer.isStart">
             <div id="kumthai"></div>

@@ -43,6 +43,11 @@ export default {
     watch: {
         $route() {
             if (
+                this.$route.name === "Edit" ||
+                this.$route.name === "DisplayWord"
+            ) {
+                return;
+            } else if (
                 this.$route.name !== "Login" &&
                 this.$store.state.username === ""
             ) {
@@ -52,6 +57,9 @@ export default {
                     document.getElementById("warn").style.opacity = "0%";
                 }, 2000);
             }
+        },
+        "$store.state.currentList": function() {
+            console.log(this.$store.state.currentList);
         },
     },
 };

@@ -337,6 +337,44 @@
             "swap": "1"
         },
         {
+            "char": "ณ",
+            "color": "red",
+            "src": "",
+            "swap": "0"
+        },
+        {
+            "char": "ฑ",
+            "color": "yellow",
+            "src": "",
+            "swap": "0"
+        },
+        {
+            "char": "์",
+            "color": "yellow",
+            "src": "consonant/นอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category8/เกณฑ์/เกณฑ์.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
+            "char": "ก",
+            "color": "black",
+            "src": "consonant/กอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "เ",
+            "color": "green",
+            "src": "vowel/เอ.mp3",
+            "swap": "1"
+        },
+        {
             "char": "ศ",
             "color": "red",
             "src": "consonant/สอ.mp3",

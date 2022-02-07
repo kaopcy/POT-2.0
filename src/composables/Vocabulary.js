@@ -3,7 +3,7 @@ import json2 from "../assets/letter/level2.json";
 import json3 from "../assets/letter/level3.json";
 import json4 from "../assets/letter/level4.json";
 import json5 from "../assets/letter/level5.json";
-import json6 from "../assets/letter/level6.json";
+import json6 from "../assets/letter/level6.json"; 
 import json7 from "../assets/letter/level7.json";
 import json8 from "../assets/letter/level8.json";
 import json9 from "../assets/letter/level9.json";
