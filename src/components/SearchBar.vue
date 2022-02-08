@@ -16,11 +16,7 @@
         </svg>
 
         <div class="input-wrapper">
-            <input
-                type="text"
-                id="search-input"
-                v-model="searchInput"
-            />
+            <input type="text" id="search-input" v-model="searchInput" />
             <div class="close-btn" v-show="searchInput.length > 0">
                 <span></span>
                 <span></span>
@@ -37,7 +33,11 @@
                 :key="`${word.name}${genaratedID()}`"
                 @click="handleWordClick(word.name)"
             >
-                {{ word.name }} <span style="color:rgb(200, 200, 200); fontSize:.7rem; marginLeft:.5rem">หมวดที่ {{word.index}}</span>
+                {{ word.name }}
+                <span
+                    style="color:rgb(200, 200, 200); fontSize:.7rem; marginLeft:.5rem"
+                    >หมวดที่ {{ word.index }}</span
+                >
             </div>
         </div>
     </div>
@@ -60,7 +60,6 @@ export default {
     watch: {
         searchInput: function() {
             this.handleMatch();
-            console.log(this.filteredData);
         },
     },
     created() {
@@ -95,16 +94,22 @@ export default {
 
     methods: {
         handleMatch() {
+            if (this.searchInput === ''){
+                this.filteredData = [];
+                return
+            }
             this.filteredData = [];
-            this.data.forEach((list , index ) => {
+            this.data.forEach((list, index) => {
                 list.forEach((word) => {
                     const curWord = word
                         .slice(-1)[0]
                         .src.split("/")
                         .slice(-1)[0]
                         .split(".")[0];
-                    if (curWord.includes(this.searchInput)) {
-                        this.filteredData.push({ name: curWord , index });
+
+                    const searchingArray = this.searchInput.split('');
+                    if (searchingArray.every((el) => curWord.includes(el))) {
+                        this.filteredData.push({ name: curWord, index });
                     }
                 });
             });

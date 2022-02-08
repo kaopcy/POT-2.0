@@ -1275,6 +1275,50 @@
     ],
     [
         {
+            "char": "ข",
+            "color": "black",
+            "src": "consonant/ขอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ั",
+            "color": "green",
+            "src": "",
+            "swap": "0"
+        },
+        {
+            "char": "ว",
+            "color": "green",
+            "src": "vowel/อัว.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category5/ขั้ว/ขัว.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category5/ขั้ว/ขัว.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "้",
+            "color": "blue",
+            "src": "tone/โท.mp3",
+            "swap": "1"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category5/ขั้ว/ขั้ว.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
             "char": "ช",
             "color": "black",
             "src": "consonant/ชอ.mp3",
