@@ -3,7 +3,6 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Learn from "../views/Learn.vue";
 import Practice from "../views/Practice.vue";
-import Test from "../views/Test.vue";
 import Login from "../views/Login.vue";
 import Edit from "../views/Edit.vue";
 import EndScore from "../views/EndScore.vue";
@@ -25,11 +24,6 @@ const routes = [
         path: "/practice",
         name: "Practice",
         component: Practice,
-    },
-    {
-        path: "/test",
-        name: "Test",
-        component: Test,
     },
     {
         path: "/login",

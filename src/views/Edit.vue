@@ -46,6 +46,10 @@
                 </div>
             </div>
         </div>
+
+        <div class="edit-btn" @click="back()">
+            กลับ
+        </div>
     </div>
 </template>
 
@@ -126,6 +130,11 @@ export default {
             this.$router.push({ path: `/end-score/${word}` });
             this.$store.commit("addWatchedWord", word);
         },
+
+        back() {
+            this.$router.push({ name: 'Login' });
+        },
+
     },
 
     created() {
@@ -160,12 +169,14 @@ export default {
     top: 0;
     left: 0;
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #f2f6fd;
     font-family: "Sarabun";
     overflow-x: hidden;
+    overflow-y: scroll;
     .header-container {
         width: 78%;
         display: flex;
@@ -233,7 +244,7 @@ export default {
             background: rgba(255, 255, 255, 0.589);
             width: 94%;
             align-self: center;
-            padding: 10px;
+            padding: 20px 10px;
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
@@ -280,5 +291,18 @@ export default {
             transform: rotate(-45deg);
         }
     }
+}
+
+.edit-btn {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    padding: 1rem 2rem;
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: #fff;
+    margin: 2rem;
+    border-radius: 1rem;
+    cursor: pointer;
 }
 </style>

@@ -113,13 +113,13 @@
         {
             "char": "",
             "color": "",
-            "src": "sound/category8/ก้าธูป/ก้าน.mp3",
+            "src": "sound/category8/ก้านธูป/ก้าน.mp3",
             "swap": "0"
         },
         {
             "char": "ธ",
             "color": "black",
-            "src": "consonant/ธอ.mp3",
+            "src": "consonant/ทอ.mp3",
             "swap": "0"
         },
         {

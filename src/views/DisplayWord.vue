@@ -1,9 +1,9 @@
 <template>
     <div class="display-word-wrapper">
         <div id="kumthai"></div>
-        <div class="edit-btn" @click="back()">
+        <!-- <div class="edit-btn" @click="back()">
             Back
-        </div>
+        </div> -->
     </div>
 </template>
 

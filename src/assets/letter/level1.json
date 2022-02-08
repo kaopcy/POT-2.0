@@ -17,14 +17,6 @@
     ],
     [
         {
-            "char": "้",
-            "color": "blue",
-            "src": "tone/โท.mp3",
-            "swap": "0"
-        }
-    ],
-    [
-        {
             "char": "ค",
             "color": "black",
             "src": "consonant/คอ.mp3",
@@ -45,7 +37,7 @@
         {
             "char": "",
             "color": "",
-            "src": "sound/คำ/คำ.mp3",
+            "src": "sound/Practice/คำ/คำ.mp3",
             "swap": "0"
         }
     ],
@@ -65,13 +57,13 @@
         {
             "char": "",
             "color": "",
-            "src": "sound/แค่/แค.mp3",
+            "src": "sound/Practice/แค่/แค.mp3",
             "swap": "0"
         },
         {
             "char": "",
             "color": "",
-            "src": "sound/แค่/แค.mp3",
+            "src": "sound/Practice/แค่/แค.mp3",
             "swap": "0"
         },
         {
@@ -83,7 +75,7 @@
         {
             "char": "",
             "color": "",
-            "src": "sound/แค่/แค่.mp3",
+            "src": "sound/Practice/แค่/แค่.mp3",
             "swap": "0"
         }
     ],
@@ -109,7 +101,7 @@
         {
             "char": "",
             "color": "",
-            "src": "sound/คอน/คอน.mp3",
+            "src": "sound/Practice/คอน/คอน.mp3",
             "swap": "0"
         }
     ],
@@ -135,13 +127,13 @@
         {
             "char": "",
             "color": "",
-            "src": "sound/ดิ้น/ดิน.mp3",
+            "src": "sound/Practice/ดิ้น/ดิน.mp3",
             "swap": "0"
         },
         {
             "char": "",
             "color": "",
-            "src": "sound/ดิ้น/ดิน.mp3",
+            "src": "sound/Practice/ดิ้น/ดิน.mp3",
             "swap": "0"
         },
         {
@@ -153,7 +145,7 @@
         {
             "char": "",
             "color": "",
-            "src": "sound/ดิ้น/ดิ้น.mp3",
+            "src": "sound/Practice/ดิ้น/ดิ้น.mp3",
             "swap": "0"
         }
     ],
@@ -179,7 +171,7 @@
         {
             "char": "",
             "color": "",
-            "src": "sound/เลข/เลข.mp3",
+            "src": "sound/Practice/เลข/เลข.mp3",
             "swap": "0"
         }
     ],
@@ -211,7 +203,45 @@
         {
             "char": "",
             "color": "",
-            "src": "sound/ตรอง/ตรอง.mp3",
+            "src": "sound/Practice/ตรอง/ตรอง.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
+            "char": "ป",
+            "color": "black",
+            "src": "consonant/ปอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ร",
+            "color": "black",
+            "src": "consonant/รอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "า",
+            "color": "green",
+            "src": "vowel/อา.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ง",
+            "color": "red",
+            "src": "",
+            "swap": "0"
+        },
+        {
+            "char": "ค์",
+            "color": "yellow",
+            "src": "consonant/งอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/Practice/ปรางค์/ปรางค์.mp3",
             "swap": "0"
         }
     ],
@@ -243,7 +273,7 @@
         {
             "char": "",
             "color": "",
-            "src": "sound/หวาน/หวาน.mp3",
+            "src": "sound/Practice/หวาน/หวาน.mp3",
             "swap": "0"
         }
     ]

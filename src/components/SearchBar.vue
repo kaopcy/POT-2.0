@@ -16,24 +16,28 @@
         </svg>
 
         <div class="input-wrapper">
-            <input type="text" id="search-input" v-model="searchInput" />
+            <input
+                type="text"
+                id="search-input"
+                v-model="searchInput"
+            />
             <div class="close-btn" v-show="searchInput.length > 0">
                 <span></span>
                 <span></span>
             </div>
         </div>
 
-        <div class="list-container" v-show="isFocus">
+        <div class="list-container" v-if="isFocus">
             <span class="header">
-                ศัพท์ที่ค้นพบ: {{ filteredData.length }}
+                ศัพท์ที่ค้นพบ: {{ filteredData.length }} คำ
             </span>
             <div
                 class="list"
                 v-for="word in filteredData"
-                :key="`${word}${genaratedID()}`"
-                @click="handleWordClick(word)"
+                :key="`${word.name}${genaratedID()}`"
+                @click="handleWordClick(word.name)"
             >
-                {{ word }}
+                {{ word.name }} <span style="color:rgb(200, 200, 200); fontSize:.7rem; marginLeft:.5rem">หมวดที่ {{word.index}}</span>
             </div>
         </div>
     </div>
@@ -60,10 +64,11 @@ export default {
         },
     },
     created() {
-        console.log(this.data);
+        this.isFocus = false;
     },
 
     mounted() {
+        document.getElementById("search-input").blur();
         this.handleMatch();
         document.addEventListener(
             "click",
@@ -79,18 +84,19 @@ export default {
             },
             false
         );
-
-        document
-            .getElementById("search-input")
-            .addEventListener("focus", () => {
-                this.isFocus = true;
-            });
+        setTimeout(() => {
+            document
+                .getElementById("search-input")
+                .addEventListener("focus", () => {
+                    this.isFocus = true;
+                });
+        }, 100);
     },
 
     methods: {
         handleMatch() {
             this.filteredData = [];
-            this.data.forEach((list) => {
+            this.data.forEach((list , index ) => {
                 list.forEach((word) => {
                     const curWord = word
                         .slice(-1)[0]
@@ -98,7 +104,7 @@ export default {
                         .slice(-1)[0]
                         .split(".")[0];
                     if (curWord.includes(this.searchInput)) {
-                        this.filteredData.push(curWord);
+                        this.filteredData.push({ name: curWord , index });
                     }
                 });
             });

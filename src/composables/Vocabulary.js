@@ -3,21 +3,28 @@ import json2 from "../assets/letter/level2.json";
 import json3 from "../assets/letter/level3.json";
 import json4 from "../assets/letter/level4.json";
 import json5 from "../assets/letter/level5.json";
-import json6 from "../assets/letter/level6.json"; 
+import json6 from "../assets/letter/level6.json";
 import json7 from "../assets/letter/level7.json";
 import json8 from "../assets/letter/level8.json";
 import json9 from "../assets/letter/level9.json";
 import json10 from "../assets/letter/level10.json";
 
-// import category10 from "../assets/letterExample/category10_json.json";
+import category4 from "../assets/letterExample/category4_json.json";
+import category5 from "../assets/letterExample/category5_json.json";
+import category6 from "../assets/letterExample/category6_json.json";
+import category7 from "../assets/letterExample/category7_json.json";
+import category8 from "../assets/letterExample/category8_json.json";
+import category9 from "../assets/letterExample/category9_json.json";
+import category10 from "../assets/letterExample/category10_json.json";
 
 export default class {
     constructor() {
         this.data = [];
+        this.checkingData = [];
         this.currentWord = 1;
         this.currentDifficult = 1;
         this.wordPool = [];
-
+        this.specialWord = [];
         this.initialState();
         this.setNewRandomWord();
     }
@@ -34,24 +41,52 @@ export default class {
         this.data[9] = json9;
         this.data[10] = json10;
 
+        this.checkingData[4] = category4;
+        this.checkingData[5] = category5;
+        this.checkingData[6] = category6;
+        this.checkingData[7] = category7;
+        this.checkingData[8] = category8;
+        this.checkingData[9] = category9;
+        this.checkingData[10] = category10;
+
         // const curData = this.data[10].filter((element) => {
         //     const curVocab = element.slice(-1)[0].src.split("/")[2];
         //     return category10.includes(curVocab);
         // });
 
         // console.log(JSON.stringify(curData));
-        const ilegal = ["ค", "ด", "น", "ผ", "ฝ", "พ", "ฟ", "ม"];
-        let count = 0;
-        this.data[6].forEach((element) => {
-            const curConsonant = element.slice(0)[0].src.split("/")[1][0];
+
+        //! สำหรับเช็ค illegal word
+        // const ilegal = ["ค", "ด", "น", "ผ", "ฝ", "พ", "ฟ", "ม"];
+        // let count = 0;
+        // this.data[6].forEach((element) => {
+        //     const curConsonant = element.slice(0)[0].src.split("/")[1][0];
+        //     const curVocab = element.slice(-1)[0].src.split("/")[2];
+
+        //     if (ilegal.includes(curConsonant)) {
+        //         console.log(curVocab);
+        //         count += 1;
+        //     }
+        // });
+        // console.log(count);
+        //! สำหรับเช็ค missed word
+        const checkingIndex = 4; //ใช้เช็คหมวด
+        this.data[checkingIndex].forEach((element) => {
             const curVocab = element.slice(-1)[0].src.split("/")[2];
 
-            if (ilegal.includes(curConsonant)) {
+            if (!this.checkingData[checkingIndex].includes(curVocab)) {
                 console.log(curVocab);
-                count += 1;
             }
         });
-        console.log(count);
+
+        this.checkingData[checkingIndex].forEach((element) => {
+            const curCategory = this.data[checkingIndex].map(
+                (el) => el.slice(-1)[0].src.split("/")[2]
+            );
+            if (!curCategory.includes(element)) {
+                console.log(element);
+            }
+        });
     };
 
     get word() {
