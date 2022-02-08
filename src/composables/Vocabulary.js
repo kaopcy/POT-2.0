@@ -70,7 +70,7 @@ export default class {
         // });
         // console.log(count);
         //! สำหรับเช็ค missed word
-        const checkingIndex = 4; //ใช้เช็คหมวด
+        const checkingIndex = 6; //ใช้เช็คหมวด
         this.data[checkingIndex].forEach((element) => {
             const curVocab = element.slice(-1)[0].src.split("/")[2];
 

@@ -51,9 +51,11 @@ export default {
                 this.$route.name !== "Login" &&
                 this.$store.state.username === ""
             ) {
+                document.getElementById("warn").style.visibility = "visible";
                 document.getElementById("warn").style.opacity = "100%";
                 this.$router.replace({ name: "Login" });
                 setTimeout(() => {
+                    document.getElementById("warn").style.visibility = "hidden";
                     document.getElementById("warn").style.opacity = "0%";
                 }, 2000);
             }
@@ -97,6 +99,7 @@ export default {
         transition: 0.5s all;
     }
     #warn {
+        visibility: hidden;
         z-index: 10000;
         font-size: 20px;
         font-weight: 700;

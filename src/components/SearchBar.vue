@@ -35,7 +35,7 @@
             >
                 {{ word.name }}
                 <span
-                    style="color:rgb(200, 200, 200); fontSize:.7rem; marginLeft:.5rem"
+                    style="color:rgb(200, 200, 200); fontSize:.7rem; marginLeft:.5rem; zIndex:-1;"
                     >หมวดที่ {{ word.index }}</span
                 >
             </div>
@@ -73,7 +73,7 @@ export default {
             "click",
             (event) => {
                 // If user either clicks X button OR clicks outside the modal window, then close modal by calling closeModal()
-                if (!event.target.closest(".input-wrapper")) {
+                if (!event.target.closest(".input-wrapper") && !event.target.closest(".list-container")) {
                     this.isFocus = false;
                 }
                 if (event.target.matches(".close-btn")) {
@@ -129,7 +129,7 @@ export default {
 
 <style lang="scss" scoped>
 .search-container {
-    z-index: 10;
+    z-index: 100;
     position: absolute;
     right: 0;
     font-family: "Sarabun", sans-serif;

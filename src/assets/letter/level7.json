@@ -89,6 +89,94 @@
     ],
     [
         {
+            "char": "ฮ",
+            "color": "black",
+            "src": "consonant/ฮอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "อ",
+            "color": "green",
+            "src": "vowel/ออ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ย",
+            "color": "red",
+            "src": "consonant/ยอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ฮ้อย/ฮอย.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ฮ้อย/ฮอย.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "้",
+            "color": "blue",
+            "src": "tone/โท.mp3",
+            "swap": "2"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ฮ้อย/ฮ้อย.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
+            "char": "ร",
+            "color": "black",
+            "src": "consonant/รอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "อ",
+            "color": "green",
+            "src": "vowel/ออ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ย",
+            "color": "red",
+            "src": "consonant/ยอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ร้อย/รอย.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ร้อย/รอย.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "้",
+            "color": "blue",
+            "src": "tone/โท.mp3",
+            "swap": "2"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ร้อย/ร้อย.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
             "char": "ก",
             "color": "black",
             "src": "consonant/กอ.mp3",
@@ -177,6 +265,50 @@
     ],
     [
         {
+            "char": "ม",
+            "color": "black",
+            "src": "consonant/มอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "า",
+            "color": "green",
+            "src": "vowel/อา.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ม",
+            "color": "red",
+            "src": "consonant/มอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ม้าม/มาม.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ม้าม/มาม.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "้",
+            "color": "blue",
+            "src": "tone/โท.mp3",
+            "swap": "2"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ม้าม/ม้าม.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
             "char": "ก",
             "color": "black",
             "src": "consonant/กอ.mp3",
@@ -216,6 +348,50 @@
             "char": "",
             "color": "",
             "src": "sound/category7/ก่าย/ก่าย.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
+            "char": "ถ",
+            "color": "black",
+            "src": "consonant/ถอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "า",
+            "color": "green",
+            "src": "vowel/อา.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ย",
+            "color": "red",
+            "src": "consonant/ยอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ถ่าย/ถาย.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ถ่าย/ถาย.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "่",
+            "color": "blue",
+            "src": "tone/เอก.mp3",
+            "swap": "2"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ถ่าย/ถ่าย.mp3",
             "swap": "0"
         }
     ],
@@ -536,6 +712,50 @@
             "char": "",
             "color": "",
             "src": "sound/category7/เกี่ยว/เกี่ยว.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
+            "char": "น",
+            "color": "black",
+            "src": "consonant/นอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "แ",
+            "color": "green",
+            "src": "vowel/แอ.mp3",
+            "swap": "1"
+        },
+        {
+            "char": "น",
+            "color": "red",
+            "src": "consonant/นอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/แน่น/แนน.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/แน่น/แนน.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "่",
+            "color": "blue",
+            "src": "tone/เอก.mp3",
+            "swap": "1"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/แน่น/แน่น.mp3",
             "swap": "0"
         }
     ],
@@ -897,6 +1117,50 @@
     ],
     [
         {
+            "char": "ฝ",
+            "color": "black",
+            "src": "consonant/ฝอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ุ",
+            "color": "green",
+            "src": "vowel/อุ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "น",
+            "color": "red",
+            "src": "consonant/นอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ฝุ่น/ฝุน.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ฝุ่น/ฝุน.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "่",
+            "color": "blue",
+            "src": "tone/เอก.mp3",
+            "swap": "1"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ฝุ่น/ฝุ่น.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
             "char": "ข",
             "color": "black",
             "src": "consonant/ขอ.mp3",
@@ -1173,6 +1437,50 @@
     ],
     [
         {
+            "char": "พ",
+            "color": "black",
+            "src": "consonant/พอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ุ",
+            "color": "green",
+            "src": "vowel/อุ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ย",
+            "color": "red",
+            "src": "consonant/ยอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/พุ้ย/พุย.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/พุ้ย/พุย.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "้",
+            "color": "blue",
+            "src": "tone/โท.mp3",
+            "swap": "1"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/พุ้ย/พุ้ย.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
             "char": "ค",
             "color": "black",
             "src": "consonant/คอ.mp3",
@@ -1212,6 +1520,50 @@
             "char": "",
             "color": "",
             "src": "sound/category7/โค้ง/โค้ง.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
+            "char": "ป",
+            "color": "black",
+            "src": "consonant/ปอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "โ",
+            "color": "green",
+            "src": "vowel/โอ.mp3",
+            "swap": "1"
+        },
+        {
+            "char": "ง",
+            "color": "red",
+            "src": "consonant/งอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/โป้ง/โปง.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/โป้ง/โปง.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "้",
+            "color": "blue",
+            "src": "tone/โท.mp3",
+            "swap": "1"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/โป้ง/โป้ง.mp3",
             "swap": "0"
         }
     ],
@@ -1993,6 +2345,50 @@
     ],
     [
         {
+            "char": "ร",
+            "color": "black",
+            "src": "consonant/รอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "อ",
+            "color": "green",
+            "src": "vowel/ออ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ง",
+            "color": "red",
+            "src": "consonant/งอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ร่อง/รอง.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ร่อง/รอง.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "่",
+            "color": "blue",
+            "src": "tone/เอก.mp3",
+            "swap": "2"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ร่อง/ร่อง.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
             "char": "ช",
             "color": "black",
             "src": "consonant/ชอ.mp3",
@@ -2213,6 +2609,50 @@
     ],
     [
         {
+            "char": "ฟ",
+            "color": "black",
+            "src": "consonant/ฟอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ื",
+            "color": "green",
+            "src": "vowel/อือ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "น",
+            "color": "red",
+            "src": "consonant/นอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ฟื้น/ฟืน.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ฟื้น/ฟืน.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "้",
+            "color": "blue",
+            "src": "tone/โท.mp3",
+            "swap": "1"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ฟื้น/ฟื้น.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
             "char": "ช",
             "color": "black",
             "src": "consonant/ชอ.mp3",
@@ -2308,6 +2748,50 @@
             "char": "",
             "color": "",
             "src": "sound/category7/ซ้อน/ซ้อน.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
+            "char": "ฟ",
+            "color": "black",
+            "src": "consonant/ฟอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "อ",
+            "color": "green",
+            "src": "vowel/ออ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "น",
+            "color": "red",
+            "src": "consonant/นอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ฟ้อน/ฟอน.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ฟ้อน/ฟอน.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "้",
+            "color": "blue",
+            "src": "tone/โท.mp3",
+            "swap": "2"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ฟ้อน/ฟ้อน.mp3",
             "swap": "0"
         }
     ],
@@ -3441,6 +3925,92 @@
     ],
     [
         {
+            "char": "ฟ",
+            "color": "black",
+            "src": "consonant/ฟอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ุ",
+            "color": "green",
+            "src": "vowel/อุ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ม",
+            "color": "red",
+            "src": "consonant/มอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ฟุ่มเฟือย/ฟุม.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ฟุ่มเฟือย/ฟุม.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "่",
+            "color": "blue",
+            "src": "tone/เอก.mp3",
+            "swap": "1"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ฟุ่มเฟือย/ฟุ่ม.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ฟ",
+            "color": "black",
+            "src": "consonant/ฟอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "เ",
+            "color": "green",
+            "src": "",
+            "swap": "1"
+        },
+        {
+            "char": "ื",
+            "color": "green",
+            "src": "",
+            "swap": "0"
+        },
+        {
+            "char": "อ",
+            "color": "green",
+            "src": "vowel/เอือ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ย",
+            "color": "red",
+            "src": "consonant/ยอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ฟุ่มเฟือย/เฟือย.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ฟุ่มเฟือย/ฟุ่มเฟือย.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
             "char": "น",
             "color": "black",
             "src": "consonant/นอ.mp3",
@@ -3757,6 +4327,50 @@
     ],
     [
         {
+            "char": "ซ",
+            "color": "black",
+            "src": "consonant/ซอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "อ",
+            "color": "green",
+            "src": "vowel/ออ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "น",
+            "color": "red",
+            "src": "consonant/นอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ซ่อน/ซอน.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ซ่อน/ซอน.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "่",
+            "color": "blue",
+            "src": "tone/เอก.mp3",
+            "swap": "2"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ซ่อน/ซ่อน.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
             "char": "บ",
             "color": "black",
             "src": "consonant/บอ.mp3",
@@ -3933,6 +4547,50 @@
     ],
     [
         {
+            "char": "ถ",
+            "color": "black",
+            "src": "consonant/ถอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ิ",
+            "color": "green",
+            "src": "vowel/อิ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "น",
+            "color": "red",
+            "src": "consonant/นอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ถิ่น/ถิน.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ถิ่น/ถิน.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "่",
+            "color": "blue",
+            "src": "tone/เอก.mp3",
+            "swap": "1"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ถิ่น/ถิ่น.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
             "char": "ป",
             "color": "black",
             "src": "consonant/ปอ.mp3",
@@ -4065,6 +4723,94 @@
     ],
     [
         {
+            "char": "ม",
+            "color": "black",
+            "src": "consonant/มอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ุ",
+            "color": "green",
+            "src": "vowel/อุ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ย",
+            "color": "red",
+            "src": "consonant/ยอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/มุ่ย/มุย.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/มุ่ย/มุย.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "่",
+            "color": "blue",
+            "src": "tone/เอก.mp3",
+            "swap": "1"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/มุ่ย/มุ่ย.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
+            "char": "ต",
+            "color": "black",
+            "src": "consonant/ตอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ุ",
+            "color": "green",
+            "src": "vowel/อุ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ม",
+            "color": "red",
+            "src": "consonant/มอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ตุ่ม/ตุม.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ตุ่ม/ตุม.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "่",
+            "color": "blue",
+            "src": "tone/เอก.mp3",
+            "swap": "1"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ตุ่ม/ตุ่ม.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
             "char": "ป",
             "color": "black",
             "src": "consonant/ปอ.mp3",
@@ -4165,6 +4911,62 @@
     ],
     [
         {
+            "char": "ฟ",
+            "color": "black",
+            "src": "consonant/ฟอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "เ",
+            "color": "green",
+            "src": "",
+            "swap": "1"
+        },
+        {
+            "char": "ื",
+            "color": "green",
+            "src": "",
+            "swap": "0"
+        },
+        {
+            "char": "อ",
+            "color": "green",
+            "src": "vowel/เอือ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ง",
+            "color": "red",
+            "src": "consonant/งอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/เฟื้อง/เฟือง.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/เฟื้อง/เฟือง.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "้",
+            "color": "blue",
+            "src": "tone/โท.mp3",
+            "swap": "2"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/เฟื้อง/เฟื้อง.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
             "char": "ผ",
             "color": "black",
             "src": "consonant/ผอ.mp3",
@@ -4204,6 +5006,50 @@
             "char": "",
             "color": "",
             "src": "sound/category7/ผึ่ง/ผึ่ง.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
+            "char": "พ",
+            "color": "black",
+            "src": "consonant/พอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ึ",
+            "color": "green",
+            "src": "vowel/อึ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ง",
+            "color": "red",
+            "src": "consonant/งอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/พึ่ง/พึง.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/พึ่ง/พึง.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "่",
+            "color": "blue",
+            "src": "tone/เอก.mp3",
+            "swap": "1"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/พึ่ง/พึ่ง.mp3",
             "swap": "0"
         }
     ],
@@ -4668,6 +5514,50 @@
             "char": "",
             "color": "",
             "src": "sound/category7/ย่าน/ย่าน.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
+            "char": "ม",
+            "color": "black",
+            "src": "consonant/มอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "า",
+            "color": "green",
+            "src": "vowel/อา.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "น",
+            "color": "red",
+            "src": "consonant/นอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ม่าน/มาน.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ม่าน/มาน.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "่",
+            "color": "blue",
+            "src": "tone/เอก.mp3",
+            "swap": "2"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/ม่าน/ม่าน.mp3",
             "swap": "0"
         }
     ],
@@ -5828,6 +6718,50 @@
             "char": "",
             "color": "",
             "src": "sound/category7/แอ่ง/แอ่ง.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
+            "char": "ท",
+            "color": "black",
+            "src": "consonant/ทอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "แ",
+            "color": "green",
+            "src": "vowel/แอ.mp3",
+            "swap": "1"
+        },
+        {
+            "char": "ง",
+            "color": "red",
+            "src": "consonant/งอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/แท่ง/แทง.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/แท่ง/แทง.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "่",
+            "color": "blue",
+            "src": "tone/เอก.mp3",
+            "swap": "1"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category7/แท่ง/แท่ง.mp3",
             "swap": "0"
         }
     ]
