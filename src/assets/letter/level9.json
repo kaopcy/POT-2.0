@@ -2321,6 +2321,12 @@
         {
             "char": "",
             "color": "",
+            "src": "sound/category9/ครึกครื้น/ครื้น.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
             "src": "sound/category9/ครึกครื้น/ครึกครื้น.mp3",
             "swap": "0"
         }

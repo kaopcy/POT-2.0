@@ -557,6 +557,12 @@
         {
             "char": "",
             "color": "",
+            "src": "sound/category4/เจดีย์/ดีย์.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
             "src": "sound/category4/เจดีย์/เจดีย์.mp3",
             "swap": "0"
         }
@@ -1780,6 +1786,18 @@
             "char": "ฤๅ",
             "color": "green",
             "src": "vowel/ฤา.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "vowel/อือ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category4/ฤา.mp3",
             "swap": "0"
         },
         {

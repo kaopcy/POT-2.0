@@ -1049,7 +1049,7 @@
             "swap": "0"
         },
         {
-            "char": "",
+            "char": "ะ",
             "color": "green",
             "src": "vowel/อะ.mp3",
             "swap": "0"
@@ -3487,7 +3487,7 @@
         {
             "char": "",
             "color": "",
-            "src": "sound/category5/ปี่/อี.mp3",
+            "src": "sound/category5/ปี่/ปี.mp3",
             "swap": "0"
         },
         {
@@ -4153,12 +4153,6 @@
             "color": "",
             "src": "sound/category5/ค้า/ค้า.mp3",
             "swap": "0"
-        },
-        {
-            "char": "",
-            "color": "",
-            "src": "sound/category5/ค้า/ค้า.mp3",
-            "swap": "0"
         }
     ],
     [
@@ -4191,12 +4185,6 @@
             "color": "blue",
             "src": "tone/โท.mp3",
             "swap": "1"
-        },
-        {
-            "char": "",
-            "color": "",
-            "src": "sound/category5/ฝ้า/ฝ้า.mp3",
-            "swap": "0"
         },
         {
             "char": "",

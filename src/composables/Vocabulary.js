@@ -22,7 +22,7 @@ export default class {
         this.data = [];
         this.checkingData = [];
         this.currentWord = 1;
-        this.currentDifficult = 1;
+        this.currentDifficult = 8;
         this.wordPool = [];
         this.specialWord = [];
         this.initialState();
@@ -56,36 +56,53 @@ export default class {
 
         // console.log(JSON.stringify(curData));
 
+        // const checkingIndex = 8; //ใช้เช็คหมวด
         //! สำหรับเช็ค illegal word
         // const ilegal = ["ค", "ด", "น", "ผ", "ฝ", "พ", "ฟ", "ม"];
-        // let count = 0;
-        // this.data[6].forEach((element) => {
+        // let count = 0
+        // this.data[checkingIndex].forEach((element) => {
         //     const curConsonant = element.slice(0)[0].src.split("/")[1][0];
         //     const curVocab = element.slice(-1)[0].src.split("/")[2];
-
         //     if (ilegal.includes(curConsonant)) {
-        //         console.log(curVocab);
-        //         count += 1;
+        //         console.log(`Vocab: ${curVocab} Consonmant: ${curConsonant}`);
+        //         count++
         //     }
         // });
         // console.log(count);
+
         //! สำหรับเช็ค missed word
-        const checkingIndex = 9; //ใช้เช็คหมวด
-        this.data[checkingIndex].forEach((element) => {
-            const curVocab = element.slice(-1)[0].src.split("/")[2];
+        // this.data[checkingIndex].forEach((element) => {
+        //     const curVocab = element.slice(-1)[0].src.split("/")[2];
+        //     if (!this.checkingData[checkingIndex].includes(curVocab)) {
+        //         console.log(curVocab);
+        //     }
+        // });
+        // this.checkingData[checkingIndex].forEach((element) => {
+        //     const curCategory = this.data[checkingIndex].map(
+        //         (el) => el.slice(-1)[0].src.split("/")[2]
+        //     );
+        //     if (!curCategory.includes(element)) {
+        //         console.log(element);
+        //     }
+        // });
 
-            if (!this.checkingData[checkingIndex].includes(curVocab)) {
-                console.log(curVocab);
-            }
-        });
-
-        this.checkingData[checkingIndex].forEach((element) => {
-            const curCategory = this.data[checkingIndex].map(
-                (el) => el.slice(-1)[0].src.split("/")[2]
-            );
-            if (!curCategory.includes(element)) {
-                console.log(element);
-            }
+        // ! สำหรับเช็ค sound word file
+        this.data.forEach((curCategory , index) => {
+            curCategory.forEach((wordPacket) => {
+                const curVocab = wordPacket.slice(-1)[0].src.split("/")[2];
+                const doubleWord = this.checkDoubleWord(wordPacket);
+                if (doubleWord) {
+                    doubleWord.forEach((e) => {
+                        wordPacket.splice(-1 , 0 ,{
+                            char: "",
+                            color: "",
+                            src: `sound/category${index}/${curVocab}/${e}.mp3`,
+                            swap: 0,
+                            delay: 0,
+                        });
+                    });
+                }
+            });
         });
     };
 
@@ -153,6 +170,30 @@ export default class {
             this.levelUp();
             callback();
         }
+    };
+
+    checkDoubleWord = (wordPacket) => {
+        const filterBySound = [];
+        wordPacket.slice(0, -1).forEach((element) => {
+            if (element.src.includes("sound")) {
+                const currentSoundName = element.src
+                    .split("/")
+                    .slice(-1)[0]
+                    .slice(0, -4);
+                const duplicateIndex = filterBySound.findIndex(
+                    (e) => e === currentSoundName
+                );
+                if (duplicateIndex !== -1) {
+                    filterBySound.splice(duplicateIndex, 1);
+                } else {
+                    filterBySound.push(currentSoundName);
+                }
+            }
+        });
+        if (filterBySound.length > 0) {
+            return filterBySound;
+        }
+        return null;
     };
 
     clear = () => {

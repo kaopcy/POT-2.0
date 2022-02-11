@@ -693,7 +693,7 @@
         {
             "char": "",
             "color": "",
-            "src": "sound/category8/เขต/เขด.mp3",
+            "src": "sound/category8/เขต/เขต.mp3",
             "swap": "0"
         }
     ],
@@ -913,7 +913,7 @@
         {
             "char": "",
             "color": "",
-            "src": "sound/category8/จิตใจ/จิด.mp3",
+            "src": "sound/category8/จิตใจ/จิต.mp3",
             "swap": "0"
         },
         {
@@ -1171,6 +1171,12 @@
             "color": "",
             "src": "sound/category8/ชีวิต/วิต.mp3",
             "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category8/ชีวิต/ชีวิต.mp3",
+            "swap": "0"
         }
     ],
     [
@@ -1380,6 +1386,12 @@
             "char": "",
             "color": "",
             "src": "sound/category8/โชคดี/ดี.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/category8/โชคดี/โชคดี.mp3",
             "swap": "0"
         }
     ],

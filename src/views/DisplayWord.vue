@@ -67,7 +67,6 @@ export default {
 
             for (let i = 0; i < this.currentWord.length; i++) {
                 if (this.currentWord[i].char !== "") {
-                    console.log(`datachar [${i}]: ${this.currentWord[i].char}`);
                     temp.tempText.push(this.currentWord[i].char);
                     temp.tempColor.push(this.currentWord[i].color);
                     temp.tempSwap.push(this.currentWord[i].swap);
@@ -231,11 +230,10 @@ export default {
         this.innerText = "";
 
         this.voice.addEventListener("error", () => {
-            console.log(`char: ${char}`);
             if (!this.currentWord[char + 1]) {
                 console.log("ended");
                 setTimeout(() => {
-                    this.$router.go(-1);
+                    this.$router.push({ name: "Edit" });
                 }, this.delayAfterWord);
             } else {
                 char++;
@@ -245,6 +243,12 @@ export default {
         });
 
         this.voice.addEventListener("ended", () => {
+            let curDelay = undefined;
+            // console.log(this.currentWord[char].delay);
+            if (this.currentWord[char] && this.currentWord[char].delay === 0) {
+                curDelay = this.currentWord[char].delay;
+                console.log("delay la isas");
+            }
             setTimeout(() => {
                 if (!this.currentWord[char + 1]) {
                     console.log("ended");
@@ -256,7 +260,7 @@ export default {
                     this.startVoice(char);
                     this.innerText = "";
                 }
-            }, this.textProperty.textDelay);
+            }, curDelay ?? this.textProperty.textDelay);
         });
 
         window.addEventListener("keyup", (event) => {
@@ -281,8 +285,8 @@ export default {
         this.data[10] = json10;
 
         const wordID = this.$route.params.id;
-
-        this.data.forEach((list) => {
+        let wordCategory = 0;
+        this.data.forEach((list, index) => {
             list.forEach((word) => {
                 const curWord = word
                     .slice(-1)[0]
@@ -291,9 +295,48 @@ export default {
                     .split(".")[0];
                 if (curWord == wordID) {
                     this.currentWord = word;
+                    wordCategory = index;
                 }
             });
         });
+
+        const checkDoubleWord = (wordPacket) => {
+            const filterBySound = [];
+            wordPacket.slice(0, -1).forEach((element) => {
+                if (element.src.includes("sound")) {
+                    const currentSoundName = element.src
+                        .split("/")
+                        .slice(-1)[0]
+                        .slice(0, -4);
+                    const duplicateIndex = filterBySound.findIndex(
+                        (e) => e === currentSoundName
+                    );
+                    if (duplicateIndex !== -1) {
+                        filterBySound.splice(duplicateIndex, 1);
+                    } else {
+                        filterBySound.push(currentSoundName);
+                    }
+                }
+            });
+            if (filterBySound.length > 0) {
+                return filterBySound;
+            }
+            return null;
+        };
+
+        const doubleWord = checkDoubleWord(this.currentWord);
+        if (doubleWord) {
+            doubleWord.forEach((e) => {
+                this.currentWord.splice(-1, 0, {
+                    char: "",
+                    color: "",
+                    src: `sound/category${wordCategory}/${wordID}/${e}.mp3`,
+                    swap: 0,
+                    delay: 0,
+                });
+            });
+        }
+        console.log(this.currentWord);
     },
 
     beforeDestroy() {

@@ -129,6 +129,7 @@ export default {
         handleWordClick(word) {
             this.$router.push({ path: `/end-score/${word}` });
             this.$store.commit("addWatchedWord", word);
+            console.log(word);
         },
 
         back() {

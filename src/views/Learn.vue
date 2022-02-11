@@ -71,7 +71,6 @@ export default {
 
             for(let i = 0 ; i < this.myVocab.wordLength; i++){
                 if(this.myVocab.word[i].char !== ''){
-                    console.log(`datachar [${i}]: ${this.myVocab.word[i].char}`)
                     temp.tempText.push(this.myVocab.word[i].char);
                     temp.tempColor.push(this.myVocab.word[i].color);
                     temp.tempSwap.push(this.myVocab.word[i].swap);
@@ -229,6 +228,10 @@ export default {
             })
 
             this.voice.addEventListener( 'ended' , ()=>{
+                let curDelay = undefined
+                if (this.myVocab.word[char] && this.myVocab.word[char].delay === 0) {
+                    curDelay = this.myVocab.word[char].delay;
+                }
                 setTimeout(() => {
                     if(!this.myVocab.word[char+1]){
                         isListenKeyDown = true;
@@ -237,7 +240,8 @@ export default {
                         this.startVoice(char);
                         this.clearInnerText();
                     }
-                }, this.textProperty.textDelay);
+                    
+                }, curDelay ?? this.textProperty.textDelay);
             })
     
             window.addEventListener( 'keydown' ,(event) => {
