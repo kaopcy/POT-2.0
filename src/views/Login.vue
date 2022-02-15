@@ -1,7 +1,7 @@
 <template>
     <div class="login">
         <div class="content">
-            <h1>Login</h1>
+            <h1>เข้าสู่ระบบ</h1>
             <div id="validated">Please enter name.</div>
             <input
                 type="text"
@@ -9,10 +9,10 @@
                 placeholder="ชื่อ-นามสกุล"
                 v-model="username"
             />
-            <div class="btn" @click="login">enter</div>
+            <div class="btn" @click="login">ตกลง</div>
         </div>
         <div class="edit-btn" @click="edit()">
-            Edit
+            คำศัพท์
         </div>
     </div>
 </template>
@@ -56,6 +56,7 @@ export default {
 
 <style lang="scss" scoped>
 .login {
+    font-family: 'Sarabun';
     position: absolute;
     width: 100%;
     height: 100%;
@@ -75,12 +76,13 @@ export default {
         border-radius: 20px;
 
         h1 {
-            font-size: 60px;
+            font-size: 45px;
             font-weight: 700;
             color: #303030;
         }
 
         input[type="text"] {
+            font-family: 'Sarabun';
             width: 400px;
             font-size: 20px;
             padding: 15px 20px;
@@ -108,9 +110,9 @@ export default {
         .btn {
             width: 400px;
             color: #fff;
-            font-size: 30px;
+            font-size: 20px;
             text-align: center;
-            padding: 5px 20px;
+            padding: 10px 20px;
             background-color: rgb(51, 173, 255);
             border-radius: 5px;
             cursor: pointer;
@@ -133,12 +135,17 @@ export default {
     right: 0;
     bottom: 0;
     padding: 1rem 2rem;
-    font-size: 2rem;
+    font-size: 1rem;
     font-weight: bold;
     background-color: #fff;
     margin: 2rem;
-    border-radius: 1rem;
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     cursor: pointer;
+
+    &:hover{
+        box-shadow: rgba(116, 119, 121, 0.2) 0px 8px 24px;
+    }
 }
 
 </style>

@@ -3,8 +3,8 @@
         <div id="time">
             <TimerComponent :time="timer.maxTime - timer.time" class="timer"/>
             <div class="text-container difficult-wrapper">
-                <div class="difficult">Difficult: {{myVocab.currentDifficult}}</div>
-                <div class="plus-difficult" @click="myVocab.currentDifficult > 1 ? myVocab.levelUp(): null" disabled>+</div>
+                <div class="difficult">Difficult: {{isFreezing ? myVocab.curLevel+ 1:myVocab.curLevel }}</div>
+                <div class="plus-difficult" @click="myVocab.curLevel > 1 ?  isFreezing = true : null" disabled>+</div>
             </div>
             <div class="text-container username-container">
                 Name: {{ $store.state.username }}
@@ -209,7 +209,6 @@ export default {
         },
 
         start(){
-            this.myVocab.setNewRandomWord();
             let char = 0;
             let isListenKeyDown = false;
             let isListenKeyUp = false;
@@ -217,7 +216,6 @@ export default {
             this.clearInnerText();
 
             this.voice.addEventListener( 'error' , ()=>{
-                console.log(`char: ${char}`);
                 if(!this.myVocab.word[char+1]){
                     isListenKeyDown = true;
                 }else {
@@ -232,9 +230,11 @@ export default {
                 if (this.myVocab.word[char] && this.myVocab.word[char].delay === 0) {
                     curDelay = this.myVocab.word[char].delay;
                 }
+                
                 setTimeout(() => {
                     if(!this.myVocab.word[char+1]){
                         isListenKeyDown = true;
+                        
                     }else {
                         char++;
                         this.startVoice(char);
@@ -257,12 +257,20 @@ export default {
             })
 
             window.addEventListener('keyup' , (event) => {
+                if (event.code === 'KeyU'){
+                    this.voice.pause()
+                }
+
                 if( event.code === 'Space' && isListenKeyUp ){
                     isListenKeyDown = false;
                     isListenKeyUp = false;
                     this.voiceImg = false;
                     //Score up
                     this.$store.commit('LearnScoreUp')
+                    if( this.myVocab.isEndPractice && !this.timer.timerInterval ) {
+                        this.isFreezing = true
+                        this.startTimer();
+                    }
                     // End sound record here.....
 
                     // =============================
@@ -271,22 +279,19 @@ export default {
                         this.isFreezing = false
                         setTimeout(() => {
                             // check if vocab pass practice state
-                            if (this.myVocab.currentDifficult <= 1){
-                                if( this.myVocab.wordPool.length >= 1 ) {
-                                    this.myVocab.levelUp();
-                                    this.startTimer();
-                                }
-                            }
+                            
                             this.myVocab.setNewRandomWord();
                             char = 0;
                             this.startVoice(char);
                             this.clearInnerText();
                         }, this.textProperty.wordDelay);
                     }
+
                     // ใช้เมื่อต้องการพักระหว่างเปลี่ยน category
                     if (this.isFreezing){
-                        document.getElementById('kumthai').innerHTML = 'Freezing'
+                        document.getElementById('kumthai').innerHTML = `+`
                         setTimeout(() => {
+                            this.myVocab.levelUp()
                             nextWord();
                         }, this.freezTime);
                     } else{
@@ -322,14 +327,6 @@ export default {
                 if ( timeLeft == 0) this.$router.replace({name: 'EndScore'})
                 if (!this.isFreezing) this.timer.time++;
             }, 1000);
-        }
-
-    },
-
-    watch:{
-        isFreezing: function( newVal , oldVal ) {
-            console.log(oldVal);
-            console.log(newVal);
         }
     },
 
@@ -485,8 +482,6 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-        #kumthai{
-        }
         #plus{
             font-size: 100px;
 
