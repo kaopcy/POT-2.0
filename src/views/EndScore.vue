@@ -46,6 +46,7 @@ export default {
         },
     },
     mounted() {
+        console.log(this.$store.state.result);
         const endSound = new Audio("bell.mp3");
         endSound.play();
         this.frame();

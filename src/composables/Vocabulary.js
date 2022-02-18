@@ -178,24 +178,23 @@ class Vocab {
 }
 
 export default class {
-    constructor() {
+    constructor(level) {
         this.vocabData = [];
         this.checkingData = [];
-        this.curWord = 1;
-        this.curLevel = 1;
+        this.curWord = null;
+        this.curLevel = level;
         this.wordPool = [];
         this.isSpecialWord = false;
         this.isEndPractice = false;
+        this.curWordID = null
 
         this.init();
         this.setNewRandomWord();
     }
 
     init = () => {
-        for (let i = 1; i <= 10; i++) {
-            const json = require(`../assets/letter/level${i}.json`);
-            this.vocabData[i] = new Vocab(json, i);
-        }
+            const json = require(`../assets/letter/level${this.curLevel}.json`);
+            this.vocabData = new Vocab(json, this.curLevel);
     };
 
     get word() {
@@ -205,83 +204,44 @@ export default class {
         return this.curWord.length;
     }
 
+    get isEmpty(){
+        return this.vocabData.length == 0
+    }
+
     setNewRandomWord = () => {
         // init min max
         let min = 0;
-        let max = this.vocabData[this.curLevel].length - 1;
+        let max = this.vocabData.length - 1;
 
         // if level is 4 to 7 start using isSpecialWord
         if (this.curLevel >= 4 && this.curLevel <= 7) {
             // toggle isSpecial
             this.isSpecialWord = !this.isSpecialWord;
 
-            min = this.vocabData[this.curLevel].splitIndex;
-            max = this.vocabData[this.curLevel].length - 1;
+            min = this.vocabData.splitIndex;
+            max = this.vocabData.length - 1;
             if (this.isSpecialWord) {
-                this.vocabData[this.curLevel].splitIndex -= 1;
+                this.vocabData.splitIndex -= 1;
                 min = 0;
-                max = this.vocabData[this.curLevel].splitIndex - 1;
+                max = this.vocabData.splitIndex - 1;
             }
         }
 
         const index = Math.floor(Math.random() * (max - min)) + min;
-        const wordToDelete = this.vocabData[this.curLevel].wordID(
+        const wordToDelete = this.vocabData.wordID(
             "sorted",
             index
         );
 
         // set current word and delete word from list
-        this.curWord = this.vocabData[this.curLevel].word("sorted", index);
-        this.vocabData[this.curLevel].deleteWord(wordToDelete);
+        this.curWord = this.vocabData.word("sorted", index);
+        this.curWordID = wordToDelete
+        this.vocabData.deleteWord(wordToDelete);
 
         console.log(wordToDelete);
-        console.log(this.vocabData[this.curLevel].sortedData("word"));
 
-        if (!this.vocabData[this.curLevel].length) {
+        if (!this.vocabData.length) {
             this.isEndPractice = true;
         }
-    };
-
-    levelUp = (cb) => {
-        if (this.curLevel < 10) {
-            this.isSpecialWord = false;
-            this.curLevel++;
-        }
-        if(cb){
-            cb()
-        }
-    };
-
-    checkToLevelup = (markTime, callback) => {
-        if (markTime == 60 && this.curLevel == 2) {
-            //level 1 => 2
-            callback();
-        } else if (markTime == 60 && this.curLevel == 3) {
-            //level 2 => 3
-            callback();
-        } else if (markTime == 240 && this.curLevel == 4) {
-            //level 3 => 4
-            callback();
-        } else if (markTime == 240 && this.curLevel == 5) {
-            //level 4 => 5
-            callback();
-        } else if (markTime == 240 && this.curLevel == 6) {
-            //level 5 => 6
-            callback();
-        } else if (markTime == 240 && this.curLevel == 7) {
-            //level 6 => 7
-            callback();
-        } else if (markTime == 240 && this.curLevel == 8) {
-            //level 7 => 8
-            callback();
-        } else if (markTime == 240 && this.curLevel == 9) {
-            //level 8 => 9
-            callback();
-        }
-    };
-
-    clear = () => {
-        this.vocabData = null;
-        this.curLevel = null;
     };
 }

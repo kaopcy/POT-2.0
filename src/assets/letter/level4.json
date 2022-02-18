@@ -66,7 +66,7 @@
         },
         {
             "char": "ิ",
-            "color": "red",
+            "color": "green",
             "src": "vowel/อิ.mp3",
             "swap": "0"
         },
@@ -545,13 +545,19 @@
         {
             "char": "ี",
             "color": "green",
-            "src": "",
+            "src": "vowel/อี.mp3",
             "swap": "0"
         },
         {
-            "char": "ย์",
+            "char": "ย",
             "color": "yellow",
-            "src": "vowel/อี.mp3",
+            "src": "consonant/ยอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "์",
+            "color": "yellow",
+            "src": "vowel/การันต์.mp3",
             "swap": "0"
         },
         {
@@ -1765,13 +1771,19 @@
         {
             "char": "า",
             "color": "green",
-            "src": "",
+            "src": "vowel/เอา.mp3",
             "swap": "0"
         },
         {
-            "char": "ว์",
+            "char": "ว",
             "color": "yellow",
-            "src": "vowel/เอา.mp3",
+            "src": "consonant/วอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "์",
+            "color": "yellow",
+            "src": "vowel/การันต์.mp3",
             "swap": "0"
         },
         {
@@ -4145,9 +4157,9 @@
     ],
     [
         {
-            "char": "",
+            "char": "ย",
             "color": "black",
-            "src": "consonant/อ.mp3",
+            "src": "consonant/ยอ.mp3",
             "swap": "0"
         },
         {
@@ -4765,19 +4777,19 @@
         {
             "char": "า",
             "color": "green",
-            "src": "",
+            "src": "vowel/อา.mp3",
             "swap": "0"
         },
         {
             "char": "ห",
             "color": "yellow",
-            "src": "",
+            "src": "consonant/หอ.mp3",
             "swap": "0"
         },
         {
             "char": "์",
             "color": "yellow",
-            "src": "vowel/อา.mp3",
+            "src": "vowel/การันต์.mp3",
             "swap": "0"
         },
         {

@@ -1313,14 +1313,8 @@
         {
             "char": "เ",
             "color": "green",
-            "src": "",
-            "swap": "1"
-        },
-        {
-            "char": "ห์",
-            "color": "yellow",
             "src": "vowel/เอ.mp3",
-            "swap": "0"
+            "swap": "1"
         },
         {
             "char": "",
@@ -1338,7 +1332,19 @@
             "char": "่",
             "color": "blue",
             "src": "tone/เอก.mp3",
-            "swap": "1"
+            "swap": "0"
+        },
+        {
+            "char": "ห",
+            "color": "yellow",
+            "src": "consonant/หอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "์",
+            "color": "yellow",
+            "src": "vowel/การันต์.mp3",
+            "swap": "0"
         },
         {
             "char": "",
@@ -4383,7 +4389,7 @@
             "swap": "0"
         },
         {
-            "char": "",
+            "char": "ผ",
             "color": "black",
             "src": "consonant/ผอ.mp3",
             "swap": "0"

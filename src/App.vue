@@ -3,7 +3,7 @@
         <!-- <NavSideBar id="nav-side-bar" />
     <Navbar v-show="false" id="nav-bar"/> -->
         <div id="warn">please login first</div>
-        <router-view class="router"></router-view>
+        <router-view class="router" :key="$route.path"></router-view>
     </div>
 </template>
 

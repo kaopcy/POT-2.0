@@ -113,7 +113,13 @@
     ],
     [
         {
-            "char": "-ุ",
+            "char": "-",
+            "color": "green",
+            "src": "",
+            "swap": "0"
+        },
+        {
+            "char": "ุ",
             "color": "green",
             "src": "vowel/อุ.mp3",
             "swap": "0"
@@ -121,7 +127,13 @@
     ],
     [
         {
-            "char": "-ู",
+            "char": "-",
+            "color": "green",
+            "src": "",
+            "swap": "0"
+        },
+        {
+            "char": "ู",
             "color": "green",
             "src": "vowel/อู.mp3",
             "swap": "0"
@@ -169,7 +181,25 @@
     ],
     [
         {
-            "char": "เ-ียะ",
+            "char": "เ",
+            "color": "green",
+            "src": "",
+            "swap": "0"
+        },
+        {
+            "char": "-",
+            "color": "green",
+            "src": "",
+            "swap": "0"
+        },
+        {
+            "char": "ี",
+            "color": "green",
+            "src": "",
+            "swap": "0"
+        },
+        {
+            "char": "ยะ",
             "color": "green",
             "src": "vowel/เอียะ.mp3",
             "swap": "0"
@@ -177,7 +207,25 @@
     ],
     [
         {
-            "char": "เ-ีย",
+            "char": "เ",
+            "color": "green",
+            "src": "",
+            "swap": "0"
+        },
+        {
+            "char": "-",
+            "color": "green",
+            "src": "",
+            "swap": "0"
+        },
+        {
+            "char": "ี",
+            "color": "green",
+            "src": "",
+            "swap": "0"
+        },
+        {
+            "char": "ย",
             "color": "green",
             "src": "vowel/เอีย.mp3",
             "swap": "0"
@@ -185,7 +233,25 @@
     ],
     [
         {
-            "char": "เ-ือะ",
+            "char": "เ",
+            "color": "green",
+            "src": "",
+            "swap": "0"
+        },
+        {
+            "char": "-",
+            "color": "green",
+            "src": "",
+            "swap": "0"
+        },
+        {
+            "char": "ื",
+            "color": "green",
+            "src": "",
+            "swap": "0"
+        },
+        {
+            "char": "อะ",
             "color": "green",
             "src": "vowel/เอือะ.mp3",
             "swap": "0"
@@ -193,7 +259,25 @@
     ],
     [
         {
-            "char": "เ-ือ",
+            "char": "เ",
+            "color": "green",
+            "src": "",
+            "swap": "0"
+        },
+        {
+            "char": "-",
+            "color": "green",
+            "src": "",
+            "swap": "0"
+        },
+        {
+            "char": "ื",
+            "color": "green",
+            "src": "",
+            "swap": "0"
+        },
+        {
+            "char": "อ",
             "color": "green",
             "src": "vowel/เอือ.mp3",
             "swap": "0"

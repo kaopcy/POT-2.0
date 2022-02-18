@@ -40,12 +40,14 @@ export default {
                 "็",
                 "์",
             ],
+            toneLetter: ["่", "้", "๊", "๋"],
             lowerLetter: ["ุ", "ู"],
             longLetter: ["ป", "ฬ", "ฝ", "ฟ"],
             textProperty: {
                 letterSpacing: 60,
                 fontSize: 250,
-                textDelay: 500,
+                // textDelay: 500,
+                textDelay: 0,
                 wordDelay: 2000,
             },
             delayAfterWord: 500,
@@ -97,7 +99,81 @@ export default {
                 }
             }
             for (let i = 0; i < temp.tempColor.length; i++) {
-                // ถ้าตัวเองเป็น long letter
+                // if (!temp.tempText[i+1] && !this.upperLetter.includes(temp.tempText[i])){
+                //     this.innerText = this.innerText.concat(`<span style="
+                //         font-size:${this.textProperty.fontSize + i * 0.5}px; 
+                //         letter-spacing: 0;
+                //         opacity:${temp.opacity}%;
+                //         color:${temp.tempColor[i]};
+                //         "
+                //         id="text${i}";
+                //         >${temp.tempText[i]}</span>`);
+                //     continue;
+                // }
+
+                // if (temp.tempText === '-' && this.upperLetter.includes(temp.tempText[i+1]) ) {
+                //     this.innerText = this.innerText.concat(`<span style="
+                //         font-size:${this.textProperty.fontSize + i * 0.5}px; 
+                //         letter-spacing:${this.textProperty.letterSpacing * 0}px;
+                //         opacity:${temp.opacity}%;
+                //         color:${temp.tempColor[i]};
+                //         "
+                //         id="text${i}";
+                //         >${temp.tempText[i]}</span>`);
+                //     continue;
+                // }
+
+                // ป่าว ฝ้า ฟ้าผ่า
+                if (
+                    this.longLetter.includes(temp.tempText[i - 1]) &&
+                    this.upperLetter.includes(temp.tempText[i]) &&
+                    !this.upperLetter.includes(temp.tempText[i + 1])
+                ) {
+                    this.innerText = this.innerText.concat(`<span style="
+                        font-size:${this.textProperty.fontSize + i * 0.5}px; 
+                        letter-spacing:${this.textProperty.letterSpacing * 2}px;
+                        opacity:${temp.opacity}%;
+                        color:${temp.tempColor[i]};
+                        "
+                        id="text${i}";
+                        >${temp.tempText[i]}</span>`);
+                    continue;
+                }
+
+                if (
+                    this.longLetter.includes(temp.tempText[i - 2]) &&
+                    this.lowerLetter.includes(temp.tempText[i - 1]) &&
+                    this.upperLetter.includes(temp.tempText[i]) &&
+                    !this.upperLetter.includes(temp.tempText[i + 1])
+                ) {
+                    this.innerText = this.innerText.concat(`<span style="
+                        font-size:${this.textProperty.fontSize + i * 0.5}px; 
+                        letter-spacing:${this.textProperty.letterSpacing * 2}px;
+                        opacity:${temp.opacity}%;
+                        color:${temp.tempColor[i]};
+                        "
+                        id="text${i}";
+                        >${temp.tempText[i]}</span>`);
+                    continue;
+                }
+
+                if (
+                    this.longLetter.includes(temp.tempText[i - 1]) &&
+                    this.lowerLetter.includes(temp.tempText[i]) &&
+                    this.toneLetter.includes(temp.tempText[i + 1])
+                ) {
+                    this.innerText = this.innerText.concat(`<span style="
+                        font-size:${this.textProperty.fontSize + i * 0.5}px; 
+                        letter-spacing:${this.textProperty.letterSpacing * 0}px;
+                        margin-right:${this.textProperty.letterSpacing * -1}px;
+                        opacity:${temp.opacity}%;
+                        color:${temp.tempColor[i]};
+                        "
+                        id="text${i}";
+                        >${temp.tempText[i]}</span>`);
+                    continue;
+                }
+
                 if (this.longLetter.indexOf(temp.tempText[i]) !== -1) {
                     if (this.upperLetter.indexOf(temp.tempText[i + 1]) !== -1)
                         //ถ้าตัวหลังเป็น upper ให้ letter spacing = -60
@@ -220,7 +296,7 @@ export default {
         },
 
         back() {
-            this.$router.push({ name: "Edit" });
+            // this.$router.push({ name: "Edit" });
         },
     },
 
@@ -232,9 +308,9 @@ export default {
         this.voice.addEventListener("error", () => {
             if (!this.currentWord[char + 1]) {
                 console.log("ended");
-                setTimeout(() => {
-                    this.$router.push({ name: "Edit" });
-                }, this.delayAfterWord);
+                // setTimeout(() => {
+                //     this.$router.push({ name: "Edit" });
+                // }, this.delayAfterWord);
             } else {
                 char++;
                 this.startVoice(char);
@@ -253,7 +329,7 @@ export default {
                 if (!this.currentWord[char + 1]) {
                     console.log("ended");
                     setTimeout(() => {
-                        this.$router.go(-1);
+                        // this.$router.go(-1);
                     }, this.delayAfterWord);
                 } else {
                     char++;

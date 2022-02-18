@@ -33,7 +33,7 @@ export default {
             }
             this.$store.commit("updateUsername", this.username);
             this.$store.commit("updateLogin", true);
-            this.$router.replace({ name: "Learn" });
+            this.$router.replace({ name: "Practice" });
         },
         validated() {
             const validatedDOM = document.getElementById("validated");

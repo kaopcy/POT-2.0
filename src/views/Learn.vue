@@ -1,10 +1,10 @@
 <template>
     <div class="learn" id="learn">
         <div id="time">
-            <TimerComponent :time="timer.maxTime - timer.time" class="timer"/>
             <div class="text-container difficult-wrapper">
-                <div class="difficult">Difficult: {{isFreezing ? myVocab.curLevel+ 1:myVocab.curLevel }}</div>
-                <div class="plus-difficult" @click="myVocab.curLevel > 1 ?  isFreezing = true : null" disabled>+</div>
+                <TimerComponent :time="$store.state.timeLeft" />
+                <div class="difficult">Difficult: {{ myVocab.curLevel }}</div>
+                <div class="plus-difficult">+</div>
             </div>
             <div class="text-container username-container">
                 Name: {{ $store.state.username }}
@@ -14,16 +14,15 @@
             </div>
         </div>
         <!-- showing text -->
-        <div class="wrapper" v-show="timer.isStart">
-            <div id="kumthai"></div>
-            <img src="../assets/voice.png" class="voice-img" v-if="voiceImg">
-        </div>
+        <div id="kumthai"></div>
+        <img src="../assets/voice.png" class="voice-img" v-if="voiceImg">
     </div>
 </template>
 
 <script>
-import TimerComponent from '../components/TimerComponent.vue'
 import Vocaburaly from '../composables/Vocabulary.js'
+import TimerComponent from  '../components/TimerComponent.vue'
+import WordTimer from '../composables/wordTimer'
 
 export default {
     name: 'Learn',
@@ -32,15 +31,12 @@ export default {
     },
     data() {
         return {
-            timer: {
-                maxTime: 1800,
-                // maxTime: 40,
-                isStart: false,
-                timerInterval: null,
-                time: 0,
-            },
-            myVocab: new Vocaburaly(),
+            myVocab: null,
+            level: null,
+            
+            // text property
             innerText: '',
+            toneLetter: ["่", "้", "๊", "๋"],
             upperLetter: ['่' , '้' , '๊' , "๋" , "ิ" , 'ี' , 'ึ' , 'ื' , 'ั' , 'ํ' , '็' , '์',],
             lowerLetter: [ 'ุ', 'ู'],
             longLetter: ['ป','ฬ','ฝ','ฟ'],
@@ -50,10 +46,25 @@ export default {
                 textDelay: 500,
                 wordDelay: 2000,
             },
-            isFreezing: false,
-            freezTime: 2000,
+
+            // voice
             voiceImg: false,
             voice: new Audio(),
+
+            // Event
+            onVoiceError: null,
+            onVoiceEnd: null,
+            onKeyDown: null,
+            onKeyUp: null,
+
+            // Timeout
+            characterTimeout: null,
+            wordTimeout: null,
+
+            // interval
+            wordTimer: null,
+            categoryTimer: null,
+            timerInterval: null,
         }
     },
 
@@ -104,6 +115,69 @@ export default {
                 }
             }
             for(let i = 0 ; i < temp.tempColor.length; i++){
+                // if (!temp.tempText[i+1] && !this.upperLetter.includes(temp.tempText[i])){
+                //     this.innerText = this.innerText.concat(`<span style="
+                //         font-size:${this.textProperty.fontSize + i * 0.5}px; 
+                //         letter-spacing: 0;
+                //         opacity:${temp.opacity}%;
+                //         color:${temp.tempColor[i]};
+                //         "
+                //         id="text${i}";
+                //         >${temp.tempText[i]}</span>`);
+                //     continue;
+                // }
+
+                // ป่าว ฝ้า ฟ้าผ่า
+                if (
+                    this.longLetter.includes(temp.tempText[i - 1]) &&
+                    this.upperLetter.includes(temp.tempText[i]) &&
+                    !this.upperLetter.includes(temp.tempText[i + 1])
+                ) {
+                    this.innerText = this.innerText.concat(`<span style="
+                        font-size:${this.textProperty.fontSize + i * 0.5}px; 
+                        letter-spacing:${this.textProperty.letterSpacing * 2}px;
+                        opacity:${temp.opacity}%;
+                        color:${temp.tempColor[i]};
+                        "
+                        id="text${i}";
+                        >${temp.tempText[i]}</span>`);
+                    continue;
+                }
+
+                if (
+                    this.longLetter.includes(temp.tempText[i - 2]) &&
+                    this.lowerLetter.includes(temp.tempText[i - 1]) &&
+                    this.upperLetter.includes(temp.tempText[i]) &&
+                    !this.upperLetter.includes(temp.tempText[i + 1])
+                ) {
+                    this.innerText = this.innerText.concat(`<span style="
+                        font-size:${this.textProperty.fontSize + i * 0.5}px; 
+                        letter-spacing:${this.textProperty.letterSpacing * 2}px;
+                        opacity:${temp.opacity}%;
+                        color:${temp.tempColor[i]};
+                        "
+                        id="text${i}";
+                        >${temp.tempText[i]}</span>`);
+                    continue;
+                }
+
+                if (
+                    this.longLetter.includes(temp.tempText[i - 1]) &&
+                    this.lowerLetter.includes(temp.tempText[i]) &&
+                    this.toneLetter.includes(temp.tempText[i + 1])
+                ) {
+                    this.innerText = this.innerText.concat(`<span style="
+                        font-size:${this.textProperty.fontSize + i * 0.5}px; 
+                        letter-spacing:${this.textProperty.letterSpacing * 0}px;
+                        margin-right:${this.textProperty.letterSpacing * -1}px;
+                        opacity:${temp.opacity}%;
+                        color:${temp.tempColor[i]};
+                        "
+                        id="text${i}";
+                        >${temp.tempText[i]}</span>`);
+                    continue;
+                }
+
                 // ถ้าตัวเองเป็น long letter
                 if(this.longLetter.indexOf(temp.tempText[i]) !== -1 ){
                     if (this.upperLetter.indexOf(temp.tempText[i+1]) !== -1) //ถ้าตัวหลังเป็น upper ให้ letter spacing = -60
@@ -207,7 +281,7 @@ export default {
         clearInnerText(){
             this.innerText = '';
         },
-
+        
         start(){
             let char = 0;
             let isListenKeyDown = false;
@@ -215,7 +289,7 @@ export default {
             this.startVoice(char);
             this.clearInnerText();
 
-            this.voice.addEventListener( 'error' , ()=>{
+            this.onVoiceError = ()=>{
                 if(!this.myVocab.word[char+1]){
                     isListenKeyDown = true;
                 }else {
@@ -223,28 +297,26 @@ export default {
                     this.startVoice(char);
                     this.clearInnerText();
                 }
-            })
+            }
 
-            this.voice.addEventListener( 'ended' , ()=>{
+            this.onVoiceEnd = ()=>{
                 let curDelay = undefined
                 if (this.myVocab.word[char] && this.myVocab.word[char].delay === 0) {
                     curDelay = this.myVocab.word[char].delay;
                 }
-                
-                setTimeout(() => {
+
+                this.characterTimeout = setTimeout(() => {
                     if(!this.myVocab.word[char+1]){
                         isListenKeyDown = true;
-                        
-                    }else {
+                    } else {
                         char++;
                         this.startVoice(char);
                         this.clearInnerText();
                     }
-                    
                 }, curDelay ?? this.textProperty.textDelay);
-            })
-    
-            window.addEventListener( 'keydown' ,(event) => {
+            }
+
+            this.onKeyDown = (event)=>{
                 if(event.code === 'Space'){
                     if(isListenKeyDown && !isListenKeyUp){
                         this.voiceImg = true;
@@ -254,11 +326,12 @@ export default {
                         isListenKeyUp = true;
                     }
                 }
-            })
+            }
 
-            window.addEventListener('keyup' , (event) => {
+            this.onKeyUp = (event)=>{
                 if (event.code === 'KeyU'){
-                    this.voice.pause()
+                    console.log('changed');
+                    this.$router.replace({ name: 'Learn' , params:{ id: this.level+1 } })
                 }
 
                 if( event.code === 'Space' && isListenKeyUp ){
@@ -267,36 +340,28 @@ export default {
                     this.voiceImg = false;
                     //Score up
                     this.$store.commit('LearnScoreUp')
-                    if( this.myVocab.isEndPractice && !this.timer.timerInterval ) {
-                        this.isFreezing = true
-                        this.startTimer();
-                    }
+                    if (this.wordTimer) {
+                        this.$store.commit( 'updateResult' , { 
+                            level: this.myVocab.curLevel,
+                            word: this.myVocab.curWordID , 
+                            time: this.wordTimer.deltaTime 
+                        })
+                        console.log(this.$store.state.result);
+                    } 
                     // End sound record here.....
 
                     // =============================
-                    const nextWord = ()=>{
-                        document.getElementById('kumthai').innerHTML = '+'
-                        this.isFreezing = false
-                        setTimeout(() => {
-                            // check if vocab pass practice state
-                            
-                            this.myVocab.setNewRandomWord();
-                            char = 0;
-                            this.startVoice(char);
-                            this.clearInnerText();
-                        }, this.textProperty.wordDelay);
-                    }
 
-                    // ใช้เมื่อต้องการพักระหว่างเปลี่ยน category
-                    if (this.isFreezing){
-                        document.getElementById('kumthai').innerHTML = `+`
-                        setTimeout(() => {
-                            this.myVocab.levelUp()
-                            nextWord();
-                        }, this.freezTime);
-                    } else{
-                        nextWord();
-                    }
+                    //* Next word
+                    this.wordTimer = new WordTimer()
+                    document.getElementById('kumthai').innerHTML = '+'
+                    this.wordTimeout = setTimeout(() => {
+                        // check if vocab pass practice state
+                        this.myVocab.setNewRandomWord();
+                        char = 0;
+                        this.startVoice(char);
+                        this.clearInnerText();
+                    }, this.textProperty.wordDelay);
                 }
 
                 if( event.code === 'KeyR'){
@@ -304,7 +369,12 @@ export default {
                     this.startVoice(char);
                     this.clearInnerText();
                 }
-            })
+            }
+
+            this.voice.addEventListener( 'error' , this.onVoiceError )
+            this.voice.addEventListener( 'ended' , this.onVoiceEnd )
+            window.addEventListener( 'keydown' , this.onKeyDown )
+            window.addEventListener('keyup' , this.onKeyUp )
 
         },
 
@@ -313,24 +383,49 @@ export default {
             this.voice.play();  
             this.handleInnerText(char);
         },
+    },
 
-        startTimer(){
-            let markTime = 0
-            this.timer.timerInterval = setInterval(() => {
-                const timeLeft = this.timer.maxTime - this.timer.time
-                this.myVocab.checkToLevelup( this.timer.time - markTime , ()=>{
-                    markTime = this.timer.time;
-                    this.isFreezing = true;
-                })
+    created(){
+        this.level = parseInt(this.$route.params.id)
+        this.myVocab = new Vocaburaly(this.level)
 
-                // end game
-                if ( timeLeft == 0) this.$router.replace({name: 'EndScore'})
-                if (!this.isFreezing) this.timer.time++;
-            }, 1000);
+        // initial category timer 
+        switch (this.level) {
+            case 2:
+                this.categoryTimer = 20;     
+                break;
+            case 3:
+                this.categoryTimer = 20;     
+                break;
+            case 4:
+                this.categoryTimer = 20;     
+                break;
+            case 5:
+                this.categoryTimer = 20;     
+                break;
+            case 6:
+                this.categoryTimer = 20;     
+                break;
+            case 7:
+                this.categoryTimer = 20;     
+                break;
+            case 8:
+                this.categoryTimer = 20;     
+                break;
+            case 9:
+                this.categoryTimer = 20;     
+                break;
+            case 10:
+                this.categoryTimer = 20;     
+                break;
+        
+            default:
+                break;
         }
     },
 
     mounted() {
+        // add idle listener
         const handleIdle = ()=>{
             var timeout;
             document.onmousemove = function(){
@@ -343,20 +438,51 @@ export default {
             }
         }
 
-        this.timer.isStart = true;
+        // always delay before start
         document.getElementById('kumthai').innerHTML = '+'
         setTimeout(()=>{
+            this.wordTimer = new WordTimer()
             this.start();
             handleIdle();
         } , 2000 )
+
+        // set timer interval
+        this.timerInterval = setInterval(() => {
+            this.$store.commit('minusTime');
+            this.categoryTimer -= 1
+
+            // next category 
+            if (this.categoryTimer <= 0){
+                if(this.level < 10) {
+                    this.$router.replace({ name: 'Learn' , params:{ id: this.level+1 } })
+                } else {
+                    this.$router.place({ name: 'EndScore' })
+                }
+            }
+
+        }, 1000);
+
     },
 
     beforeDestroy(){
+        // clear all eventlistener 
+        this.voice.removeEventListener( 'error' , this.onVoiceError )
+        this.voice.removeEventListener( 'ended' , this.onVoiceEnd )
+        window.removeEventListener( 'keydown' , this.onKeyDown )
+        window.removeEventListener('keyup' , this.onKeyUp )
         document.onmousemove = null
+
+        // clear all timeout
+        clearTimeout(this.characterTimeout);
+        clearTimeout(this.wordTimeout);
+
+        // clear all interval
+        clearInterval(this.timerInterval);
+
+        // reset voice
         this.voice.pause();
         this.voice = new Audio();
         this.innerText = '';
-        this.myVocab.clear()
     }
 }
 </script>
@@ -368,10 +494,6 @@ export default {
     src: url('../assets/font/Poppins-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
-}
-
-.after-start{
-    background-color: #fff !important;
 }
 
 .learn{
@@ -398,10 +520,6 @@ export default {
         bottom: 1rem;
         display: flex;
         gap: 1rem;
-    }
-
-    .timer{
-        position: relative;
     }
 
     .username-container{
@@ -450,11 +568,11 @@ export default {
             height: 15px;
             border-radius: 50%;
             cursor: pointer;
-            background-color: hsl(360, 100, 70);
+            background-color: rgb(250, 62, 62);
             color: #fff;
             transition: .25s background-color;
             &:hover{
-                background-color: hsl(360, 100, 50);
+                background-color: rgb(255, 0, 0);
             }
         }
     }
@@ -512,6 +630,5 @@ export default {
             opacity: 0;
         }
     }
-
 }
 </style>

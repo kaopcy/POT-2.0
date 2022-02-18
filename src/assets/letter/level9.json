@@ -4797,13 +4797,25 @@
         {
             "char": "น",
             "color": "red",
-            "src": "",
+            "src": "consonant/นอ.mp3",
             "swap": "0"
         },
         {
-            "char": "ทร์",
+            "char": "ท",
             "color": "yellow",
-            "src": "consonant/นอ.mp3",
+            "src": "consonant/ทอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ร",
+            "color": "yellow",
+            "src": "consonant/รอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "์",
+            "color": "yellow",
+            "src": "vowel/การันต์.mp3",
             "swap": "0"
         },
         {
@@ -4859,13 +4871,19 @@
         {
             "char": "ช",
             "color": "red",
-            "src": "",
+            "src": "consonant/ชอ.mp3",
             "swap": "0"
         },
         {
-            "char": "น์",
+            "char": "น",
             "color": "yellow",
-            "src": "consonant/ชอ.mp3",
+            "src": "consonant/นอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "์",
+            "color": "yellow",
+            "src": "vowel/การันต์.mp3",
             "swap": "0"
         },
         {
@@ -5295,13 +5313,19 @@
         {
             "char": "าะ",
             "color": "green",
-            "src": "",
+            "src": "vowel/เอาะ.mp3",
             "swap": "0"
         },
         {
-            "char": "ห์",
+            "char": "ห",
             "color": "yellow",
-            "src": "vowel/เอาะ.mp3",
+            "src": "consonant/หอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "์",
+            "color": "yellow",
+            "src": "vowel/การันต์.mp3",
             "swap": "0"
         },
         {

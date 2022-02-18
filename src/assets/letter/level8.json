@@ -339,19 +339,19 @@
         {
             "char": "ณ",
             "color": "red",
-            "src": "",
+            "src": "consonant/นอ.mp3",
             "swap": "0"
         },
         {
             "char": "ฑ",
             "color": "yellow",
-            "src": "",
+            "src": "consonant/ทอ.mp3",
             "swap": "0"
         },
         {
             "char": "์",
             "color": "yellow",
-            "src": "consonant/นอ.mp3",
+            "src": "vowel/การันต์.mp3",
             "swap": "0"
         },
         {
@@ -737,13 +737,19 @@
         {
             "char": "ร",
             "color": "red",
-            "src": "",
+            "src": "consonant/รอ.mp3",
             "swap": "0"
         },
         {
-            "char": "ณ์",
+            "char": "ณ",
             "color": "yellow",
-            "src": "consonant/รอ.mp3",
+            "src": "consonant/นอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "์",
+            "color": "yellow",
+            "src": "vowel/การันต์.mp3",
             "swap": "0"
         },
         {
@@ -1623,13 +1629,19 @@
         {
             "char": "ก",
             "color": "red",
-            "src": "",
+            "src": "consonant/กอ.mp3",
             "swap": "0"
         },
         {
-            "char": "ข์",
+            "char": "ข",
             "color": "yellow",
-            "src": "consonant/กอ.mp3",
+            "src": "consonant/ขอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "์",
+            "color": "yellow",
+            "src": "vowel/การันต์.mp3",
             "swap": "0"
         },
         {
@@ -2765,13 +2777,19 @@
         {
             "char": "พ",
             "color": "red",
-            "src": "",
+            "src": "consonant/พอ.mp3",
             "swap": "0"
         },
         {
-            "char": "ย์",
+            "char": "ย",
             "color": "yellow",
-            "src": "consonant/พอ.mp3",
+            "src": "consonant/ยอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "์",
+            "color": "yellow",
+            "src": "vowel/การันต์.mp3",
             "swap": "0"
         },
         {
@@ -2797,13 +2815,25 @@
         {
             "char": "ส",
             "color": "red",
-            "src": "",
+            "src": "consonant/สอ.mp3",
             "swap": "0"
         },
         {
-            "char": "ตร์",
+            "char": "ต",
             "color": "yellow",
-            "src": "consonant/สอ.mp3",
+            "src": "consonant/ตอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ร",
+            "color": "yellow",
+            "src": "consonant/รอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "์",
+            "color": "yellow",
+            "src": "vowel/การันต์.mp3",
             "swap": "0"
         },
         {
@@ -2829,13 +2859,19 @@
         {
             "char": "ล",
             "color": "red",
-            "src": "",
+            "src": "consonant/ลอ.mp3",
             "swap": "0"
         },
         {
-            "char": "ป์",
+            "char": "ป",
             "color": "yellow",
-            "src": "consonant/ลอ.mp3",
+            "src": "consonant/ปอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "์",
+            "color": "yellow",
+            "src": "vowel/การันต์.mp3",
             "swap": "0"
         },
         {
@@ -2929,13 +2965,19 @@
         {
             "char": "ต",
             "color": "red",
-            "src": "",
+            "src": "consonant/ตอ.mp3",
             "swap": "0"
         },
         {
-            "char": "ย์",
+            "char": "ย",
             "color": "yellow",
-            "src": "consonant/ตอ.mp3",
+            "src": "consonant/ยอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "์",
+            "color": "yellow",
+            "src": "vowel/การันต์.mp3",
             "swap": "0"
         },
         {
@@ -3201,13 +3243,19 @@
         {
             "char": "ท",
             "color": "red",
-            "src": "",
+            "src": "consonant/ทอ.mp3",
             "swap": "0"
         },
         {
-            "char": "ย์",
+            "char": "ย",
             "color": "yellow",
-            "src": "consonant/ทอ.mp3",
+            "src": "consonant/ยอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "์",
+            "color": "yellow",
+            "src": "vowel/การันต์.mp3",
             "swap": "0"
         },
         {
