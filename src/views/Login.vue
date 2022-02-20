@@ -11,9 +11,12 @@
             />
             <div class="btn" @click="login">ตกลง</div>
         </div>
-        <div class="edit-btn" @click="edit()">
+        <!-- <div class="edit-btn" @click="edit()">
             คำศัพท์
         </div>
+        <div class="btn" @click="$router.replace({ name: 'EndScore' })">
+            ไปตอนจบ
+        </div> -->
     </div>
 </template>
 
@@ -33,7 +36,7 @@ export default {
             }
             this.$store.commit("updateUsername", this.username);
             this.$store.commit("updateLogin", true);
-            if (!this.$store.state.saveFolder) {
+            if (this.$store.state.saveFolder === 'no name') {
                 // initial save folder
                 var datetime = new Date();
                 let date = ("0" + datetime.getDate()).slice(-2);

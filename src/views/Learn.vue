@@ -1,13 +1,12 @@
 <template>
     <div class="learn" id="learn">
         <div id="time">
+            <TimerComponent :time="$store.state.timeLeft" />
             <div class="text-container difficult-wrapper">
-                <TimerComponent :time="$store.state.timeLeft" />
-                <div class="difficult">Difficult: {{ myVocab.curLevel }}</div>
-                <div class="plus-difficult">+</div>
+                <div class="difficult">ความยาก: {{ myVocab.curLevel }}</div>
             </div>
             <div class="text-container username-container">
-                Name: {{ $store.state.username }}
+                ชื่อ: {{ $store.state.username }}
             </div>
             <div
                 class="text-container end-container"
@@ -94,6 +93,7 @@ export default {
             characterTimeout: null,
             wordTimeout: null,
             idleTimeout: null,
+            mouseIdleTimeout: null,
 
             // interval
             wordTimer: null,
@@ -328,10 +328,12 @@ export default {
             this.isListenKeyUp = false;
             this.startVoice(char);
             this.innerText = "";
-            this.stopRecorder(this.wordName) 
+            this.stopRecorder();
 
             const nextWord = () => {
                 //* Next word
+                this.isListenKeyDown = false;
+                this.isListenKeyUp = false;
                 this.wordTimer = new WordTimer();
                 document.getElementById("kumthai").innerHTML = "+";
                 this.wordTimeout = setTimeout(() => {
@@ -343,12 +345,23 @@ export default {
                 }, this.textProperty.wordDelay);
             };
 
+            const handleIdle = () => {
+                this.idleTimeout = setTimeout(() => {
+                    this.isListenKeyDown = false;
+                    this.isListenKeyUp = false;
+                    this.stopRecorder();
+                    if (this.isRecord) this.isRecord = false;
+                    this.voiceImg = false;
+                    if (this.myVocab.isEmpty)
+                        this.$router.push({ name: "Learn", params: { id: 2 } });
+                    nextWord();
+                }, 5000);
+            };
+
             this.onVoiceError = () => {
                 if (!this.myVocab.word[char + 1]) {
                     this.isListenKeyDown = true;
-                    this.idleTimeout = setTimeout(() => {
-                        nextWord();
-                    }, 5000);
+                    handleIdle();
                 } else {
                     char++;
                     this.startVoice(char);
@@ -368,9 +381,7 @@ export default {
                 this.characterTimeout = setTimeout(() => {
                     if (!this.myVocab.word[char + 1]) {
                         this.isListenKeyDown = true;
-                        this.idleTimeout = setTimeout(() => {
-                            nextWord();
-                        }, 5000);
+                        handleIdle();
                     } else {
                         char++;
                         this.startVoice(char);
@@ -383,7 +394,11 @@ export default {
                 if (event.code === "Space") {
                     const isBreak =
                         document.getElementById("kumthai").innerHTML === "+";
-                    if (this.isListenKeyDown && !this.isListenKeyUp && !isBreak) {
+                    if (
+                        this.isListenKeyDown &&
+                        !this.isListenKeyUp &&
+                        !isBreak
+                    ) {
                         clearTimeout(this.idleTimeout);
                         this.voiceImg = true;
                         // Start sound record here.....
@@ -397,6 +412,7 @@ export default {
 
             this.onKeyUp = (event) => {
                 if (event.code === "Space" && this.isListenKeyUp) {
+                    this.stopRecorder(this.wordName);
                     if (this.isRecord) this.isRecord = false;
                     this.isListenKeyDown = false;
                     this.isListenKeyUp = false;
@@ -411,7 +427,6 @@ export default {
                         });
                     }
                     // End sound record here.....
-                    this.stopRecorder(this.wordName);
                     // =============================
                     if (this.myVocab.isEmpty)
                         this.$router.push({ name: "Learn", params: { id: 2 } });
@@ -451,12 +466,16 @@ export default {
         },
 
         stopRecorder(filename) {
-            console.log("stopRecorder");
             if (!this.isRecording) {
                 return;
             }
 
             this.recorder.stop();
+            console.log("stopRecorder");
+
+            if (!filename) {
+                return;
+            }
             this.recordList = this.recorder.recordList();
             const blob = this.recorder.recordList()[this.saveId].blob;
 
@@ -469,9 +488,9 @@ export default {
             );
             this.saveId++;
         },
+
         turnRecord() {
-            if (!this.isPlay && this.isRecord === false) {
-                this.isRecord = true;
+            if (!this.isRecording && !this.isRecord) {
                 console.log("toggleRecorder");
                 if (
                     this.attempts &&
@@ -482,6 +501,7 @@ export default {
 
                 if (!this.isRecording) {
                     this.recorder.start();
+                    this.isRecord = true;
                 }
             }
         },
@@ -497,31 +517,31 @@ export default {
                 this.categoryTimer = 500;
                 break;
             case 2:
-                this.categoryTimer = 20;
+                this.categoryTimer = 60;
                 break;
             case 3:
-                this.categoryTimer = 20;
+                this.categoryTimer = 60;
                 break;
             case 4:
-                this.categoryTimer = 40;
+                this.categoryTimer = 240;
                 break;
             case 5:
-                this.categoryTimer = 40;
+                this.categoryTimer = 240;
                 break;
             case 6:
-                this.categoryTimer = 40;
+                this.categoryTimer = 240;
                 break;
             case 7:
-                this.categoryTimer = 40;
+                this.categoryTimer = 240;
                 break;
             case 8:
-                this.categoryTimer = 40;
+                this.categoryTimer = 240;
                 break;
             case 9:
-                this.categoryTimer = 40;
+                this.categoryTimer = 240;
                 break;
             case 10:
-                this.categoryTimer = 40;
+                this.categoryTimer = 240;
                 break;
 
             default:
@@ -541,18 +561,17 @@ export default {
     mounted() {
         // add idle listener
         const handleIdle = () => {
-            var timeout;
             document.onmousemove = function() {
                 document.getElementById("time").style.opacity = "1";
-                clearTimeout(timeout);
-                timeout = setTimeout(function() {
+                clearTimeout(this.mouseIdleTimeout);
+                this.mouseIdleTimeout = setTimeout(function() {
                     document.getElementById("time").style.opacity = "0";
                 }, 1500);
             };
         };
 
         // always delay before start
-        document.getElementById("kumthai").innerHTML = "level up";
+        document.getElementById("kumthai").innerHTML = "+ ";
         setTimeout(() => {
             this.wordTimer = new WordTimer();
             this.start();
@@ -560,30 +579,32 @@ export default {
         }, 2000);
 
         // set timer interval
-        this.timerInterval = setInterval(() => {
-            this.$store.commit("minusTime");
-            this.categoryTimer -= 1;
+        if (this.level != 1) {
+            this.timerInterval = setInterval(() => {
+                this.$store.commit("minusTime");
+                this.categoryTimer -= 1;
 
-            // next category
-            if (this.categoryTimer <= 0) {
-                this.stopRecorder(this.wordName);
-                if (this.level < 10) {
-                    this.$router.replace({
-                        name: "Learn",
-                        params: { id: this.level + 1 },
-                    });
-                } else {
-                    this.$router.replace({ name: "EndScore" });
+                // next category
+                if (this.categoryTimer <= 0) {
+                    this.stopRecorder();
+                    if (this.level < 10) {
+                        this.$router.replace({
+                            name: "Learn",
+                            params: { id: this.level + 1 },
+                        });
+                    } else {
+                        this.$router.replace({ name: "EndScore" });
+                    }
                 }
-            }
-        }, 1000);
+            }, 1000);
+        }
     },
 
     beforeDestroy() {
         // clear all eventlistener
         this.voice.removeEventListener("error", this.onVoiceError);
         this.voice.removeEventListener("ended", this.onVoiceEnd);
-        window.removeEventListener("keydown", this.onKeyDown);
+        window.removeEventListener("keypress", this.onKeyDown);
         window.removeEventListener("keyup", this.onKeyUp);
         document.onmousemove = null;
 
@@ -591,6 +612,7 @@ export default {
         clearTimeout(this.characterTimeout);
         clearTimeout(this.wordTimeout);
         clearTimeout(this.idleTimeout);
+        clearTimeout(this.mouseIdleTimeout);
 
         // clear all interval
         clearInterval(this.timerInterval);

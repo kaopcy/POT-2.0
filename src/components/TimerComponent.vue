@@ -1,6 +1,6 @@
 <template>
     <div class="text-container wrapper">
-        <span>Timer: </span>
+        <span>เวลา: </span>
         <div class="time-wrapper">
             <div class="minute">
                 {{ minute }}
@@ -37,7 +37,7 @@ export default {
 <style lang="scss" scoped>
 .wrapper {
     z-index: 1001;
-    position: absolute;
+    position: relative;
     font-size: 1rem;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
         "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",

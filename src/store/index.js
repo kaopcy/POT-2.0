@@ -13,7 +13,7 @@ export default new Vuex.Store({
         watchedWord: [],
         result: [],
         timeLeft: 1800,
-        saveFolder: null,
+        saveFolder: 'no name',
     },
     mutations: {
         updateUsername(state, payload) {
@@ -38,7 +38,6 @@ export default new Vuex.Store({
             const oldData = state.result[level];
             if (!oldData) state.result[level] = [{ word, time }];
             else state.result[level] = [...oldData, { word, time }];
-            console.log(state.result);
         },
         minusTime(state) {
             state.timeLeft -= 1;
@@ -48,6 +47,7 @@ export default new Vuex.Store({
             { date, month, year, hours, minutes, seconds }
         ) {
             state.saveFolder = `${state.username}-${year}-${month}-${date}-${hours}-${minutes}-${seconds}`;
+            console.log(state.saveFolder);
         },
     },
     actions: {},

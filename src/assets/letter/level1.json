@@ -229,13 +229,19 @@
         {
             "char": "ง",
             "color": "red",
-            "src": "",
+            "src": "consonant/งอ.mp3",
             "swap": "0"
         },
         {
-            "char": "ค์",
+            "char": "ค",
             "color": "yellow",
-            "src": "consonant/งอ.mp3",
+            "src": "consonant/คอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "์",
+            "color": "yellow",
+            "src": "vowel/การันต์.mp3",
             "swap": "0"
         },
         {

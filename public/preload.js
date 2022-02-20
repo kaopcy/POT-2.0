@@ -2,6 +2,31 @@ const fs = require("fs");
 var path = require("path");
 const homeDir = require("os").homedir();
 
+window.saveXLSX = async ( blob , filename , saveFolder )=>{
+    const arrayBuffer = await blob.arrayBuffer();
+    // console.log(desktopDir);
+    const buffer = Buffer.from(arrayBuffer);
+    const desktopDirPg = path.join(homeDir, `/Desktop/POT`);
+
+    const desktopDirName = path.join(homeDir, `/Desktop/POT/${saveFolder}`);
+
+    const desktopDir = path.join(desktopDirName, `/${filename}.xlsx`);
+    if (!fs.existsSync(desktopDirPg)) {
+        fs.mkdirSync(desktopDirPg);
+    }
+    if (!fs.existsSync(desktopDirName)) {
+        fs.mkdirSync(desktopDirName);
+    }
+    
+    fs.writeFile(desktopDir, buffer, (err) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        console.log("save complete");
+    });
+}
+
 window.saveBlob = async (blob, filename, category , saveFolder) => {
     const arrayBuffer = await blob.arrayBuffer();
     // console.log(desktopDir);

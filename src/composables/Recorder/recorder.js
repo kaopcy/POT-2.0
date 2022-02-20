@@ -57,7 +57,7 @@ export default class {
         this.stream.getTracks().forEach((track) => track.stop());
         this.input.disconnect();
         this.processor.disconnect();
-        this.context.close();
+        // this.context.close();
 
         let record = null;
 

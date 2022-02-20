@@ -9,13 +9,19 @@
             <div class="name-wrapper">
                 <h3>{{ $store.state.username }}</h3>
             </div>
-            <img class="restart-img" src="restart.png" @click="reload()" alt="">
+            <img
+                class="restart-img"
+                src="restart.png"
+                @click="reload()"
+                alt=""
+            />
         </div>
     </div>
 </template>
 
 <script>
 import confetti from "canvas-confetti";
+import { makeBlobFromSheet } from '../composables/exportXLSX'
 
 export default {
     name: "EndScore",
@@ -41,16 +47,28 @@ export default {
             });
         },
 
-        reload(){
-            window.location.reload()
+        reload() {
+            window.location.reload();
+        },
+
+        makeSheet() {
+            const filteredScore = this.$store.state.result
+            const finalScore = filteredScore.map(e=> e.map(score=>{
+                const arr = [score['word'] , score['time']]
+                return arr
+            }))
+            console.log(finalScore);
+            
+            const myblob = makeBlobFromSheet(finalScore)
+            window.saveXLSX(myblob, "ผลลัพธ์", this.$store.state.saveFolder);
         },
     },
     mounted() {
-        console.log(this.$store.state.result);
         const endSound = new Audio("bell.mp3");
         endSound.play();
         this.frame();
-        window.saveBlob()
+
+        this.makeSheet();
     },
 };
 </script>
@@ -102,21 +120,20 @@ export default {
         margin-bottom: 10%;
     }
 
-    .restart-img{
+    .restart-img {
         position: relative;
         width: 50px;
         height: 50px;
         cursor: pointer;
         @keyframes spin {
-            0%{
+            0% {
                 transform: rotate(0deg);
             }
-            100%{
+            100% {
                 transform: rotate(-360deg);
             }
-
         }
-        &:hover{
+        &:hover {
             animation: spin 1s linear infinite;
         }
     }
