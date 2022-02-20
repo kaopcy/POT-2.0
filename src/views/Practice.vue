@@ -260,6 +260,7 @@ export default {
                 }
 
                 if (event.code === "Space" && isListenKeyUp) {
+                    console.log('i here');
                     isListenKeyDown = false;
                     isListenKeyUp = false;
                     this.voiceImg = false;

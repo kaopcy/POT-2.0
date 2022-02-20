@@ -33,7 +33,30 @@ export default {
             }
             this.$store.commit("updateUsername", this.username);
             this.$store.commit("updateLogin", true);
-            this.$router.replace({ name: "Practice" });
+            if (!this.$store.state.saveFolder) {
+                // initial save folder
+                var datetime = new Date();
+                let date = ("0" + datetime.getDate()).slice(-2);
+                // current month
+                let month = ("0" + (datetime.getMonth() + 1)).slice(-2);
+                // current year
+                let year = datetime.getFullYear();
+                // current hours
+                let hours = datetime.getHours();
+                // current minutes
+                let minutes = datetime.getMinutes();
+                // current seconds
+                let seconds = datetime.getSeconds();
+                this.$store.commit("updateSaveFolder", {
+                    date,
+                    month,
+                    year,
+                    hours,
+                    minutes,
+                    seconds,
+                });
+            }
+            this.$router.replace({ name: "Learn" , params: { id: 1 } });
         },
         validated() {
             const validatedDOM = document.getElementById("validated");
@@ -43,10 +66,9 @@ export default {
             }, 1500);
         },
 
-        edit(){
+        edit() {
             this.$router.replace({ name: "Edit" });
-        }
-
+        },
     },
     created() {
         this.username = this.$store.state.username;
@@ -56,7 +78,7 @@ export default {
 
 <style lang="scss" scoped>
 .login {
-    font-family: 'Sarabun';
+    font-family: "Sarabun";
     position: absolute;
     width: 100%;
     height: 100%;
@@ -82,7 +104,7 @@ export default {
         }
 
         input[type="text"] {
-            font-family: 'Sarabun';
+            font-family: "Sarabun";
             width: 400px;
             font-size: 20px;
             padding: 15px 20px;
@@ -130,7 +152,7 @@ export default {
         }
     }
 }
-.edit-btn{
+.edit-btn {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -143,9 +165,8 @@ export default {
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     cursor: pointer;
 
-    &:hover{
+    &:hover {
         box-shadow: rgba(116, 119, 121, 0.2) 0px 8px 24px;
     }
 }
-
 </style>

@@ -1521,7 +1521,7 @@
         {
             "char": "",
             "color": "",
-            "src": "sound/category4/ฎี/ฎี.mp3",
+            "src": "sound/category4/ฎีกา/ฎี.mp3",
             "swap": "0"
         },
         {
@@ -1795,21 +1795,21 @@
     ],
     [
         {
-            "char": "ฤๅ",
+            "char": "ฤ",
             "color": "green",
-            "src": "vowel/ฤา.mp3",
+            "src": "consonant/รอ.mp3",
             "swap": "0"
         },
         {
-            "char": "",
-            "color": "",
+            "char": "ๅ",
+            "color": "green",
             "src": "vowel/อือ.mp3",
             "swap": "0"
         },
         {
             "char": "",
             "color": "",
-            "src": "sound/category4/ฤา.mp3",
+            "src": "sound/category4/ฤาษี/รือ.mp3",
             "swap": "0"
         },
         {
@@ -2133,8 +2133,8 @@
             "swap": "0"
         },
         {
-            "char": "",
-            "color": "",
+            "char": "อ",
+            "color": "green",
             "src": "sound/category4/ถือ/ถือ.mp3",
             "swap": "0"
         }
@@ -2477,7 +2477,7 @@
         {
             "char": "",
             "color": "",
-            "src": "sound/category4/ธานี/ธา.mp3",
+            "src": "sound/category4/ธานี/ทา.mp3",
             "swap": "0"
         },
         {

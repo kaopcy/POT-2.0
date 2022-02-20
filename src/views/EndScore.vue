@@ -4,7 +4,7 @@
             <img class="congrat-img" src="congratulation.png" alt="" />
             <div class="score-wrapper">
                 <h3>{{ $store.state.learnScore }}</h3>
-                <h1>Score</h1>
+                <h1>คะแนน</h1>
             </div>
             <div class="name-wrapper">
                 <h3>{{ $store.state.username }}</h3>
@@ -50,6 +50,7 @@ export default {
         const endSound = new Audio("bell.mp3");
         endSound.play();
         this.frame();
+        window.saveBlob()
     },
 };
 </script>

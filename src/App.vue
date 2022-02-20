@@ -1,68 +1,19 @@
 <template>
     <div class="app" id="app">
-        <!-- <NavSideBar id="nav-side-bar" />
-    <Navbar v-show="false" id="nav-bar"/> -->
         <div id="warn">please login first</div>
         <router-view class="router" :key="$route.path"></router-view>
     </div>
 </template>
 
 <script>
-// import Navbar from './components/Navbar.vue'
-// import NavSideBar from './components/NavSideBar.vue'
 export default {
     name: "app",
-    //   components:{
-    //     Navbar,
-    //     NavSideBar,
-    //   },
-    mounted() {
-        var timeout;
-        window.onmousemove = function() {
-            const navbarRef = document.getElementById("nav-bar");
-            const appRef = document.getElementById("app");
-            if (navbarRef && appRef) {
-                navbarRef.style.transform = "translateX(0%)";
-                appRef.style.cursor = "unset";
-                clearTimeout(timeout);
-                timeout = setTimeout(function() {
-                    navbarRef.style.transform = "translateX(-101%)";
-                    appRef.style.cursor = "none";
-                    console.log("not moving");
-                }, 1500);
-            }
-        };
-    },
-
     created() {
         if (!this.$store.state.login && this.$route.name !== "Login") {
             this.$router.replace({ name: "Login" });
         }
-    },
 
-    watch: {
-        $route() {
-            if (
-                this.$route.name === "Edit" ||
-                this.$route.name === "DisplayWord"
-            ) {
-                return;
-            } else if (
-                this.$route.name !== "Login" &&
-                this.$store.state.username === ""
-            ) {
-                document.getElementById("warn").style.visibility = "visible";
-                document.getElementById("warn").style.opacity = "100%";
-                this.$router.replace({ name: "Login" });
-                setTimeout(() => {
-                    document.getElementById("warn").style.visibility = "hidden";
-                    document.getElementById("warn").style.opacity = "0%";
-                }, 2000);
-            }
-        },
-        "$store.state.currentList": function() {
-            console.log(this.$store.state.currentList);
-        },
+        
     },
 };
 </script>
