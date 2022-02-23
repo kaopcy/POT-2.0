@@ -311,7 +311,7 @@ export default {
 
         appendInnerText({ id, mul, color, type, text }, option) {
             this.innerText = this.innerText.concat(`<${type ?? "span"} style="
-                font-size:${this.textProperty.fontSize + id * 0.5}px; 
+                font-size:${this.textProperty.fontSize + id * 0.5}px;
                 letter-spacing:${this.textProperty.letterSpacing *
                     (mul ?? 1)}px;
                 opacity:${0}%;
@@ -391,22 +391,35 @@ export default {
             };
 
             this.onKeyDown = (event) => {
-                if (event.code === "Space") {
-                    const isBreak =
-                        document.getElementById("kumthai").innerHTML === "+";
-                    if (
-                        this.isListenKeyDown &&
-                        !this.isListenKeyUp &&
-                        !isBreak
-                    ) {
-                        clearTimeout(this.idleTimeout);
-                        this.voiceImg = true;
-                        // Start sound record here.....
-                        this.turnRecord();
-                        // =============================
-                        this.isListenKeyDown = false;
-                        this.isListenKeyUp = true;
-                    }
+                const isBreak =
+                    document.getElementById("kumthai").innerHTML === "+";
+                if (
+                    event.code === "Space" &&
+                    this.isListenKeyDown &&
+                    !this.isListenKeyUp &&
+                    !isBreak &&
+                    this.voice.paused
+                ) {
+                    clearTimeout(this.idleTimeout);
+                    this.voiceImg = true;
+                    // Start sound record here.....
+                    this.turnRecord();
+                    // =============================
+                    this.isListenKeyDown = false;
+                    this.isListenKeyUp = true;
+                }
+                if (
+                    event.code === "KeyR" &&
+                    this.isListenKeyDown &&
+                    !this.isListenKeyUp &&
+                    this.voice.paused
+                ) {
+                    clearTimeout(this.idleTimeout);
+                    char = 0;
+                    this.startVoice(char);
+                    this.innerText = "";
+                    this.isListenKeyDown = false;
+                    this.isListenKeyUp = false;
                 }
             };
 
@@ -432,13 +445,6 @@ export default {
                     if (this.myVocab.isEmpty)
                         this.$router.push({ name: "Learn", params: { id: 2 } });
                     nextWord();
-                }
-
-                if (event.code === "KeyR") {
-                    clearTimeout(this.idleTimeout);
-                    char = 0;
-                    this.startVoice(char);
-                    this.innerText = "";
                 }
             };
 
