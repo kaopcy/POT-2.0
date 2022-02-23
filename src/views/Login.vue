@@ -59,7 +59,7 @@ export default {
                     seconds,
                 });
             }
-            this.$router.replace({ name: "Learn" , params: { id: 1 } });
+            this.$router.replace({ name: "Practice" });
         },
         validated() {
             const validatedDOM = document.getElementById("validated");

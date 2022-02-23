@@ -7,7 +7,7 @@ const makeBlobFromSheet = (aoa) => {
     };
 
     aoa.forEach((element, index) => {
-        workbook.SheetNames.push(`category${index+1}`);
+        workbook.SheetNames.push(`category${index}`);
         const worksheet = XLSX.utils.aoa_to_sheet(element);
         workbook.Sheets[`category${index}`] = worksheet;
     });

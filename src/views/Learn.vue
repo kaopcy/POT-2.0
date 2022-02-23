@@ -420,6 +420,7 @@ export default {
                     //Score up
                     this.$store.commit("LearnScoreUp");
                     if (this.wordTimer) {
+                        console.log(this.wordTimer.deltaTime);
                         this.$store.commit("updateResult", {
                             level: this.myVocab.curLevel,
                             word: this.wordName,

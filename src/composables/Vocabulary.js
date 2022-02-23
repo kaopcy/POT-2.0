@@ -179,22 +179,24 @@ class Vocab {
 
 export default class {
     constructor(level) {
-        this.vocabData = [];
+        this.vocabData = null;
         this.checkingData = [];
         this.curWord = null;
         this.curLevel = level;
         this.wordPool = [];
         this.isSpecialWord = false;
         this.isEndPractice = false;
-        this.curWordID = null
+        this.curWordID = null;
 
         this.init();
         this.setNewRandomWord();
     }
 
     init = () => {
-            const json = require(`../assets/letter/level${this.curLevel}.json`);
-            this.vocabData = new Vocab(json, this.curLevel);
+        const json = require(`../assets/letter/level${this.curLevel}.json`);
+        const data = [...json]
+        this.vocabData = new Vocab(data, this.curLevel);
+        console.log(this.vocabData.length);
     };
 
     get word() {
@@ -204,8 +206,8 @@ export default class {
         return this.curWord.length;
     }
 
-    get isEmpty(){
-        return this.vocabData.length == 0
+    get isEmpty() {
+        return this.vocabData.length == 0;
     }
 
     setNewRandomWord = () => {
@@ -227,15 +229,15 @@ export default class {
             }
         }
 
-        const index = Math.floor(Math.random() * (max - min)) + min;
-        const wordToDelete = this.vocabData.wordID(
-            "sorted",
-            index
-        );
+        const index =
+            this.curLevel === 1
+                ? 0
+                : Math.floor(Math.random() * (max - min)) + min;
+        const wordToDelete = this.vocabData.wordID("sorted", index);
 
         // set current word and delete word from list
         this.curWord = this.vocabData.word("sorted", index);
-        this.curWordID = wordToDelete
+        this.curWordID = wordToDelete;
         this.vocabData.deleteWord(wordToDelete);
 
         console.log(wordToDelete);

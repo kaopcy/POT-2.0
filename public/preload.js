@@ -4,7 +4,6 @@ const homeDir = require("os").homedir();
 
 window.saveXLSX = async ( blob , filename , saveFolder )=>{
     const arrayBuffer = await blob.arrayBuffer();
-    // console.log(desktopDir);
     const buffer = Buffer.from(arrayBuffer);
     const desktopDirPg = path.join(homeDir, `/Desktop/POT`);
 

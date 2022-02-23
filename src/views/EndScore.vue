@@ -21,7 +21,7 @@
 
 <script>
 import confetti from "canvas-confetti";
-import { makeBlobFromSheet } from '../composables/exportXLSX'
+import { makeBlobFromSheet } from "../composables/exportXLSX";
 
 export default {
     name: "EndScore",
@@ -52,20 +52,26 @@ export default {
         },
 
         makeSheet() {
-            const filteredScore = this.$store.state.result
-            const finalScore = filteredScore.map(e=> e.map(score=>{
-                const arr = [score['word'] , score['time']]
-                return arr
-            }))
+            const filteredScore = this.$store.state.result;
+            const finalScore = filteredScore.map((e) =>
+                e.map((score) => {
+                    const arr = [score["word"], score["time"]];
+                    return arr;
+                })
+            );
             console.log(finalScore);
-            
-            const myblob = makeBlobFromSheet(finalScore)
+
+            const myblob = makeBlobFromSheet(finalScore);
             window.saveXLSX(myblob, "ผลลัพธ์", this.$store.state.saveFolder);
         },
     },
     mounted() {
-        const endSound = new Audio("bell.mp3");
-        endSound.play();
+        const endSound = new Audio();
+        endSound.src = "sound/ระฆัง.mp3";
+        endSound.volume = 0.4;
+        setTimeout(() => {
+            endSound.play();
+        }, 1);
         this.frame();
 
         this.makeSheet();

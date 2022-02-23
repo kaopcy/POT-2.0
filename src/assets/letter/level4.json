@@ -321,32 +321,6 @@
             "swap": "0"
         },
         {
-            "char": "ํ",
-            "color": "green",
-            "src": "",
-            "swap": "0"
-        },
-        {
-            "char": "า",
-            "color": "green",
-            "src": "vowel/อำ.mp3",
-            "swap": "0"
-        },
-        {
-            "char": "",
-            "color": "",
-            "src": "sound/category4/คำ/คำ.mp3",
-            "swap": "0"
-        }
-    ],
-    [
-        {
-            "char": "ค",
-            "color": "black",
-            "src": "consonant/คอ.mp3",
-            "swap": "0"
-        },
-        {
             "char": "ื",
             "color": "green",
             "src": "",
@@ -2927,7 +2901,7 @@
             "swap": "1"
         },
         {
-            "char": "อะ",
+            "char": "ะ",
             "color": "green",
             "src": "vowel/แอะ.mp3",
             "swap": "0"

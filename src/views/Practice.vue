@@ -1,19 +1,47 @@
 <template>
     <div class="learn" id="learn">
-        <div id="kumthai">+</div>
+        <div id="time">
+            <TimerComponent :time="$store.state.timeLeft" />
+            <div class="text-container difficult-wrapper">
+                <div class="difficult">ความยาก: {{ myVocab.curLevel }}</div>
+            </div>
+            <div class="text-container username-container">
+                ชื่อ: {{ $store.state.username }}
+            </div>
+            <div
+                class="text-container end-container"
+                @click="$router.replace({ name: 'EndScore' })"
+            >
+                end
+            </div>
+        </div>
+        <!-- showing text -->
+        <div id="kumthai"></div>
         <img src="../assets/voice.png" class="voice-img" v-if="voiceImg" />
     </div>
 </template>
 
 <script>
-import Vocabulary from "../composables/Vocabulary";
+import Vocaburaly from "../composables/Vocabulary.js";
+import TimerComponent from "../components/TimerComponent.vue";
+import WordTimer from "../composables/wordTimer";
 
 export default {
-    name: "Practice",
+    name: "Learn",
+    components: {
+        TimerComponent,
+    },
+
     data() {
         return {
-            myVocab: new Vocabulary(1),
+            myVocab: null,
+            level: null,
+            wordName: null,
+            isListenKeyDown: false,
+            isListenKeyUp: false,
+            // text property
             innerText: "",
+            toneLetter: ["่", "้", "๊", "๋"],
             upperLetter: [
                 "่",
                 "้",
@@ -32,14 +60,32 @@ export default {
             longLetter: ["ป", "ฬ", "ฝ", "ฟ"],
             textProperty: {
                 letterSpacing: 60,
-                fontSize: 250,
+                fontSize: 230,
                 textDelay: 500,
                 wordDelay: 2000,
             },
+
+            // voice
             voiceImg: false,
             voice: new Audio(),
+
+            // Event
+            onVoiceError: null,
+            onVoiceEnd: null,
+            onKeyDown: null,
+            onKeyUp: null,
+
+            // Timeout
+            characterTimeout: null,
+            wordTimeout: null,
+            idleTimeout: null,
+
+            // interval
+            wordTimer: null,
+            timerInterval: null,
         };
     },
+
     methods: {
         handleInnerText(character) {
             let sequence = 0;
@@ -49,7 +95,6 @@ export default {
                 tempSwap: [],
                 tempSequence: [],
                 tempSequenceSwap: [],
-                opacity: "0",
             };
 
             for (let i = 0; i < this.myVocab.wordLength; i++) {
@@ -69,11 +114,6 @@ export default {
                 if (temp.tempSwap[i] != 0) {
                     let swap = temp.tempSwap[i];
                     let temptemp = temp.tempSequence[i - swap];
-                    console.log(
-                        `we have to swap ${temp.tempText[i]} and ${
-                            temp.tempText[i - swap]
-                        }`
-                    );
                     temp.tempText.splice(i - swap, 0, temp.tempText[i]);
                     temp.tempColor.splice(i - swap, 0, temp.tempColor[i]);
                     temp.tempSequence.splice(i - swap, 1);
@@ -88,111 +128,134 @@ export default {
                     temp.tempSequence.splice(i, 0, -1);
                 }
             }
+
+            // * Checking character type
             for (let i = 0; i < temp.tempColor.length; i++) {
+                // ป่าว ฝ้า ฟ้าผ่า
+                if (
+                    this.longLetter.includes(temp.tempText[i - 1]) &&
+                    this.upperLetter.includes(temp.tempText[i]) &&
+                    !this.upperLetter.includes(temp.tempText[i + 1])
+                ) {
+                    this.appendInnerText({
+                        id: i,
+                        mul: 2,
+                        color: temp.tempColor[i],
+                        text: temp.tempText[i],
+                    });
+                    continue;
+                }
+
+                if (
+                    this.longLetter.includes(temp.tempText[i - 2]) &&
+                    this.lowerLetter.includes(temp.tempText[i - 1]) &&
+                    this.upperLetter.includes(temp.tempText[i]) &&
+                    !this.upperLetter.includes(temp.tempText[i + 1])
+                ) {
+                    this.appendInnerText({
+                        id: i,
+                        mul: 2,
+                        color: temp.tempColor[i],
+                        text: temp.tempText[i],
+                    });
+                    continue;
+                }
+
+                if (
+                    this.longLetter.includes(temp.tempText[i - 1]) &&
+                    this.lowerLetter.includes(temp.tempText[i]) &&
+                    this.toneLetter.includes(temp.tempText[i + 1])
+                ) {
+                    this.appendInnerText(
+                        {
+                            id: i,
+                            mul: 0,
+                            color: temp.tempColor[i],
+                            text: temp.tempText[i],
+                        },
+                        `margin-right:${this.textProperty.letterSpacing *
+                            -1}px;`
+                    );
+                    continue;
+                }
+
                 // ถ้าตัวเองเป็น long letter
-                if (this.longLetter.indexOf(temp.tempText[i]) !== -1) {
-                    if (this.upperLetter.indexOf(temp.tempText[i + 1]) !== -1)
-                        //ถ้าตัวหลังเป็น upper ให้ letter spacing = -60
-                        this.innerText = this.innerText.concat(`<span style="
-                        font-size:${this.textProperty.fontSize + i * 0.5}px; 
-                        letter-spacing:${this.textProperty.letterSpacing *
-                            -1}px;
-                        opacity:${temp.opacity}%;
-                        color:${temp.tempColor[i]};
-                        "
-                        id="text${i}";
-                        >${temp.tempText[i]}</span>`);
-                    else if (
-                        this.lowerLetter.indexOf(temp.tempText[i + 1]) !== -1
-                    )
-                        //ถ้าตัวหลังเป็น lower ให้ letter spacing = 0
-                        this.innerText = this.innerText.concat(`<span style="
-                        font-size:${this.textProperty.fontSize + i * 0.5}px; 
-                        letter-spacing:${this.textProperty.letterSpacing * 0}px;
-                        opacity:${temp.opacity}%;
-                        color:${temp.tempColor[i]};
-                        "
-                        id="text${i}";
-                        >${temp.tempText[i]}</span>`);
-                    //ถ้าตัวหลังไม่เป็น lower , upper ให้ letter spacing = 60
-                    else
-                        this.innerText = this.innerText.concat(`<span style="
-                        font-size:${this.textProperty.fontSize + i * 0.5}px; 
-                        letter-spacing:${this.textProperty.letterSpacing}px;
-                        opacity:${temp.opacity}%;
-                        color:${temp.tempColor[i]};
-                        "
-                        id="text${i}";
-                        >${temp.tempText[i]}</span>`);
+                if (this.longLetter.includes(temp.tempText[i])) {
+                    if (this.upperLetter.includes(temp.tempText[i + 1])) {
+                        this.appendInnerText({
+                            id: i,
+                            mul: -1,
+                            color: temp.tempColor[i],
+                            text: temp.tempText[i],
+                        });
+                        continue;
+                    }
+                    //ถ้าตัวหลังเป็น lower ให้ letter spacing = 0
+                    else if (this.lowerLetter.includes(temp.tempText[i + 1])) {
+                        this.appendInnerText({
+                            id: i,
+                            mul: 0,
+                            color: temp.tempColor[i],
+                            text: temp.tempText[i],
+                        });
+                        continue;
+                    } else {
+                        this.appendInnerText({
+                            id: i,
+                            color: temp.tempColor[i],
+                            text: temp.tempText[i],
+                        });
+                        continue;
+                    }
                 }
                 //ถ้าตัวเองหรือตัวหลังไม่เป็น Upper , Lower
                 else if (
-                    this.upperLetter.indexOf(temp.tempText[i]) === -1 ||
-                    this.upperLetter.indexOf(temp.tempText[i - 1]) === -1
+                    !this.upperLetter.includes(temp.tempText[i]) ||
+                    !this.upperLetter.includes(temp.tempText[i - 1])
                 ) {
                     //ถ้าตัวต่อไปไม่เป็น upper , lower
                     if (
-                        this.upperLetter.indexOf(temp.tempText[i + 1]) === -1 &&
-                        this.lowerLetter.indexOf(temp.tempText[i + 1]) === -1
+                        !this.upperLetter.includes(temp.tempText[i + 1]) &&
+                        !this.lowerLetter.includes(temp.tempText[i + 1])
                     ) {
-                        if (
-                            this.longLetter.indexOf(temp.tempText[i - 1]) !== -1
-                        ) {
-                            this.innerText = this.innerText
-                                .concat(`<span style="
-                            font-size:${this.textProperty.fontSize +
-                                i * 0.5}px; 
-                            letter-spacing:${this.textProperty.letterSpacing}px;
-                            opacity:${temp.opacity}%;
-                            color:${temp.tempColor[i]};
-                            "
-                            id="text${i}";
-                            >${temp.tempText[i]}</span>`);
-                        } else {
-                            this.innerText = this.innerText
-                                .concat(`<span style="
-                            font-size:${this.textProperty.fontSize +
-                                i * 0.5}px; 
-                            letter-spacing:${this.textProperty.letterSpacing}px;
-                            opacity:${temp.opacity}%;
-                            color:${temp.tempColor[i]};
-                            "
-                            id="text${i}";
-                            >${temp.tempText[i]}</span>`);
-                        }
+                        this.appendInnerText({
+                            id: i,
+                            color: temp.tempColor[i],
+                            text: temp.tempText[i],
+                        });
+                        continue;
+                    } else {
+                        this.appendInnerText({
+                            id: i,
+                            mul: 0,
+                            color: temp.tempColor[i],
+                            text: temp.tempText[i],
+                        });
+                        continue;
                     }
-                    //ถ้าตัวต่อหลังเป็น uppercase และตัวเองก็เป็น uppercase เหมือนกัน ให้ตัวเองมี letter space เป็น 0 เช่น มั่ว จั่ว ติ๋ม
-                    else
-                        this.innerText = this.innerText.concat(`<span style="
-                        font-size:${this.textProperty.fontSize + i * 0.5}px; 
-                        letter-spacing:${this.textProperty.letterSpacing * 0}px;
-                        opacity:${temp.opacity}%;
-                        color:${temp.tempColor[i]}
-                        "
-                        id="text${i}";
-                        >${temp.tempText[i]}</span>`);
                 } else {
-                    if (this.longLetter.indexOf(temp.tempText[i - 2]) !== -1)
-                        this.innerText = this.innerText.concat(`<sup style="
-                            font-size:${this.textProperty.fontSize + 0.5}px; 
-                            letter-spacing:${this.textProperty.letterSpacing *
-                                2}px;
-                            opacity:${temp.opacity}%;
-                            color:${temp.tempColor[i]}
-                            "
-                            id="text${i}";
-                            >${temp.tempText[i]}</sup>`);
-                    else
-                        this.innerText = this.innerText.concat(`<sup style="
-                            font-size:${this.textProperty.fontSize + 0.5}px; 
-                            letter-spacing:${this.textProperty.letterSpacing}px;
-                            opacity:${temp.opacity}%;
-                            color:${temp.tempColor[i]}
-                            "
-                            id="text${i}";
-                            >${temp.tempText[i]}</sup>`);
+                    if (this.longLetter.includes(temp.tempText[i - 2])) {
+                        this.appendInnerText({
+                            id: i,
+                            mul: 2,
+                            color: temp.tempColor[i],
+                            type: "sup",
+                            text: temp.tempText[i],
+                        });
+                        continue;
+                    } else {
+                        this.appendInnerText({
+                            id: i,
+                            color: temp.tempColor[i],
+                            type: "sup",
+                            text: temp.tempText[i],
+                        });
+                        continue;
+                    }
                 }
             }
+
+            this.wordName = temp.tempText.join("");
 
             // set text opacity to 1
             document.getElementById("kumthai").innerHTML = this.innerText;
@@ -205,24 +268,64 @@ export default {
             }
         },
 
+        appendInnerText({ id, mul, color, type, text }, option) {
+            this.innerText = this.innerText.concat(`<${type ?? "span"} style="
+                font-size:${this.textProperty.fontSize + id * 0.5}px; 
+                letter-spacing:${this.textProperty.letterSpacing *
+                    (mul ?? 1)}px;
+                opacity:${0}%;
+                color:${color};
+                ${option ?? ""}
+                "
+                id="text${id}";
+                >${text}</${type ?? "span"}>`);
+        },
+
         start() {
             let char = 0;
-            let isListenKeyDown = false;
-            let isListenKeyUp = false;
+            this.isListenKeyDown = false;
+            this.isListenKeyUp = false;
             this.startVoice(char);
-            this.clearInnerText();
+            this.innerText = "";
 
-            this.voice.addEventListener("error", () => {
+            const nextWord = () => {
+                //* Next word
+                this.isListenKeyDown = false;
+                this.isListenKeyUp = false;
+                this.wordTimer = new WordTimer();
+                document.getElementById("kumthai").innerHTML = "+";
+                this.wordTimeout = setTimeout(() => {
+                    // check if vocab pass practice state
+                    this.myVocab.setNewRandomWord();
+                    char = 0;
+                    this.startVoice(char);
+                    this.innerText = "";
+                }, this.textProperty.wordDelay);
+            };
+
+            const handleIdle = () => {
+                this.idleTimeout = setTimeout(() => {
+                    this.isListenKeyDown = false;
+                    this.isListenKeyUp = false;
+                    this.voiceImg = false;
+                    if (this.myVocab.isEmpty)
+                        this.$router.replace({ name: "Rest" });
+                    nextWord();
+                }, 5000);
+            };
+
+            this.onVoiceError = () => {
                 if (!this.myVocab.word[char + 1]) {
-                    isListenKeyDown = true;
+                    this.isListenKeyDown = true;
+                    handleIdle();
                 } else {
                     char++;
                     this.startVoice(char);
-                    this.clearInnerText();
+                    this.innerText = "";
                 }
-            });
+            };
 
-            this.voice.addEventListener("ended", () => {
+            this.onVoiceEnd = () => {
                 let curDelay = undefined;
                 if (
                     this.myVocab.word[char] &&
@@ -231,66 +334,69 @@ export default {
                     curDelay = this.myVocab.word[char].delay;
                 }
 
-                setTimeout(() => {
+                this.characterTimeout = setTimeout(() => {
                     if (!this.myVocab.word[char + 1]) {
-                        isListenKeyDown = true;
+                        this.isListenKeyDown = true;
+                        handleIdle();
                     } else {
                         char++;
                         this.startVoice(char);
-                        this.clearInnerText();
+                        this.innerText = "";
                     }
                 }, curDelay ?? this.textProperty.textDelay);
-            });
+            };
 
-            window.addEventListener("keydown", (event) => {
+            this.onKeyDown = (event) => {
                 if (event.code === "Space") {
-                    if (isListenKeyDown && !isListenKeyUp) {
+                    const isBreak =
+                        document.getElementById("kumthai").innerHTML === "+";
+                    if (
+                        this.isListenKeyDown &&
+                        !this.isListenKeyUp &&
+                        !isBreak
+                    ) {
+                        clearTimeout(this.idleTimeout);
                         this.voiceImg = true;
                         // Start sound record here.....
-
                         // =============================
-                        isListenKeyUp = true;
+                        this.isListenKeyDown = false;
+                        this.isListenKeyUp = true;
                     }
                 }
-            });
+            };
 
-            window.addEventListener("keyup", (event) => {
-                if (event.code === "KeyU") {
-                    this.voice.pause();
-                }
-
-                if (event.code === "Space" && isListenKeyUp) {
-                    console.log('i here');
-                    isListenKeyDown = false;
-                    isListenKeyUp = false;
+            this.onKeyUp = (event) => {
+                if (event.code === "Space" && this.isListenKeyUp) {
+                    this.isListenKeyDown = false;
+                    this.isListenKeyUp = false;
                     this.voiceImg = false;
+                    if (this.wordTimer) {
+                        console.log(this.wordTimer.deltaTime);
+                        this.$store.commit("updateResult", {
+                            level: this.myVocab.curLevel,
+                            word: this.wordName,
+                            time: this.wordTimer.deltaTime,
+                        });
+                    }
                     // End sound record here.....
-
                     // =============================
-                    const nextWord = () => {
-                        document.getElementById("kumthai").innerHTML = "+";
-                        setTimeout(() => {
-                            // check if vocab pass practice state
-                            this.myVocab.setNewRandomWord();
-                            char = 0;
-                            this.startVoice(char);
-                            this.clearInnerText();
-                        }, this.textProperty.wordDelay);
-                    };
-                    if (this.myVocab.isEmpty) this.$router.push({ name: 'Learn' , params: { id: 2 } })
+                    if (this.myVocab.isEmpty)
+                        this.$router.replace({ name: "Rest" });
                     nextWord();
                 }
 
                 if (event.code === "KeyR") {
+                    clearTimeout(this.idleTimeout);
                     char = 0;
                     this.startVoice(char);
-                    this.clearInnerText();
+                    this.innerText = "";
                 }
-            });
-        },
+            };
 
-        clearInnerText() {
-            this.innerText = "";
+            this.voice.addEventListener("error", this.onVoiceError);
+            this.voice.addEventListener("ended", this.onVoiceEnd);
+            window.addEventListener("keypress", this.onKeyDown);
+            window.addEventListener("keyup", this.onKeyUp);
         },
 
         startVoice(char) {
@@ -299,12 +405,51 @@ export default {
             this.handleInnerText(char);
         },
     },
+
+    created() {
+        console.log('created !!');
+        this.level = 1;
+        console.log(this.level);
+        this.myVocab = new Vocaburaly(1);
+        console.log('setted !!');
+    },
+
+    watch: {
+        isListenKeyDown: function() {
+            console.log(`listen down: ${this.isListenKeyDown}`);
+        },
+        isListenKeyUp: function() {
+            console.log(`listen up: ${this.isListenKeyUp}`);
+        },
+    },
+
     mounted() {
+        // always delay before start
+        document.getElementById("kumthai").innerHTML = "+ ";
         setTimeout(() => {
-            document.getElementById("kumthai").innerHTML = "+";
+            this.wordTimer = new WordTimer();
             this.start();
-        }, 1000);
-        console.log(this.myVocab.vocabData.sortedData("word"));
+        }, 2000);
+    },
+
+    beforeDestroy() {
+        // clear all eventlistener
+        this.voice.removeEventListener("error", this.onVoiceError);
+        this.voice.removeEventListener("ended", this.onVoiceEnd);
+        window.removeEventListener("keypress", this.onKeyDown);
+        window.removeEventListener("keyup", this.onKeyUp);
+        document.onmousemove = null;
+
+        // clear all timeout
+        clearTimeout(this.characterTimeout);
+        clearTimeout(this.wordTimeout);
+        clearTimeout(this.idleTimeout);
+
+        // reset voice
+        this.voice.pause();
+        this.voice = new Audio();
+        this.innerText = "";
+
     },
 };
 </script>
@@ -316,10 +461,6 @@ export default {
     src: url("../assets/font/Poppins-Regular.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
-}
-
-.after-start {
-    background-color: #fff !important;
 }
 
 .learn {
@@ -346,10 +487,6 @@ export default {
         bottom: 1rem;
         display: flex;
         gap: 1rem;
-    }
-
-    .timer {
-        position: relative;
     }
 
     .username-container {
@@ -398,11 +535,11 @@ export default {
             height: 15px;
             border-radius: 50%;
             cursor: pointer;
-            background-color: hsl(360, 100, 70);
+            background-color: rgb(250, 62, 62);
             color: #fff;
             transition: 0.25s background-color;
             &:hover {
-                background-color: hsl(360, 100, 50);
+                background-color: rgb(255, 0, 0);
             }
         }
     }

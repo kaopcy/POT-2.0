@@ -38,6 +38,11 @@ const routes = [
         name: "DisplayWord",
         component: () => import("../views/DisplayWord.vue"),
     },
+    {
+        path: "/rest",
+        name: "Rest",
+        component: () => import("../views/Rest.vue"),
+    },
 ];
 
 const router = new VueRouter({
