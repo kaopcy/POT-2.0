@@ -62,7 +62,11 @@ export default {
             console.log(finalScore);
 
             const myblob = makeBlobFromSheet(finalScore);
-            window.saveXLSX(myblob, "ผลลัพธ์", this.$store.state.saveFolder);
+            window.saveXLSX(
+                myblob,
+                this.$store.state.username,
+                this.$store.state.saveFolder
+            );
         },
     },
     mounted() {

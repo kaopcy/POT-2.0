@@ -517,7 +517,11 @@ export default {
     created() {
         this.level = parseInt(this.$route.params.id);
         this.myVocab = new Vocaburaly(this.level);
-
+        this.$store.commit("updateResult", {
+            level: this.myVocab.curLevel,
+            word: this.$store.state.username,
+            time: '',
+        });
         // initial category timer
         switch (this.level) {
             case 1:
