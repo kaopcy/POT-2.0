@@ -8,6 +8,8 @@
 > - Have instruction after login
 > - Don't have practice mode just start after instruction
 
+this is version 2 we cae to see what happen next !!!
+
 ## Project setup
 ```
 npm install
