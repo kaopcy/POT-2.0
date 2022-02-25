@@ -8,17 +8,6 @@
 </template>
 
 <script>
-import json1 from "../assets/letter/level1.json";
-import json2 from "../assets/letter/level2.json";
-import json3 from "../assets/letter/level3.json";
-import json4 from "../assets/letter/level4.json";
-import json5 from "../assets/letter/level5.json";
-import json6 from "../assets/letter/level6.json";
-import json7 from "../assets/letter/level7.json";
-import json8 from "../assets/letter/level8.json";
-import json9 from "../assets/letter/level9.json";
-import json10 from "../assets/letter/level10.json";
-
 export default {
     name: "DisplayWord",
     data() {
@@ -248,6 +237,7 @@ export default {
         },
 
         startVoice(char) {
+            console.log(this.currentWord[char].src ?? "");
             this.voice.src = this.currentWord[char].src ?? "";
             this.voice.play();
             this.handleInnerText(char);
@@ -303,16 +293,12 @@ export default {
     },
 
     created() {
-        this.data[1] = json1;
-        this.data[2] = json2;
-        this.data[3] = json3;
-        this.data[4] = json4;
-        this.data[5] = json5;
-        this.data[6] = json6;
-        this.data[7] = json7;
-        this.data[8] = json8;
-        this.data[9] = json9;
-        this.data[10] = json10;
+        this.data = []
+        for (let i = 1; i <= 10; i++) {
+            console.log("init new");
+            const json = require(`../assets/letter/level${i}.json`);
+            this.data[i] = json.map(e=> e.slice())
+        }
 
         const wordID = this.$route.params.id;
         let wordCategory = 0;
@@ -365,6 +351,7 @@ export default {
                     delay: 0,
                 });
             });
+            // this.currentWord.splice(-1, 1);
         }
         console.log(this.currentWord);
     },

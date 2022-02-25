@@ -46,6 +46,7 @@ class Vocab {
                         delay: 0,
                     });
                 });
+                wordPacket.splice(-1, 1);
             }
         });
     };
@@ -188,13 +189,15 @@ export default class {
         this.isEndPractice = false;
         this.curWordID = null;
 
-        this.init();
+        this.specialCharacterList = ["ค", "ด", "น", "ผ", "ฝ", "พ", "ฟ", "ม"];
+
+        this._init();
         this.setNewRandomWord();
     }
 
-    init = () => {
+    _init = () => {
         const json = require(`../assets/letter/level${this.curLevel}.json`);
-        const data = [...json]
+        const data = [...json];
         this.vocabData = new Vocab(data, this.curLevel);
         console.log(this.vocabData.length);
     };
@@ -217,6 +220,13 @@ export default class {
 
         // if level is 4 to 7 start using isSpecialWord
         if (this.curLevel >= 4 && this.curLevel <= 7) {
+            const specialLength = this.specialCharacterList.length - 1;
+            const randCharNum =
+                Math.floor(Math.random() * specialLength + specialLength);
+            const randChar = this.specialCharacterList[randCharNum];
+            console.log(`number: ${randCharNum}`);
+            console.log(`character ${randChar}`);
+
             // toggle isSpecial
             this.isSpecialWord = !this.isSpecialWord;
 
@@ -241,6 +251,7 @@ export default class {
         this.vocabData.deleteWord(wordToDelete);
 
         console.log(wordToDelete);
+        console.log(this.vocabData.sortedData("word"));
 
         if (!this.vocabData.length) {
             this.isEndPractice = true;

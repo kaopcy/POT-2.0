@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
+        isAdmin: false,
         username: "",
         login: false,
         learnScore: 0,
@@ -48,6 +49,9 @@ export default new Vuex.Store({
         ) {
             state.saveFolder = `${state.username}-${year}-${month}-${date}-${hours}-${minutes}-${seconds}`;
             console.log(state.saveFolder);
+        },
+        toggleIsAdmin(state) {
+            state.isAdmin = !state.isAdmin;
         },
     },
     actions: {},

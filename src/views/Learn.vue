@@ -1,5 +1,15 @@
 <template>
     <div class="learn" id="learn">
+        <div class="sign-wrapper" v-if="$store.state.isAdmin">
+            <div
+                class="green-sign"
+                :class="{ active: isListenKeyUp || isListenKeyDown }"
+            ></div>
+            <div
+                class="red-sign"
+                :class="{ active: !isListenKeyDown && !isListenKeyUp }"
+            ></div>
+        </div>
         <div id="time">
             <TimerComponent :time="$store.state.timeLeft" />
             <div class="text-container difficult-wrapper">
@@ -11,6 +21,7 @@
             <div
                 class="text-container end-container"
                 @click="$router.replace({ name: 'EndScore' })"
+                v-if="$store.state.isAdmin"
             >
                 end
             </div>
@@ -520,7 +531,7 @@ export default {
         this.$store.commit("updateResult", {
             level: this.myVocab.curLevel,
             word: this.$store.state.username,
-            time: '',
+            time: "",
         });
         // initial category timer
         switch (this.level) {
@@ -528,19 +539,19 @@ export default {
                 this.categoryTimer = 500;
                 break;
             case 2:
-                this.categoryTimer = 60;
+                this.categoryTimer = 10;
                 break;
             case 3:
-                this.categoryTimer = 60;
+                this.categoryTimer = 10;
                 break;
             case 4:
-                this.categoryTimer = 240;
+                this.categoryTimer =  10;
                 break;
             case 5:
-                this.categoryTimer = 240;
+                this.categoryTimer =  10;
                 break;
             case 6:
-                this.categoryTimer = 240;
+                this.categoryTimer =  10;
                 break;
             case 7:
                 this.categoryTimer = 240;
@@ -775,6 +786,35 @@ export default {
         }
         100% {
             opacity: 0;
+        }
+    }
+}
+
+.sign-wrapper {
+    margin: 1rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    div {
+        position: relative;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        opacity: 0;
+    }
+    .green-sign {
+        background: rgb(11, 240, 49);
+        &.active {
+            opacity: 100%;
+        }
+    }
+    .red-sign {
+        background: rgb(255, 47, 47);
+        &.active {
+            opacity: 100%;
         }
     }
 }

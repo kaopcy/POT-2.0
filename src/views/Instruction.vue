@@ -41,7 +41,7 @@
                 ได้เลยค่ะ ทำแบบนี้จนครบ 30 นาที ก็เป็นอันจบการฝึกในแต่ละวัน
             </span>
             <span>
-                &emsp;&emsp;เมื่อน้องเข้าใจวิธีการฝึกแล้ว ให้กดปุ่ม enter
+                &emsp;&emsp;เมื่อน้องเข้าใจวิธีการฝึกแล้ว ให้กดปุ่ม <span class="blue">Enter</span>
                 เพื่อเริ่มฝึกกันได้เลยค่ะ ขอให้น้องๆ โชคดี
                 และสนุกกับการฝึกนี้นะคะ
             </span>
@@ -84,13 +84,13 @@ export default {
     },
     methods: {
         _playInstructionSound() {
-            this.instructionSound.src = `sound/instruction/paragraph${this.currentSound}.mp3`;
+            this.instructionSound.src = require(`../assets/instruction/paragraph${this.currentSound}.mp3`);
             this.instructionSound.play();
         },
 
         _replay() {
             this.currentSound = 1;
-            this.instructionSound.src = `sound/instruction/paragraph${this.currentSound}.mp3`;
+            this.instructionSound.src = require(`../assets/instruction/paragraph${this.currentSound}.mp3`);
             if (this.instructionSound.paused) {
                 this.instructionSound.play();
             } else {
@@ -99,7 +99,7 @@ export default {
         },
 
         _routeToLearn() {
-            this.$router.replace({ name: "Learn", params: { id: 2 } });
+            this.$router.replace({ name: "Learn", params: { id: 4 } });
         },
     },
     mounted() {
@@ -118,7 +118,7 @@ export default {
                 return;
             }
             this.currentSound += 1;
-            this.instructionSound.src = `sound/instruction/paragraph${this.currentSound}.mp3`;
+            this.instructionSound.src = require(`../assets/instruction/paragraph${this.currentSound}.mp3`);
             this.instructionSound.play();
         };
         setTimeout(() => {

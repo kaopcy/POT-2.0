@@ -1,5 +1,5 @@
 <template>
-    <div class="login">
+    <div class="login" id="login-container">
         <div class="content">
             <h1>เข้าสู่ระบบ</h1>
             <div id="validated">Please enter name.</div>
@@ -12,12 +12,9 @@
             />
             <div class="btn" @click="login">ตกลง</div>
         </div>
-        <!-- <div class="edit-btn" @click="edit()">
+        <div class="edit-btn" @click="edit()" v-if="$store.state.isAdmin">
             คำศัพท์
         </div>
-        <div class="btn" @click="$router.replace({ name: 'EndScore' })">
-            ไปตอนจบ
-        </div> -->
     </div>
 </template>
 
@@ -91,11 +88,16 @@ export default {
             }
         };
         window.addEventListener("keyup", this.onKeyUp);
+
+        const background = document.getElementById("login-container");
+        background.addEventListener("click", () => {
+            input.focus();
+        });
     },
 
-    beforeDestroy(){
+    beforeDestroy() {
         window.removeEventListener("keyup", this.onKeyUp);
-    }
+    },
 };
 </script>
 

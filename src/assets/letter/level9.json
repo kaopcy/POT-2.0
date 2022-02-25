@@ -1617,7 +1617,7 @@
             "swap": "0"
         },
         {
-            "char": "้",
+            "char": "่",
             "color": "blue",
             "src": "tone/เอก.mp3",
             "swap": "0"
@@ -1667,7 +1667,7 @@
         {
             "char": "",
             "color": "",
-            "src": "sound/category9/ไกล่เกลีย/เกลีย.mp3",
+            "src": "sound/category9/ไกล่เกลี่ย/เกลีย.mp3",
             "swap": "0"
         },
         {
