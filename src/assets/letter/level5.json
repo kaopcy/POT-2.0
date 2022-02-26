@@ -4263,7 +4263,7 @@
             "swap": "0"
         },
         {
-            "char": "",
+            "char": "้",
             "color": "blue",
             "src": "tone/โท.mp3",
             "swap": "0"
@@ -5601,7 +5601,7 @@
             "swap": "0"
         },
         {
-            "char": "",
+            "char": "้",
             "color": "blue",
             "src": "tone/โท.mp3",
             "swap": "0"
@@ -6030,16 +6030,17 @@
             "src": "vowel/ออ.mp3",
             "swap": "0"
         },
+
         {
             "char": "",
             "color": "",
-            "src": "sound/category5/อ๋อ/ออ.mp3",
+            "src": "sound/category5/อ๋อ/อ.mp3",
             "swap": "0"
         },
         {
             "char": "",
             "color": "",
-            "src": "sound/category5/อ๋อ/ออ.mp3",
+            "src": "sound/category5/อ๋อ/อ.mp3",
             "swap": "0"
         },
         {

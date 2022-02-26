@@ -3132,7 +3132,7 @@
             "char": "่",
             "color": "blue",
             "src": "tone/เอก.mp3",
-            "swap": "1"
+            "swap": "0"
         },
         {
             "char": "",
@@ -3415,7 +3415,7 @@
         {
             "char": "",
             "color": "",
-            "src": "sound/category9/ตรึกตรอง/ตรึก.mp3",
+            "src": "sound/category9/ตรึกตรา/ตรึก.mp3",
             "swap": "0"
         },
         {

@@ -539,19 +539,19 @@ export default {
                 this.categoryTimer = 500;
                 break;
             case 2:
-                this.categoryTimer = 10;
+                this.categoryTimer = 60;
                 break;
             case 3:
-                this.categoryTimer = 10;
+                this.categoryTimer = 60;
                 break;
             case 4:
-                this.categoryTimer =  10;
+                this.categoryTimer = 240;
                 break;
             case 5:
-                this.categoryTimer =  10;
+                this.categoryTimer = 240;
                 break;
             case 6:
-                this.categoryTimer =  10;
+                this.categoryTimer = 240;
                 break;
             case 7:
                 this.categoryTimer = 240;
@@ -794,7 +794,7 @@ export default {
     margin: 1rem;
     position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
     display: flex;
     align-items: center;
     gap: 0.8rem;

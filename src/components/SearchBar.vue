@@ -32,6 +32,9 @@
                 v-for="word in filteredData"
                 :key="`${word.name}${genaratedID()}`"
                 @click="handleWordClick(word.name)"
+                :class="{
+                    active: $store.state.watchedWord.includes(word.name),
+                }"
             >
                 {{ word.name }}
                 <span
@@ -73,7 +76,10 @@ export default {
             "click",
             (event) => {
                 // If user either clicks X button OR clicks outside the modal window, then close modal by calling closeModal()
-                if (!event.target.closest(".input-wrapper") && !event.target.closest(".list-container")) {
+                if (
+                    !event.target.closest(".input-wrapper") &&
+                    !event.target.closest(".list-container")
+                ) {
                     this.isFocus = false;
                 }
                 if (event.target.matches(".close-btn")) {
@@ -94,9 +100,9 @@ export default {
 
     methods: {
         handleMatch() {
-            if (this.searchInput === ''){
+            if (this.searchInput === "") {
                 this.filteredData = [];
-                return
+                return;
             }
             this.filteredData = [];
             this.data.forEach((list, index) => {
@@ -107,7 +113,7 @@ export default {
                         .slice(-1)[0]
                         .split(".")[0];
 
-                    const searchingArray = this.searchInput.split('');
+                    const searchingArray = this.searchInput.split("");
                     if (searchingArray.every((el) => curWord.includes(el))) {
                         this.filteredData.push({ name: curWord, index });
                     }
@@ -188,7 +194,7 @@ export default {
         background-color: #fff;
         position: absolute;
         top: 100%;
-        max-height: 200px;
+        max-height: 500px;
         width: 100%;
         overflow-y: auto;
         padding: 0.5rem;
@@ -209,10 +215,10 @@ export default {
             width: 100%;
             padding: 0.5rem;
             position: relative;
+            border-radius: 10px;
             cursor: pointer;
             &:hover {
                 background-color: #eaebef;
-                border-radius: 10px;
                 &::after {
                     position: absolute;
                     content: "select";
@@ -223,6 +229,19 @@ export default {
                     font-size: 0.9rem;
                     font-weight: 600;
                 }
+            }
+            &.active {
+                background-color: rgb(126, 229, 255);
+                &:hover {
+                    background-color: rgb(89, 222, 255);
+                }
+                &::after {
+                    color: #fff;
+                }
+                span {
+                    color: #fff !important;
+                }
+                
             }
         }
     }

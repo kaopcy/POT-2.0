@@ -99,7 +99,7 @@ export default {
         },
 
         _routeToLearn() {
-            this.$router.replace({ name: "Learn", params: { id: 4 } });
+            this.$router.replace({ name: "Learn", params: { id: 2 } });
         },
     },
     mounted() {

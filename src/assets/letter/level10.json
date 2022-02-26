@@ -359,7 +359,7 @@
             "swap": "0"
         },
         {
-            "char": "",
+            "char": "้",
             "color": "blue",
             "src": "tone/โท.mp3",
             "swap": "1"
@@ -3979,13 +3979,13 @@
         {
             "char": "",
             "color": "",
-            "src": "sound/category10/อร่อย/อรอย.mp3",
+            "src": "sound/category10/อร่อย/อะรอย.mp3",
             "swap": "0"
         },
         {
             "char": "",
             "color": "",
-            "src": "sound/category10/อร่อย/อรอย.mp3",
+            "src": "sound/category10/อร่อย/อะรอย.mp3",
             "swap": "0"
         },
         {

@@ -1805,7 +1805,7 @@
         {
             "char": "ธ",
             "color": "black",
-            "src": "consonant/ธอ.mp3",
+            "src": "consonant/ทอ.mp3",
             "swap": "0"
         },
         {
@@ -1993,9 +1993,15 @@
             "swap": "1"
         },
         {
-            "char": "ตร",
+            "char": "ต",
             "color": "red",
             "src": "consonant/ตอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ร",
+            "color": "red",
+            "src": "consonant/รอ.mp3",
             "swap": "0"
         },
         {
@@ -2255,9 +2261,15 @@
             "swap": "0"
         },
         {
-            "char": "ตร",
+            "char": "ต",
             "color": "red",
             "src": "consonant/ตอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ร",
+            "color": "red",
+            "src": "consonant/รอ.mp3",
             "swap": "0"
         },
         {
@@ -2685,9 +2697,15 @@
             "swap": "1"
         },
         {
-            "char": "ชร",
+            "char": "ช",
             "color": "red",
             "src": "consonant/ชอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ร",
+            "color": "red",
+            "src": "consonant/รอ.mp3",
             "swap": "0"
         },
         {
@@ -3085,9 +3103,15 @@
             "swap": "0"
         },
         {
-            "char": "ตร",
+            "char": "ต",
             "color": "red",
             "src": "consonant/ตอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ร",
+            "color": "red",
+            "src": "consonant/รอ.mp3",
             "swap": "0"
         },
         {
@@ -3137,9 +3161,15 @@
             "swap": "0"
         },
         {
-            "char": "ตร",
+            "char": "ต",
             "color": "red",
             "src": "consonant/ตอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ร",
+            "color": "red",
+            "src": "consonant/รอ.mp3",
             "swap": "0"
         },
         {

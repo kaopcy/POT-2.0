@@ -1375,7 +1375,7 @@
         {
             "char": "",
             "color": "",
-            "src": "sound/category7/คุ้น/คุน.mp3",
+            "src": "sound/category7/คุ้น/คุน.mp3",
             "swap": "0"
         },
         {
@@ -1419,7 +1419,7 @@
         {
             "char": "",
             "color": "",
-            "src": "sound/category7/คุ้ย/คุย.mp3",
+            "src": "sound/category7/คุ้ย/คุย.mp3",
             "swap": "0"
         },
         {
@@ -1431,7 +1431,7 @@
         {
             "char": "",
             "color": "",
-            "src": "sound/category7/คุ้ย/คุ้ย.mp3",
+            "src": "sound/category7/คุ้ย/คุ้ย.mp3",
             "swap": "0"
         }
     ],
@@ -4177,7 +4177,7 @@
             "swap": "0"
         },
         {
-            "char": "",
+            "char": "่",
             "color": "blue",
             "src": "tone/เอก.mp3",
             "swap": "1"

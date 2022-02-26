@@ -282,14 +282,6 @@ export default {
                 }
             }, curDelay ?? this.textProperty.textDelay);
         });
-
-        window.addEventListener("keyup", (event) => {
-            if (event.code === "KeyR") {
-                char = 0;
-                this.startVoice(char);
-                this.clearInnerText();
-            }
-        });
     },
 
     created() {

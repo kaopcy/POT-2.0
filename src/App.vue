@@ -1,17 +1,19 @@
 <template>
     <div class="app" id="app">
         <router-view class="router" :key="$route.path"></router-view>
-        <div class="exit-btn" @click="electronWindow.close()">
-            close
-        </div>
+        <!-- <CloseBtn @click="electronWindow.close()" v-if="$store.state.isAdmin" /> -->
         <div id="warn">please login first</div>
     </div>
 </template>
 
 <script>
+// import CloseBtn from "./components/CloseButton.vue";
 const remote = window.require("electron").remote;
 export default {
     name: "app",
+    components: {
+        // CloseBtn,
+    },
     data() {
         return {
             electronWindow: remote.getCurrentWindow(),
