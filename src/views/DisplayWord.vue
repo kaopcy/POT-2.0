@@ -214,6 +214,20 @@ export default {
 
             // set text opacity to 1
             document.getElementById("kumthai").innerHTML = this.innerText;
+            const _lastChildIndex =
+                document.getElementById("kumthai").childElementCount - 1;
+            const lastChild = document.getElementById("kumthai").children[
+                _lastChildIndex
+            ];
+            if (lastChild.innerHTML.length == 1) {
+                document.getElementById("kumthai").children[
+                    _lastChildIndex
+                ].style.letterSpacing = "0";
+                document.getElementById("kumthai").children[
+                    _lastChildIndex
+                ].style.marginRight = "0";
+            }
+
             for (let i = 0; i < character + 1; i++) {
                 if (temp.tempSequence[i] != -1) {
                     document.getElementById(
@@ -285,27 +299,25 @@ export default {
     },
 
     created() {
-        this.data = []
+        this.data = [];
         for (let i = 1; i <= 10; i++) {
             console.log("init new");
             const json = require(`../assets/letter/level${i}.json`);
-            this.data[i] = json.map(e=> e.slice())
+            this.data[i] = json.map((e) => e.slice());
         }
-
-        const wordID = this.$route.params.id;
-        let wordCategory = 0;
-        this.data.forEach((list, index) => {
-            list.forEach((word) => {
-                const curWord = word
-                    .slice(-1)[0]
-                    .src.split("/")
-                    .slice(-1)[0]
-                    .split(".")[0];
-                if (curWord == wordID) {
-                    this.currentWord = word;
-                    wordCategory = index;
-                }
-            });
+        console.log( this.$route.params.id.split("-"));
+        const [wordID, wordCategory] = this.$route.params.id.split("-");
+        console.log(wordID);
+        console.log(wordCategory);
+        this.data[parseInt(wordCategory)].forEach((word) => {
+            const curWord = word
+                .slice(-1)[0]
+                .src.split("/")
+                .slice(-1)[0]
+                .split(".")[0];
+            if (curWord == wordID) {
+                this.currentWord = word;
+            }
         });
 
         const checkDoubleWord = (wordPacket) => {
@@ -338,7 +350,7 @@ export default {
                 this.currentWord.splice(-1, 0, {
                     char: "",
                     color: "",
-                    src: `sound/category${wordCategory}/${wordID}/${e}.mp3`,
+                    src: `sound/category${parseInt(wordCategory)}/${wordID}/${e}.mp3`,
                     swap: 0,
                     delay: 0,
                 });
