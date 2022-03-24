@@ -31,12 +31,12 @@
                 class="list"
                 v-for="word in filteredData"
                 :key="`${word.name}${genaratedID()}`"
-                @click="handleWordClick(word.name)"
+                @click="handleWordClick(word.name , word.index)"
                 :class="{
-                    active: $store.state.watchedWord.includes(word.name),
+                    active: $store.state.watchedWord.includes(word.index == 2 ? word.name.slice()[0] : word.name),
                 }"
             >
-                {{ word.name }}
+                {{ word.index == 2 ? word.name.slice()[0] : word.name}}
                 <span
                     style="color:rgb(200, 200, 200); fontSize:.7rem; marginLeft:.5rem; zIndex:-1;"
                     >หมวดที่ {{ word.index }}</span
@@ -121,9 +121,9 @@ export default {
             });
         },
 
-        handleWordClick(word) {
-            this.$router.push({ path: `/end-score/${word}` });
-            this.$store.commit("addWatchedWord", word);
+        handleWordClick(word , index) {
+            this.$router.push({ path: `/displayword/${word}-${index}` });
+            this.$store.commit("addWatchedWord", index == 2 ? word.slice()[0] : word);
         },
 
         genaratedID() {

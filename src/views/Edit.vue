@@ -36,13 +36,13 @@
                 <div
                     class="word"
                     :class="{
-                        watched: $store.state.watchedWord.includes(word),
+                        watched: $store.state.watchedWord.includes(index == 1 ? word.slice()[0] : word),
                     }"
                     v-for="word in vocabList"
                     :key="`${word}${genarateID()}`"
-                    @click="handleWordClick(word)"
+                    @click="handleWordClick(word , index)"
                 >
-                    {{ word }}
+                    {{ index == 1 ? word.slice()[0] : word }}
                 </div>
             </div>
         </div>
@@ -115,9 +115,9 @@ export default {
             }
         },
 
-        handleWordClick(word) {
-            this.$router.push({ path: `/end-score/${word}` });
-            this.$store.commit("addWatchedWord", word);
+        handleWordClick(word , index) {
+            this.$router.push({ path: `/displayword/${word}-${index+1}` });
+            this.$store.commit("addWatchedWord", index == 1 ? word.slice()[0] : word );
             console.log(this.$store.state.watchedWord);
         },
 
