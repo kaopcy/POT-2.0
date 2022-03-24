@@ -281,7 +281,6 @@ export default class {
         // set current word and delete word from list
         this.curWordID = wordToDelete;
         this.vocabData.deleteWord(wordToDelete);
-
         console.log(wordToDelete);
         console.log(this.vocabData.sortedData("word"));
 

@@ -34,7 +34,7 @@ const routes = [
         component: EndScore,
     },
     {
-        path: "/end-score/:id",
+        path: "/displayword/:id",
         name: "DisplayWord",
         component: () => import("../views/DisplayWord.vue"),
     },

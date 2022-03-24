@@ -13,7 +13,9 @@
         <div id="time">
             <TimerComponent :time="$store.state.timeLeft" />
             <div class="text-container difficult-wrapper">
-                <div class="difficult">ความยาก: {{ myVocab.curLevel }}</div>
+                <div class="difficult">
+                    หมวด: {{ categoryName[myVocab.curLevel - 1].name }}
+                </div>
             </div>
             <div class="text-container username-container">
                 ชื่อ: {{ $store.state.username }}
@@ -60,6 +62,7 @@ export default {
     data() {
         return {
             myVocab: null,
+            backspaceCount: 0,
             level: null,
             wordName: null,
             isListenKeyDown: false,
@@ -89,6 +92,38 @@ export default {
                 textDelay: 500,
                 wordDelay: 2000,
             },
+            categoryName: [
+                {
+                    name: "ฝึก 10 คำก่อนเริ่ม",
+                },
+                {
+                    name: "เสียงพยัญชนะ 44 เสียง",
+                },
+                {
+                    name: "เสียงสระ 30 เสียง",
+                },
+                {
+                    name: "การสะกดคำในแม่ ก กา",
+                },
+                {
+                    name: "การผันวรรณยุกต์คำในแม่ ก กา",
+                },
+                {
+                    name: "การสะกดคำที่มีตัวสะกดตรงตามมาตรา",
+                },
+                {
+                    name: "การผันวรรณยุกต์คำที่มีตัวสะกดตรงตามมาตรา",
+                },
+                {
+                    name: "การสะกดคำที่มีตัวสะกดไม่ตรงตามมาตรา",
+                },
+                {
+                    name: "การสะกดคำที่มีอักษรควบ",
+                },
+                {
+                    name: "การสะกดคำที่มีอักษรนำ",
+                },
+            ],
 
             // voice
             voiceImg: false,
@@ -311,6 +346,20 @@ export default {
 
             // set text opacity to 1
             document.getElementById("kumthai").innerHTML = this.innerText;
+            const _lastChildIndex =
+                document.getElementById("kumthai").childElementCount - 1;
+            const lastChild = document.getElementById("kumthai").children[
+                _lastChildIndex
+            ];
+            if (lastChild.innerHTML.length == 1) {
+                document.getElementById("kumthai").children[
+                    _lastChildIndex
+                ].style.letterSpacing = "0";
+                document.getElementById("kumthai").children[
+                    _lastChildIndex
+                ].style.marginRight = "0";
+            }
+
             for (let i = 0; i < character + 1; i++) {
                 if (temp.tempSequence[i] != -1) {
                     document.getElementById(
@@ -345,10 +394,10 @@ export default {
                 //* Next word
                 this.isListenKeyDown = false;
                 this.isListenKeyUp = false;
-                this.wordTimer = new WordTimer();
                 document.getElementById("kumthai").innerHTML = "+";
                 this.wordTimeout = setTimeout(() => {
                     // check if vocab pass practice state
+                    this.backspaceCount = 0;
                     this.myVocab.setNewRandomWord();
                     char = 0;
                     this.startVoice(char);
@@ -372,6 +421,7 @@ export default {
             this.onVoiceError = () => {
                 if (!this.myVocab.word[char + 1]) {
                     this.isListenKeyDown = true;
+                    if (this.backspaceCount == 0) this.wordTimer = new WordTimer();
                     handleIdle();
                 } else {
                     char++;
@@ -392,6 +442,7 @@ export default {
                 this.characterTimeout = setTimeout(() => {
                     if (!this.myVocab.word[char + 1]) {
                         this.isListenKeyDown = true;
+                        if (this.backspaceCount == 0) this.wordTimer = new WordTimer();
                         handleIdle();
                     } else {
                         char++;
@@ -420,11 +471,13 @@ export default {
                     this.isListenKeyUp = true;
                 }
                 if (
-                    event.code === "KeyR" &&
+                    event.key == "Backspace" &&
                     this.isListenKeyDown &&
                     !this.isListenKeyUp &&
                     this.voice.paused
                 ) {
+                    this.backspaceCount += 1;
+                    console.log(`backspace: ${this.backspaceCount}`);
                     clearTimeout(this.idleTimeout);
                     char = 0;
                     this.startVoice(char);
@@ -449,6 +502,7 @@ export default {
                             level: this.myVocab.curLevel,
                             word: this.wordName,
                             time: this.wordTimer.deltaTime,
+                            backspace: this.backspaceCount,
                         });
                     }
                     // End sound record here.....
@@ -461,7 +515,7 @@ export default {
 
             this.voice.addEventListener("error", this.onVoiceError);
             this.voice.addEventListener("ended", this.onVoiceEnd);
-            window.addEventListener("keypress", this.onKeyDown);
+            window.addEventListener("keydown", this.onKeyDown);
             window.addEventListener("keyup", this.onKeyUp);
         },
 
@@ -531,7 +585,8 @@ export default {
         this.$store.commit("updateResult", {
             level: this.myVocab.curLevel,
             word: this.$store.state.username,
-            time: "",
+            time: "เวลา",
+            backspace: this.backspaceCount,
         });
         // initial category timer
         switch (this.level) {
@@ -571,15 +626,6 @@ export default {
         }
     },
 
-    watch: {
-        isListenKeyDown: function() {
-            console.log(`listen down: ${this.isListenKeyDown}`);
-        },
-        isListenKeyUp: function() {
-            console.log(`listen up: ${this.isListenKeyUp}`);
-        },
-    },
-
     mounted() {
         // add idle listener
         const handleIdle = () => {
@@ -595,7 +641,6 @@ export default {
         // always delay before start
         document.getElementById("kumthai").innerHTML = "+ ";
         setTimeout(() => {
-            this.wordTimer = new WordTimer();
             this.start();
             handleIdle();
         }, 2000);
@@ -626,7 +671,7 @@ export default {
         // clear all eventlistener
         this.voice.removeEventListener("error", this.onVoiceError);
         this.voice.removeEventListener("ended", this.onVoiceEnd);
-        window.removeEventListener("keypress", this.onKeyDown);
+        window.removeEventListener("keydown", this.onKeyDown);
         window.removeEventListener("keyup", this.onKeyUp);
         document.onmousemove = null;
 
