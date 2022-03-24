@@ -55,7 +55,7 @@ export default {
             const filteredScore = this.$store.state.result;
             const finalScore = filteredScore.map((e) =>
                 e.map((score) => {
-                    const arr = [score["word"], score["time"]];
+                    const arr = [score["word"], score["time"], score["unit"] , score["backspace"]];
                     return arr;
                 })
             );

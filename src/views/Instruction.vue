@@ -125,7 +125,7 @@ export default {
             this.instructionSound.addEventListener("ended", this.onSoundEnded);
             window.addEventListener("keyup", this.onKeyup);
             this._playInstructionSound();
-        }, 500);
+        }, 100);
     },
     beforeDestroy() {
         window.removeEventListener("keyup", this.onKeyup);
