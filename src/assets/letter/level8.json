@@ -3583,9 +3583,15 @@
             "swap": "0"
         },
         {
-            "char": "ตร",
+            "char": "ต",
             "color": "red",
             "src": "consonant/ตอ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "ร",
+            "color": "red",
+            "src": "consonant/รอ.mp3",
             "swap": "0"
         },
         {

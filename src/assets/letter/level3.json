@@ -3,7 +3,7 @@
         {
             "char": "ฦๅ",
             "color": "green",
-            "src": "vowel/ภา.mp3",
+            "src": "vowel/ฦา.mp3",
             "swap": "0"
         }
     ],
@@ -11,7 +11,7 @@
         {
             "char": "ฦ",
             "color": "green",
-            "src": "vowel/ภ.mp3",
+            "src": "vowel/ฦ.mp3",
             "swap": "0"
         }
     ],
