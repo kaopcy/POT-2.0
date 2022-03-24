@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
+        isAdmin: false,
         username: "",
         login: false,
         learnScore: 0,
@@ -34,10 +35,15 @@ export default new Vuex.Store({
         addWatchedWord(state, payload) {
             state.watchedWord.push(payload);
         },
-        updateResult(state, { level, word, time }) {
+        updateResult(state, { level, word, time , backspace }) {
             const oldData = state.result[level];
-            if (!oldData) state.result[level] = [{ word, time }];
-            else state.result[level] = [...oldData, { word, time }];
+            if (!oldData)
+                state.result[level] = [{ word, time, unit: 'หน่วย' , backspace: 'backspace'}];
+            else
+                state.result[level] = [
+                    ...oldData,
+                    { word, time, unit: "วินาที" , backspace },
+                ];
         },
         minusTime(state) {
             state.timeLeft -= 1;
@@ -47,7 +53,10 @@ export default new Vuex.Store({
             { date, month, year, hours, minutes, seconds }
         ) {
             state.saveFolder = `${state.username}-${year}-${month}-${date}-${hours}-${minutes}-${seconds}`;
-            console.log(state.saveFolder);
+        },
+        toggleIsAdmin(state) {
+            state.isAdmin = !state.isAdmin;
+            console.log(`Admin: ${state.isAdmin}`);
         },
     },
     actions: {},

@@ -1,9 +1,10 @@
 <template>
-    <div class="login">
+    <div class="login" id="login-container">
         <div class="content">
             <h1>เข้าสู่ระบบ</h1>
             <div id="validated">Please enter name.</div>
             <input
+                id="login-input"
                 type="text"
                 class="login-input"
                 placeholder="ชื่อ-นามสกุล"
@@ -11,12 +12,9 @@
             />
             <div class="btn" @click="login">ตกลง</div>
         </div>
-        <!-- <div class="edit-btn" @click="edit()">
+        <div class="edit-btn" @click="edit()" v-if="$store.state.isAdmin">
             คำศัพท์
         </div>
-        <div class="btn" @click="$router.replace({ name: 'EndScore' })">
-            ไปตอนจบ
-        </div> -->
     </div>
 </template>
 
@@ -26,6 +24,7 @@ export default {
     data() {
         return {
             username: "",
+            onKeyUp: null,
         };
     },
     methods: {
@@ -36,7 +35,7 @@ export default {
             }
             this.$store.commit("updateUsername", this.username);
             this.$store.commit("updateLogin", true);
-            if (this.$store.state.saveFolder === 'no name') {
+            if (this.$store.state.saveFolder === "no name") {
                 // initial save folder
                 var datetime = new Date();
                 let date = ("0" + datetime.getDate()).slice(-2);
@@ -59,8 +58,9 @@ export default {
                     seconds,
                 });
             }
-            this.$router.replace({ name: "Practice" });
+            this.$router.replace({ name: "Instruction" });
         },
+
         validated() {
             const validatedDOM = document.getElementById("validated");
             validatedDOM.style.opacity = "100%";
@@ -73,8 +73,30 @@ export default {
             this.$router.replace({ name: "Edit" });
         },
     },
+
     created() {
         this.username = this.$store.state.username;
+    },
+
+    mounted() {
+        const input = document.getElementById("login-input");
+        input.focus();
+
+        this.onKeyUp = (ev) => {
+            if (ev.code === "Enter") {
+                this.login();
+            }
+        };
+        window.addEventListener("keyup", this.onKeyUp);
+
+        const background = document.getElementById("login-container");
+        background.addEventListener("click", () => {
+            input.focus();
+        });
+    },
+
+    beforeDestroy() {
+        window.removeEventListener("keyup", this.onKeyUp);
     },
 };
 </script>

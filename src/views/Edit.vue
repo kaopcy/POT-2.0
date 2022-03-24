@@ -36,13 +36,13 @@
                 <div
                     class="word"
                     :class="{
-                        watched: $store.state.watchedWord.includes(word),
+                        watched: $store.state.watchedWord.includes(index == 1 ? word.slice()[0] : word),
                     }"
                     v-for="word in vocabList"
                     :key="`${word}${genarateID()}`"
-                    @click="handleWordClick(word)"
+                    @click="handleWordClick(word , index)"
                 >
-                    {{ word }}
+                    {{ index == 1 ? word.slice()[0] : word }}
                 </div>
             </div>
         </div>
@@ -54,17 +54,6 @@
 </template>
 
 <script>
-import json1 from "../assets/letter/level1.json";
-import json2 from "../assets/letter/level2.json";
-import json3 from "../assets/letter/level3.json";
-import json4 from "../assets/letter/level4.json";
-import json5 from "../assets/letter/level5.json";
-import json6 from "../assets/letter/level6.json";
-import json7 from "../assets/letter/level7.json";
-import json8 from "../assets/letter/level8.json";
-import json9 from "../assets/letter/level9.json";
-import json10 from "../assets/letter/level10.json";
-
 import { v4 as uuidv4 } from "uuid";
 import SearchBar from "../components/SearchBar.vue";
 
@@ -126,29 +115,24 @@ export default {
             }
         },
 
-        handleWordClick(word) {
-            this.$router.push({ path: `/end-score/${word}` });
-            this.$store.commit("addWatchedWord", word);
-            console.log(word);
+        handleWordClick(word , index) {
+            this.$router.push({ path: `/displayword/${word}-${index+1}` });
+            this.$store.commit("addWatchedWord", index == 1 ? word.slice()[0] : word );
+            console.log(this.$store.state.watchedWord);
         },
 
         back() {
-            this.$router.push({ name: 'Login' });
+            this.$router.push({ name: "Login" });
         },
-
     },
 
     created() {
-        this.data[1] = json1;
-        this.data[2] = json2;
-        this.data[3] = json3;
-        this.data[4] = json4;
-        this.data[5] = json5;
-        this.data[6] = json6;
-        this.data[7] = json7;
-        this.data[8] = json8;
-        this.data[9] = json9;
-        this.data[10] = json10;
+        for (let i = 1; i <= 10; i++) {
+            console.log("init new");
+            const json = require(`../assets/letter/level${i}.json`);
+            this.data[i] = [...json];
+        }
+
         for (let i = 1; i <= 10; i++) {
             this.nameData[i - 1] = this.data[i].map((element) => {
                 const word = element

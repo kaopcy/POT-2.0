@@ -27,6 +27,32 @@
             "swap": "0"
         },
         {
+            "char": "ํ",
+            "color": "green",
+            "src": "",
+            "swap": "0"
+        },
+        {
+            "char": "า",
+            "color": "green",
+            "src": "vowel/อำ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
+            "color": "",
+            "src": "sound/Practice/คำ/คำ.mp3",
+            "swap": "0"
+        }
+    ],
+    [
+        {
+            "char": "ค",
+            "color": "black",
+            "src": "consonant/คอ.mp3",
+            "swap": "0"
+        },
+        {
             "char": "อ",
             "color": "green",
             "src": "consonant/ออ.mp3",
@@ -2103,11 +2129,17 @@
         {
             "char": "ื",
             "color": "green",
-            "src": "vowel/อือ.mp3",
+            "src": "",
             "swap": "0"
         },
         {
             "char": "อ",
+            "color": "green",
+            "src": "vowel/อือ.mp3",
+            "swap": "0"
+        },
+        {
+            "char": "",
             "color": "green",
             "src": "sound/category4/ถือ/ถือ.mp3",
             "swap": "0"

@@ -8,17 +8,6 @@
 </template>
 
 <script>
-import json1 from "../assets/letter/level1.json";
-import json2 from "../assets/letter/level2.json";
-import json3 from "../assets/letter/level3.json";
-import json4 from "../assets/letter/level4.json";
-import json5 from "../assets/letter/level5.json";
-import json6 from "../assets/letter/level6.json";
-import json7 from "../assets/letter/level7.json";
-import json8 from "../assets/letter/level8.json";
-import json9 from "../assets/letter/level9.json";
-import json10 from "../assets/letter/level10.json";
-
 export default {
     name: "DisplayWord",
     data() {
@@ -225,6 +214,20 @@ export default {
 
             // set text opacity to 1
             document.getElementById("kumthai").innerHTML = this.innerText;
+            const _lastChildIndex =
+                document.getElementById("kumthai").childElementCount - 1;
+            const lastChild = document.getElementById("kumthai").children[
+                _lastChildIndex
+            ];
+            if (lastChild.innerHTML.length == 1) {
+                document.getElementById("kumthai").children[
+                    _lastChildIndex
+                ].style.letterSpacing = "0";
+                document.getElementById("kumthai").children[
+                    _lastChildIndex
+                ].style.marginRight = "0";
+            }
+
             for (let i = 0; i < character + 1; i++) {
                 if (temp.tempSequence[i] != -1) {
                     document.getElementById(
@@ -248,6 +251,7 @@ export default {
         },
 
         startVoice(char) {
+            console.log(this.currentWord[char].src ?? "");
             this.voice.src = this.currentWord[char].src ?? "";
             this.voice.play();
             this.handleInnerText(char);
@@ -292,42 +296,28 @@ export default {
                 }
             }, curDelay ?? this.textProperty.textDelay);
         });
-
-        window.addEventListener("keyup", (event) => {
-            if (event.code === "KeyR") {
-                char = 0;
-                this.startVoice(char);
-                this.clearInnerText();
-            }
-        });
     },
 
     created() {
-        this.data[1] = json1;
-        this.data[2] = json2;
-        this.data[3] = json3;
-        this.data[4] = json4;
-        this.data[5] = json5;
-        this.data[6] = json6;
-        this.data[7] = json7;
-        this.data[8] = json8;
-        this.data[9] = json9;
-        this.data[10] = json10;
-
-        const wordID = this.$route.params.id;
-        let wordCategory = 0;
-        this.data.forEach((list, index) => {
-            list.forEach((word) => {
-                const curWord = word
-                    .slice(-1)[0]
-                    .src.split("/")
-                    .slice(-1)[0]
-                    .split(".")[0];
-                if (curWord == wordID) {
-                    this.currentWord = word;
-                    wordCategory = index;
-                }
-            });
+        this.data = [];
+        for (let i = 1; i <= 10; i++) {
+            console.log("init new");
+            const json = require(`../assets/letter/level${i}.json`);
+            this.data[i] = json.map((e) => e.slice());
+        }
+        console.log( this.$route.params.id.split("-"));
+        const [wordID, wordCategory] = this.$route.params.id.split("-");
+        console.log(wordID);
+        console.log(wordCategory);
+        this.data[parseInt(wordCategory)].forEach((word) => {
+            const curWord = word
+                .slice(-1)[0]
+                .src.split("/")
+                .slice(-1)[0]
+                .split(".")[0];
+            if (curWord == wordID) {
+                this.currentWord = word;
+            }
         });
 
         const checkDoubleWord = (wordPacket) => {
@@ -360,11 +350,12 @@ export default {
                 this.currentWord.splice(-1, 0, {
                     char: "",
                     color: "",
-                    src: `sound/category${wordCategory}/${wordID}/${e}.mp3`,
+                    src: `sound/category${parseInt(wordCategory)}/${wordID}/${e}.mp3`,
                     swap: 0,
                     delay: 0,
                 });
             });
+            // this.currentWord.splice(-1, 1);
         }
         console.log(this.currentWord);
     },

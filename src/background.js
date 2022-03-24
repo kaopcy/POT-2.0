@@ -6,7 +6,10 @@ import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
 const isDevelopment = process.env.NODE_ENV !== "production";
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
-    { scheme: "app", privileges: { secure: true, standard: true } },
+    {
+        scheme: "app",
+        privileges: { secure: true, standard: true, stream: true },
+    },
 ]);
 
 async function createWindow() {
@@ -14,6 +17,9 @@ async function createWindow() {
     const win = new BrowserWindow({
         width: 1920,
         height: 1080,
+        fullscreen: true,
+        // alwaysOnTop: true,
+        fullscreenWindowTitle: true,
         webPreferences: {
             // Use pluginOptions.nodeIntegration, leave this alone
             // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info

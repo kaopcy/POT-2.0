@@ -46,6 +46,7 @@ class Vocab {
                         delay: 0,
                     });
                 });
+                wordPacket.splice(-1, 1);
             }
         });
     };
@@ -109,6 +110,16 @@ class Vocab {
                         .src.split("/")[2] ?? ""
                 );
         }
+    }
+
+    wordIDByRawData(rawdata) {
+        return (
+            rawdata
+                .slice(-1)[0]
+                .src.split("/")
+                .slice(-1)[0]
+                .split(".")[0] ?? ""
+        );
     }
 
     //  Get list of data but sorted and special word come first
@@ -188,13 +199,15 @@ export default class {
         this.isEndPractice = false;
         this.curWordID = null;
 
-        this.init();
+        this.specialCharacterList = ["ค", "ด", "น", "ผ", "ฝ", "พ", "ฟ", "ม"];
+
+        this._init();
         this.setNewRandomWord();
     }
 
-    init = () => {
+    _init = () => {
         const json = require(`../assets/letter/level${this.curLevel}.json`);
-        const data = [...json]
+        const data = json.map((e) => e.slice());
         this.vocabData = new Vocab(data, this.curLevel);
         console.log(this.vocabData.length);
     };
@@ -211,9 +224,16 @@ export default class {
     }
 
     setNewRandomWord = () => {
-        // init min max
+        const getRandomInt = (max, min) => {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        };
+
+        // init min max , wordToDelete
         let min = 0;
         let max = this.vocabData.length - 1;
+        let wordToDelete = null;
 
         // if level is 4 to 7 start using isSpecialWord
         if (this.curLevel >= 4 && this.curLevel <= 7) {
@@ -226,21 +246,43 @@ export default class {
                 this.vocabData.splitIndex -= 1;
                 min = 0;
                 max = this.vocabData.splitIndex - 1;
+
+                // if there still special character left
+                // then set word to delete , set curWord
+                if (this.specialCharacterList.length) {
+                    const specialLength = this.specialCharacterList.length - 1;
+                    const randCharNum = getRandomInt(specialLength, 0);
+                    const randChar = this.specialCharacterList[randCharNum];
+                    const randCharWordList = this.vocabData
+                        .specialWordList("raw")
+                        .filter((e) => {
+                            const curConsonant = e.slice(0)[0].char;
+                            return curConsonant === randChar;
+                        });
+                    const randWordNum = getRandomInt(
+                        randCharWordList.length - 1,
+                        0
+                    );
+                    wordToDelete = this.vocabData.wordIDByRawData(
+                        randCharWordList[randWordNum]
+                    );
+                    this.curWord = randCharWordList[randWordNum];
+                    this.specialCharacterList.splice(randCharNum, 1);
+                }
             }
         }
-
-        const index =
-            this.curLevel === 1
-                ? 0
-                : Math.floor(Math.random() * (max - min)) + min;
-        const wordToDelete = this.vocabData.wordID("sorted", index);
+        if (!wordToDelete) {
+            // if level 1, we don't need random number
+            const index = this.curLevel === 1 ? 0 : getRandomInt(max, min);
+            wordToDelete = this.vocabData.wordID("sorted", index);
+            this.curWord = this.vocabData.word("sorted", index);
+        }
 
         // set current word and delete word from list
-        this.curWord = this.vocabData.word("sorted", index);
         this.curWordID = wordToDelete;
         this.vocabData.deleteWord(wordToDelete);
-
         console.log(wordToDelete);
+        console.log(this.vocabData.sortedData("word"));
 
         if (!this.vocabData.length) {
             this.isEndPractice = true;

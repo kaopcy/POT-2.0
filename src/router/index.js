@@ -34,7 +34,7 @@ const routes = [
         component: EndScore,
     },
     {
-        path: "/end-score/:id",
+        path: "/displayword/:id",
         name: "DisplayWord",
         component: () => import("../views/DisplayWord.vue"),
     },
@@ -42,6 +42,11 @@ const routes = [
         path: "/rest",
         name: "Rest",
         component: () => import("../views/Rest.vue"),
+    },
+    {
+        path: "/instruction",
+        name: "Instruction",
+        component: () => import("../views/Instruction.vue"),
     },
 ];
 

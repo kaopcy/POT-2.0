@@ -55,14 +55,18 @@ export default {
             const filteredScore = this.$store.state.result;
             const finalScore = filteredScore.map((e) =>
                 e.map((score) => {
-                    const arr = [score["word"], score["time"]];
+                    const arr = [score["word"], score["time"], score["unit"] , score["backspace"]];
                     return arr;
                 })
             );
             console.log(finalScore);
 
             const myblob = makeBlobFromSheet(finalScore);
-            window.saveXLSX(myblob, "ผลลัพธ์", this.$store.state.saveFolder);
+            window.saveXLSX(
+                myblob,
+                this.$store.state.username,
+                this.$store.state.saveFolder
+            );
         },
     },
     mounted() {

@@ -1,19 +1,40 @@
 <template>
     <div class="app" id="app">
-        <div id="warn">please login first</div>
         <router-view class="router" :key="$route.path"></router-view>
+        <!-- <CloseBtn @click="electronWindow.close()" v-if="$store.state.isAdmin" /> -->
+        <div id="warn">please login first</div>
     </div>
 </template>
 
 <script>
+// import CloseBtn from "./components/CloseButton.vue";
+const remote = window.require("electron").remote;
 export default {
     name: "app",
+    components: {
+        // CloseBtn,
+    },
+    data() {
+        return {
+            electronWindow: remote.getCurrentWindow(),
+        };
+    },
     created() {
         if (!this.$store.state.login && this.$route.name !== "Login") {
             this.$router.replace({ name: "Login" });
         }
-
-        
+        window.addEventListener("keyup", (e) => {
+            switch (e.code) {
+                case "F1":
+                    this.$store.commit("toggleIsAdmin");
+                    break;
+                case "Escape":
+                    this.electronWindow.close();
+                    break;
+                default:
+                    break;
+            }
+        });
     },
 };
 </script>
@@ -61,6 +82,11 @@ export default {
         color: rgb(233, 59, 59);
         opacity: 0%;
         transition: 0.5s ease-in-out;
+    }
+    .exit-btn {
+        position: absolute;
+        z-index: 100;
+        cursor: pointer;
     }
 }
 
