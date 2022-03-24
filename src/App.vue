@@ -25,7 +25,7 @@ export default {
         }
         window.addEventListener("keyup", (e) => {
             switch (e.code) {
-                case "KeyP":
+                case "F1":
                     this.$store.commit("toggleIsAdmin");
                     break;
                 case "Escape":
